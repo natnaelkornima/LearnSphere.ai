@@ -16,7 +16,6 @@ import {
   MessageSquare,
   Brain,
   Layers,
-  Sparkles,
   Clock,
 } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
@@ -48,7 +47,6 @@ export default function LibraryPage() {
   useEffect(() => {
     loadDocuments();
 
-    // Check if any document is processing, poll every 3s
     const interval = setInterval(() => {
       setDocuments((prev) => {
         const hasProcessing = prev.some((d) =>
@@ -98,40 +96,40 @@ export default function LibraryPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-            Document Vault
+          <h2 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+            Document library
           </h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            Manage your academic textbooks, syllabi, and research papers indexed for RAG.
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+            Course texts, syllabi, and research papers indexed for citation-grounded RAG.
           </p>
         </div>
-        <Button onClick={() => setUploadModalOpen(true)}>
-          <UploadCloud className="w-4 h-4 mr-2" /> Upload New PDF
+        <Button onClick={() => setUploadModalOpen(true)} className="h-8 text-xs">
+          <UploadCloud className="w-3.5 h-3.5 mr-1.5" /> Upload reading
         </Button>
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-neutral-900 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800">
-        <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 absolute left-3 top-3 text-neutral-400" />
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-neutral-900 p-3 rounded-lg border border-neutral-200/80 dark:border-neutral-800">
+        <div className="relative w-full sm:w-72">
+          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-neutral-400" />
           <input
             type="text"
             placeholder="Search documents by title..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-neutral-50/70 dark:bg-neutral-850 focus:outline-none focus:ring-1 focus:ring-primary-600 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
           />
         </div>
 
-        <div className="flex items-center gap-2 w-full sm:w-auto">
+        <div className="flex items-center gap-1.5 w-full sm:w-auto">
           {["all", "ready", "processing", "failed"].map((status) => (
             <button
               key={status}
               onClick={() => setStatusFilter(status)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg capitalize transition-colors ${
+              className={`px-2.5 py-1 text-xs font-mono lowercase rounded transition-colors ${
                 statusFilter === status
-                  ? "bg-primary-600 text-white"
-                  : "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                  ? "bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 font-medium"
+                  : "bg-transparent text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
               }`}
             >
               {status}
@@ -143,23 +141,23 @@ export default function LibraryPage() {
       {/* Document Grid */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Skeleton className="h-44 rounded-xl" />
-          <Skeleton className="h-44 rounded-xl" />
-          <Skeleton className="h-44 rounded-xl" />
+          <Skeleton className="h-40 rounded-lg" />
+          <Skeleton className="h-40 rounded-lg" />
+          <Skeleton className="h-40 rounded-lg" />
         </div>
       ) : filteredDocs.length === 0 ? (
         <EmptyState
-          icon={<FileText className="w-8 h-8" />}
-          title={searchQuery ? "No matching documents" : "Your vault is empty"}
+          icon={<FileText className="w-6 h-6 text-neutral-500" />}
+          title={searchQuery ? "No matching documents" : "Library empty"}
           description={
             searchQuery
-              ? `No documents found matching "${searchQuery}". Try a different keyword.`
-              : "Upload your first study document to unlock AI-powered summaries, practice quizzes, and citations."
+              ? `No documents found matching "${searchQuery}".`
+              : "Upload a PDF reading to begin grounded chat, flashcards, and quizzes."
           }
           action={
             !searchQuery && (
-              <Button size="sm" onClick={() => setUploadModalOpen(true)}>
-                <UploadCloud className="w-4 h-4 mr-2" /> Upload PDF
+              <Button size="sm" onClick={() => setUploadModalOpen(true)} className="h-7 text-xs">
+                <UploadCloud className="w-3 h-3 mr-1" /> Upload PDF
               </Button>
             )
           }
@@ -177,98 +175,99 @@ export default function LibraryPage() {
             return (
               <Card
                 key={doc.id}
-                className="hover:shadow-md hover:border-primary-300 dark:hover:border-primary-700 transition-all flex flex-col justify-between"
+                className="flex flex-col justify-between hover:border-neutral-400 dark:hover:border-neutral-700 transition-colors"
               >
-                <div className="p-5 space-y-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="p-2.5 rounded-lg bg-primary-50 dark:bg-primary-950 text-primary-600 dark:text-primary-400 flex-shrink-0">
-                      <FileText className="w-6 h-6" />
+                <div className="p-4 space-y-2.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="w-7 h-7 rounded border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-850 text-neutral-700 dark:text-neutral-300 flex items-center justify-center flex-shrink-0">
+                      <FileText className="w-3.5 h-3.5" />
                     </div>
                     <Badge
                       variant={
                         doc.status === "ready"
-                          ? "success"
+                          ? "outline"
                           : doc.status === "failed"
                           ? "danger"
                           : "primary"
                       }
+                      className="font-mono text-[10px] lowercase"
                     >
-                      {isProcessing && <Clock className="w-3 h-3 inline mr-1 animate-spin" />}
+                      {isProcessing && <Clock className="w-2.5 h-2.5 inline mr-1 animate-spin" />}
                       {doc.status}
                     </Badge>
                   </div>
 
                   <div>
                     <h3
-                      className="font-bold text-neutral-900 dark:text-neutral-100 text-sm line-clamp-2"
+                      className="font-medium text-neutral-900 dark:text-neutral-100 text-xs line-clamp-2"
                       title={doc.title}
                     >
                       {doc.title}
                     </h3>
-                    <p className="text-xs text-neutral-400 mt-1 truncate">
+                    <p className="text-[11px] font-mono text-neutral-400 mt-0.5 truncate">
                       {doc.original_filename}
                     </p>
                   </div>
 
-                  <div className="pt-1 text-xs text-neutral-500 dark:text-neutral-400 flex items-center justify-between border-t border-neutral-100 dark:border-neutral-800">
+                  <div className="pt-2 text-[11px] font-mono tabular-nums text-neutral-500 dark:text-neutral-400 flex items-center justify-between border-t border-neutral-100 dark:border-neutral-800/80">
                     <span>{formatBytes(doc.file_size_bytes)}</span>
-                    <span>{doc.page_count ? `${doc.page_count} pages` : "Processing"}</span>
+                    <span>{doc.page_count ? `${doc.page_count} pp` : "Processing"}</span>
                     <span>{formatDate(doc.uploaded_at)}</span>
                   </div>
 
                   {doc.processing_error && (
-                    <div className="p-2 rounded bg-red-50 dark:bg-red-950/50 text-[11px] text-red-600 dark:text-red-400">
+                    <div className="p-2 rounded bg-red-50 dark:bg-red-950/40 text-[11px] text-red-600 dark:text-red-400 font-mono">
                       {doc.processing_error}
                     </div>
                   )}
                 </div>
 
                 {/* Card Action Buttons */}
-                <div className="p-3 bg-neutral-50/70 dark:bg-neutral-800/40 border-t border-neutral-100 dark:border-neutral-800 rounded-b-xl flex items-center justify-between">
+                <div className="px-3 py-2 bg-neutral-50/70 dark:bg-neutral-850 border-t border-neutral-100 dark:border-neutral-800/80 rounded-b-lg flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <Link href={`/tutor?doc=${doc.id}`} title="Chat with AI Tutor">
                       <button
                         disabled={doc.status !== "ready"}
-                        className="p-1.5 rounded-md hover:bg-white dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                        className="p-1 rounded text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
                       >
-                        <MessageSquare className="w-4 h-4 text-blue-600" />
+                        <MessageSquare className="w-3.5 h-3.5" />
                       </button>
                     </Link>
 
                     <Link href={`/studio/summaries?doc=${doc.id}`} title="Summarize">
                       <button
                         disabled={doc.status !== "ready"}
-                        className="p-1.5 rounded-md hover:bg-white dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                        className="p-1 rounded text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
                       >
-                        <Sparkles className="w-4 h-4 text-amber-500" />
+                        <FileText className="w-3.5 h-3.5" />
                       </button>
                     </Link>
 
                     <Link href={`/studio/quizzes?doc=${doc.id}`} title="Generate Quiz">
                       <button
                         disabled={doc.status !== "ready"}
-                        className="p-1.5 rounded-md hover:bg-white dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                        className="p-1 rounded text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
                       >
-                        <Brain className="w-4 h-4 text-purple-600" />
+                        <Brain className="w-3.5 h-3.5" />
                       </button>
                     </Link>
 
                     <Link href={`/studio/flashcards?doc=${doc.id}`} title="Generate Flashcards">
                       <button
                         disabled={doc.status !== "ready"}
-                        className="p-1.5 rounded-md hover:bg-white dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                        className="p-1 rounded text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
                       >
-                        <Layers className="w-4 h-4 text-emerald-600" />
+                        <Layers className="w-3.5 h-3.5" />
                       </button>
                     </Link>
                   </div>
 
                   <button
                     onClick={() => setDeleteDoc(doc)}
-                    className="p-1.5 rounded-md hover:bg-red-50 dark:hover:bg-red-950/50 text-neutral-400 hover:text-red-600 transition-colors"
+                    className="p-1 rounded text-neutral-400 hover:text-red-600 transition-colors"
                     title="Delete document"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </Card>
@@ -282,12 +281,12 @@ export default function LibraryPage() {
         <Modal
           isOpen={!!deleteDoc}
           onClose={() => setDeleteDoc(null)}
-          title="Delete Document"
-          description="Are you sure you want to remove this document from your vault? This will also remove its associated chunks and embeddings."
+          title="Delete document"
+          description="Are you sure you want to remove this document from the library? This will delete its vector embeddings and associated notes."
         >
           <div className="space-y-4">
-            <div className="p-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs text-neutral-700 dark:text-neutral-300">
-              <strong>{deleteDoc.title}</strong> ({deleteDoc.original_filename})
+            <div className="p-3 rounded-md bg-neutral-100 dark:bg-neutral-800 text-xs text-neutral-700 dark:text-neutral-300 font-mono">
+              {deleteDoc.title} ({deleteDoc.original_filename})
             </div>
             <div className="flex justify-end gap-2">
               <Button
@@ -295,6 +294,7 @@ export default function LibraryPage() {
                 size="sm"
                 onClick={() => setDeleteDoc(null)}
                 disabled={isDeleting}
+                className="h-7 text-xs"
               >
                 Cancel
               </Button>
@@ -303,8 +303,9 @@ export default function LibraryPage() {
                 size="sm"
                 onClick={handleDelete}
                 isLoading={isDeleting}
+                className="h-7 text-xs"
               >
-                Delete Permanently
+                Delete permanently
               </Button>
             </div>
           </div>

@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/Badge";
 import {
   UploadCloud,
   FileText,
-  CheckCircle2,
   AlertCircle,
   X,
 } from "@/components/ui/Icons";
@@ -24,11 +23,11 @@ interface DocumentUploadModalProps {
 }
 
 const STATUS_PROGRESS: Record<DocumentStatus, { percent: number; label: string }> = {
-  uploaded: { percent: 20, label: "File uploaded to storage vault" },
-  extracting: { percent: 40, label: "Extracting text and page boundaries (PyMuPDF)..." },
-  chunking: { percent: 65, label: "Partitioning into semantic knowledge chunks..." },
-  embedding: { percent: 85, label: "Generating 768-dim vector embeddings..." },
-  ready: { percent: 100, label: "Document processed and ready for study!" },
+  uploaded: { percent: 20, label: "Uploaded to storage" },
+  extracting: { percent: 40, label: "Extracting text and page boundaries" },
+  chunking: { percent: 65, label: "Partitioning into semantic chunks" },
+  embedding: { percent: 85, label: "Generating vector embeddings" },
+  ready: { percent: 100, label: "Ready for study" },
   failed: { percent: 100, label: "Processing failed" },
   deleting: { percent: 0, label: "Deleting..." },
 };
@@ -92,7 +91,6 @@ export function DocumentUploadModal({
         setIsUploading(false);
         setErrorMsg(doc.processing_error || "Document processing failed. Please try again.");
       } else {
-        // Continue polling every 1.5 seconds
         setTimeout(() => pollDocumentStatus(documentId), 1500);
       }
     } catch (err: any) {
@@ -119,7 +117,6 @@ export function DocumentUploadModal({
         setIsUploading(false);
         if (onSuccess) onSuccess(doc);
       } else {
-        // Start polling
         setTimeout(() => pollDocumentStatus(doc.id), 1500);
       }
     } catch (err: any) {
@@ -146,40 +143,40 @@ export function DocumentUploadModal({
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title="Upload Study Material"
-      description="Upload textbooks, lecture notes, or syllabus PDFs to power your AI study tools."
+      title="Upload course reading"
+      description="Upload textbooks, lecture slides, or syllabi (PDF up to 50MB)."
     >
       <div className="space-y-4">
         {errorMsg && (
-          <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-300 text-sm flex items-start gap-2">
-            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+          <div className="p-3 rounded-md bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-300 text-xs flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="font-medium">Upload Notice</p>
-              <p className="text-xs mt-0.5">{errorMsg}</p>
+              <p className="font-medium">Upload notice</p>
+              <p className="mt-0.5">{errorMsg}</p>
             </div>
             <button
               onClick={() => setErrorMsg(null)}
-              className="text-red-500 hover:text-red-700 p-1"
+              className="text-red-500 hover:text-red-700 p-0.5"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
 
         {/* Processing State View */}
         {processingDoc ? (
-          <div className="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-4">
+          <div className="p-5 rounded-md border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-850 space-y-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-primary-100 dark:bg-primary-950 text-primary-600 dark:text-primary-400">
-                  <FileText className="w-6 h-6" />
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400">
+                  <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-100 text-sm">
+                  <h4 className="font-medium text-neutral-900 dark:text-neutral-100 text-xs">
                     {processingDoc.title}
                   </h4>
-                  <p className="text-xs text-neutral-400">
-                    {formatBytes(processingDoc.file_size_bytes)} • PDF Document
+                  <p className="text-[11px] font-mono text-neutral-400">
+                    {formatBytes(processingDoc.file_size_bytes)} • PDF
                   </p>
                 </div>
               </div>
@@ -189,10 +186,11 @@ export function DocumentUploadModal({
                     ? "success"
                     : processingDoc.status === "failed"
                     ? "danger"
-                    : "primary"
+                    : "outline"
                 }
+                className="font-mono text-[10px] lowercase"
               >
-                {processingDoc.status.toUpperCase()}
+                {processingDoc.status}
               </Badge>
             </div>
 
@@ -214,34 +212,34 @@ export function DocumentUploadModal({
 
             {processingDoc.status === "ready" ? (
               <div className="pt-2 flex justify-end gap-2">
-                <Button size="sm" variant="outline" onClick={handleReset}>
-                  Upload Another
+                <Button size="sm" variant="outline" onClick={handleReset} className="h-7 text-xs">
+                  Upload another
                 </Button>
-                <Button size="sm" onClick={handleClose}>
-                  Start Studying
+                <Button size="sm" onClick={handleClose} className="h-7 text-xs">
+                  Begin studying
                 </Button>
               </div>
             ) : processingDoc.status === "failed" ? (
               <div className="pt-2 flex justify-end">
-                <Button size="sm" variant="danger" onClick={handleReset}>
-                  Try Again
+                <Button size="sm" variant="danger" onClick={handleReset} className="h-7 text-xs">
+                  Try again
                 </Button>
               </div>
             ) : (
-              <p className="text-center text-xs text-neutral-400 pt-1">
-                Please wait while our RAG pipeline extracts text and generates embeddings.
+              <p className="text-center text-[11px] text-neutral-400 pt-1">
+                Extracting text, computing chunk boundaries, and generating vector embeddings.
               </p>
             )}
           </div>
         ) : (
           /* File Upload Selector Form */
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5">
             {!selectedFile ? (
               <div
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors bg-neutral-50/50 dark:bg-neutral-900/30 group"
+                className="border border-dashed border-neutral-300 dark:border-neutral-700 hover:border-neutral-500 rounded-md p-7 flex flex-col items-center justify-center cursor-pointer transition-colors bg-neutral-50/50 dark:bg-neutral-850/50 text-center"
               >
                 <input
                   type="file"
@@ -250,46 +248,45 @@ export function DocumentUploadModal({
                   accept=".pdf,application/pdf"
                   className="hidden"
                 />
-                <div className="p-3 rounded-full bg-primary-50 dark:bg-primary-950 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform mb-3">
-                  <UploadCloud className="w-8 h-8" />
+                <div className="w-8 h-8 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 flex items-center justify-center mb-2.5">
+                  <UploadCloud className="w-4 h-4" />
                 </div>
-                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                  Click to select or drag and drop your PDF here
+                <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
+                  Select a PDF or drag and drop here
                 </p>
-                <p className="text-xs text-neutral-400 mt-1">
-                  Supported format: PDF documents up to 50MB
+                <p className="text-[11px] text-neutral-400 mt-0.5">
+                  Standard PDF files up to 50MB
                 </p>
               </div>
             ) : (
-              <div className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary-50 dark:bg-primary-950 text-primary-600 dark:text-primary-400">
-                    <FileText className="w-6 h-6" />
+              <div className="p-3 rounded-md border border-neutral-200/90 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-850 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 flex items-center justify-center">
+                    <FileText className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate max-w-xs">
+                    <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100 truncate max-w-xs">
                       {selectedFile.name}
                     </p>
-                    <p className="text-xs text-neutral-400">
+                    <p className="text-[11px] font-mono text-neutral-400">
                       {formatBytes(selectedFile.size)}
                     </p>
                   </div>
                 </div>
-                <Button
+                <button
                   type="button"
-                  size="sm"
-                  variant="ghost"
                   onClick={handleReset}
+                  className="p-1 rounded text-neutral-400 hover:text-neutral-600"
                 >
-                  <X className="w-4 h-4 text-neutral-500" />
-                </Button>
+                  <X className="w-3.5 h-3.5" />
+                </button>
               </div>
             )}
 
             {selectedFile && (
               <Input
-                label="Document Title"
-                placeholder="e.g. Chapter 4 - Organic Chemistry"
+                label="Document title"
+                placeholder="e.g. Chapter 4: Cellular Respiration"
                 value={customTitle}
                 onChange={(e) => setCustomTitle(e.target.value)}
                 required
@@ -300,17 +297,21 @@ export function DocumentUploadModal({
               <Button
                 type="button"
                 variant="outline"
+                size="sm"
                 onClick={handleClose}
                 disabled={isUploading}
+                className="h-7 text-xs"
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
+                size="sm"
                 disabled={!selectedFile || isUploading}
                 isLoading={isUploading}
+                className="h-7 text-xs"
               >
-                Upload & Process
+                Index document
               </Button>
             </div>
           </form>
@@ -319,4 +320,3 @@ export function DocumentUploadModal({
     </Modal>
   );
 }
-

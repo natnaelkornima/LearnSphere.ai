@@ -9,10 +9,9 @@ import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Skeleton } from "@/components/ui/Skeleton";
 import {
   Layers,
-  Sparkles,
   RotateCw,
   AlertCircle,
-  Trophy,
+  CheckCircle2,
 } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
 import { DocumentItem, Flashcard, FlashcardSet } from "@/types";
@@ -134,7 +133,6 @@ function FlashcardsContent() {
     if (!activeSet || !activeSet.cards[currentIndex]) return;
     const currentCard = activeSet.cards[currentIndex];
 
-    // Persist review to backend
     api.flashcards.reviewCard(currentCard.id, rating).catch(() => {});
 
     setReviewedCards((prev) => [...prev, { cardId: currentCard.id, rating }]);
@@ -167,47 +165,44 @@ function FlashcardsContent() {
     <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-6">
       {/* Page Header */}
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Smart Flashcards & Active Recall
+        <h2 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          Active recall flashcards
         </h2>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          Reinforce long-term semantic memory with 3D flip interactive study decks.
+        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+          Spaced retrieval practice with keyboard-driven physical card decks.
         </p>
       </div>
 
       {/* MODE 1: SETUP & DECKS */}
       {mode === "setup" && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-base flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-primary-600" />
-                  Generate New Deck
-                </CardTitle>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm">Generate new deck</CardTitle>
                 <CardDescription>
-                  Extract key terms, definitions, and concepts into flashcards.
+                  Extract key terms, definitions, and conceptual questions into study cards.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {errorMsg && (
-                  <div className="p-2.5 rounded-lg bg-red-50 dark:bg-red-950/50 text-red-600 text-xs flex items-center gap-1.5">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  <div className="p-2.5 rounded bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 text-xs flex items-center gap-1.5">
+                    <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
                     <span>{errorMsg}</span>
                   </div>
                 )}
 
                 {/* Document Selector */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 uppercase">
-                    Source Document
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                    Source reading
                   </label>
                   <select
                     value={selectedDocId}
                     onChange={(e) => setSelectedDocId(e.target.value)}
-                    className="w-full text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-850 p-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-primary-600"
                   >
-                    <option value="">-- Select Ready Document --</option>
+                    <option value="">Select an indexed reading...</option>
                     {documents.map((d) => (
                       <option key={d.id} value={d.id}>
                         {d.title}
@@ -217,18 +212,18 @@ function FlashcardsContent() {
                 </div>
 
                 {/* Card Count */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 uppercase">
-                    Deck Size
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                    Deck size
                   </label>
                   <select
                     value={cardCount}
                     onChange={(e) => setCardCount(Number(e.target.value))}
-                    className="w-full text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-850 p-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-primary-600"
                   >
-                    <option value={5}>5 Flashcards (Focused Review)</option>
-                    <option value={10}>10 Flashcards (Standard Deck)</option>
-                    <option value={15}>15 Flashcards (Deep Study)</option>
+                    <option value={5}>5 cards (focused review)</option>
+                    <option value={10}>10 cards (standard deck)</option>
+                    <option value={15}>15 cards (deep retention)</option>
                   </select>
                 </div>
 
@@ -236,10 +231,10 @@ function FlashcardsContent() {
                   onClick={handleGenerate}
                   disabled={!selectedDocId || isGenerating}
                   isLoading={isGenerating}
-                  className="w-full justify-center mt-2"
+                  className="w-full justify-center h-8 text-xs mt-1"
                 >
-                  <Layers className="w-4 h-4 mr-2" />
-                  {isGenerating ? "Synthesizing Flashcards..." : "Generate Deck"}
+                  <Layers className="w-3.5 h-3.5 mr-1.5" />
+                  {isGenerating ? "Synthesizing cards..." : "Generate deck"}
                 </Button>
               </CardContent>
             </Card>
@@ -248,12 +243,12 @@ function FlashcardsContent() {
           {/* Existing Decks */}
           <div>
             <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm">Saved Decks</CardTitle>
+              <CardHeader className="pb-2.5">
+                <CardTitle className="text-xs font-medium text-neutral-500">Saved decks</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 max-h-80 overflow-y-auto">
                 {isLoadingHistory ? (
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <Skeleton className="h-8 w-full" />
                     <Skeleton className="h-8 w-full" />
                   </div>
@@ -265,13 +260,13 @@ function FlashcardsContent() {
                   deckSets.map((ds) => (
                     <div
                       key={ds.id}
-                      className="p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40 flex items-center justify-between gap-2"
+                      className="p-2.5 rounded-md border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-850 flex items-center justify-between gap-2"
                     >
                       <div className="min-w-0">
-                        <p className="text-xs font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+                        <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100 truncate">
                           {ds.title}
                         </p>
-                        <p className="text-[11px] text-neutral-400">
+                        <p className="text-[11px] font-mono tabular-nums text-neutral-400">
                           {ds.cards?.length || 0} cards • {formatDate(ds.created_at)}
                         </p>
                       </div>
@@ -279,6 +274,7 @@ function FlashcardsContent() {
                         size="sm"
                         variant="outline"
                         onClick={() => handleStartExisting(ds.id)}
+                        className="h-6 text-[11px] px-2"
                       >
                         Study
                       </Button>
@@ -293,15 +289,15 @@ function FlashcardsContent() {
 
       {/* MODE 2: 3D CARD FLIP STUDY PLAYER */}
       {mode === "study" && activeSet && currentCard && (
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="max-w-xl mx-auto space-y-5">
           {/* Header & Progress */}
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-sm text-neutral-900 dark:text-neutral-100">
+                <h3 className="font-semibold text-xs text-neutral-900 dark:text-neutral-100">
                   {activeSet.title}
                 </h3>
-                <p className="text-xs text-neutral-400">
+                <p className="text-[11px] font-mono tabular-nums text-neutral-400">
                   Card {currentIndex + 1} of {activeSet.cards.length}
                 </p>
               </div>
@@ -309,9 +305,9 @@ function FlashcardsContent() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setMode("setup")}
-                className="text-xs"
+                className="text-xs h-7"
               >
-                Exit Session
+                Exit session
               </Button>
             </div>
             <ProgressBar
@@ -321,75 +317,83 @@ function FlashcardsContent() {
 
           {/* 3D Flip Card Container */}
           <div
-            className="w-full h-80 [perspective:1000px] cursor-pointer"
+            className="w-full h-72 [perspective:1000px] cursor-pointer"
             onClick={() => setIsFlipped((prev) => !prev)}
           >
             <div
-              className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-2xl shadow-lg border border-neutral-200 dark:border-neutral-800 ${
+              className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-lg border border-neutral-200/90 dark:border-neutral-800 shadow-xs ${
                 isFlipped ? "[transform:rotateY(180deg)]" : ""
               }`}
             >
               {/* FRONT: Front Prompt / Question */}
-              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-white dark:bg-neutral-900 rounded-2xl p-8 flex flex-col justify-between">
+              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-[#faf9f6] dark:bg-[#151412] rounded-lg p-6 flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                  <Badge variant="primary" className="text-[10px] uppercase">
-                    Concept / Question
-                  </Badge>
-                  <span className="text-xs text-neutral-400 flex items-center gap-1">
-                    <RotateCw className="w-3.5 h-3.5" /> Click or Space to flip
+                  <span className="font-mono text-[11px] text-neutral-400">
+                    Prompt
+                  </span>
+                  <span className="text-[11px] font-mono text-neutral-400 flex items-center gap-1.5">
+                    <kbd className="px-1.5 py-0.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-[10px]">
+                      Space
+                    </kbd>
+                    <span>flip</span>
                   </span>
                 </div>
 
                 <div className="text-center my-auto px-4">
-                  <p className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100 leading-snug">
+                  <p className="text-lg md:text-xl font-medium text-neutral-900 dark:text-neutral-100 leading-snug">
                     {currentCard.front || currentCard.front_content}
                   </p>
                 </div>
 
-                <p className="text-center text-xs text-neutral-400">
-                  Think of the answer, then reveal back
+                <p className="text-center text-[11px] text-neutral-400">
+                  Recall the explanation, then flip to verify
                 </p>
               </div>
 
               {/* BACK: Back Answer / Definition */}
-              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-tr from-primary-950 via-neutral-900 to-neutral-900 text-white rounded-2xl p-8 flex flex-col justify-between border border-primary-500/30">
+              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-[#1c1a17] text-white rounded-lg p-6 flex flex-col justify-between border border-neutral-700">
                 <div className="flex items-center justify-between">
-                  <Badge variant="success" className="text-[10px] uppercase">
+                  <span className="font-mono text-[11px] text-neutral-400">
                     Answer / Definition
-                  </Badge>
-                  <span className="text-xs text-primary-200 flex items-center gap-1">
-                    <RotateCw className="w-3.5 h-3.5" /> Click or Space to flip back
+                  </span>
+                  <span className="text-[11px] font-mono text-neutral-400 flex items-center gap-1.5">
+                    <kbd className="px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-800 text-neutral-300 text-[10px]">
+                      Space
+                    </kbd>
+                    <span>flip</span>
                   </span>
                 </div>
 
                 <div className="text-center my-auto px-4 space-y-2">
-                  <p className="text-lg md:text-xl font-medium text-neutral-100 leading-relaxed">
+                  <p className="text-sm md:text-base text-neutral-100 leading-relaxed font-sans">
                     {currentCard.back || currentCard.back_content}
                   </p>
                 </div>
 
-                <p className="text-center text-xs text-neutral-400">
-                  Rate how well you recalled this concept below
+                <p className="text-center text-[11px] text-neutral-400">
+                  Rate your recall accuracy below
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Rating Buttons (Spaced Repetition Feedback) */}
+          {/* Rating Buttons */}
           <div className="space-y-2">
-            <p className="text-center text-xs font-semibold text-neutral-500 uppercase tracking-wider">
-              {isFlipped ? "How well did you know this?" : "Rate recall (reveals next card)"}
+            <p className="text-center text-[11px] font-medium text-neutral-500">
+              {isFlipped ? "Rate your retrieval strength" : "Rate recall (reveals next card)"}
             </p>
-            <div className="grid grid-cols-4 gap-2.5">
+            <div className="grid grid-cols-4 gap-2">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleRate("again");
                 }}
-                className="p-3 rounded-xl border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/60 transition-colors flex flex-col items-center"
+                className="p-2.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-red-400 dark:hover:border-red-800 transition-colors flex flex-col items-center"
               >
-                <span className="text-xs font-bold">Again (1)</span>
-                <span className="text-[10px] text-red-500 mt-0.5">Forgot</span>
+                <span className="text-xs font-mono font-medium text-neutral-900 dark:text-neutral-100">
+                  [1] Again
+                </span>
+                <span className="text-[10px] text-neutral-400 mt-0.5">Forgot</span>
               </button>
 
               <button
@@ -397,10 +401,12 @@ function FlashcardsContent() {
                   e.stopPropagation();
                   handleRate("hard");
                 }}
-                className="p-3 rounded-xl border border-amber-300 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-colors flex flex-col items-center"
+                className="p-2.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-amber-400 dark:hover:border-amber-800 transition-colors flex flex-col items-center"
               >
-                <span className="text-xs font-bold">Hard (2)</span>
-                <span className="text-[10px] text-amber-500 mt-0.5">Struggled</span>
+                <span className="text-xs font-mono font-medium text-neutral-900 dark:text-neutral-100">
+                  [2] Hard
+                </span>
+                <span className="text-[10px] text-neutral-400 mt-0.5">Struggled</span>
               </button>
 
               <button
@@ -408,10 +414,12 @@ function FlashcardsContent() {
                   e.stopPropagation();
                   handleRate("good");
                 }}
-                className="p-3 rounded-xl border border-blue-300 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors flex flex-col items-center"
+                className="p-2.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-blue-400 dark:hover:border-blue-800 transition-colors flex flex-col items-center"
               >
-                <span className="text-xs font-bold">Good (3)</span>
-                <span className="text-[10px] text-blue-500 mt-0.5">Recalled</span>
+                <span className="text-xs font-mono font-medium text-neutral-900 dark:text-neutral-100">
+                  [3] Good
+                </span>
+                <span className="text-[10px] text-neutral-400 mt-0.5">Recalled</span>
               </button>
 
               <button
@@ -419,10 +427,12 @@ function FlashcardsContent() {
                   e.stopPropagation();
                   handleRate("easy");
                 }}
-                className="p-3 rounded-xl border border-emerald-300 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors flex flex-col items-center"
+                className="p-2.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-emerald-400 dark:hover:border-emerald-800 transition-colors flex flex-col items-center"
               >
-                <span className="text-xs font-bold">Easy (4)</span>
-                <span className="text-[10px] text-emerald-500 mt-0.5">Mastered</span>
+                <span className="text-xs font-mono font-medium text-neutral-900 dark:text-neutral-100">
+                  [4] Easy
+                </span>
+                <span className="text-[10px] text-neutral-400 mt-0.5">Mastered</span>
               </button>
             </div>
           </div>
@@ -431,25 +441,21 @@ function FlashcardsContent() {
 
       {/* MODE 3: SESSION COMPLETED */}
       {mode === "finished" && (
-        <Card className="max-w-lg mx-auto text-center p-8 space-y-6 shadow-md">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-xs">
-            <Trophy className="w-8 h-8" />
+        <Card className="max-w-md mx-auto text-center p-8 space-y-5">
+          <div className="w-10 h-10 rounded border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-850 text-neutral-700 dark:text-neutral-300 flex items-center justify-center mx-auto">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-              Deck Completed!
+            <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
+              Session completed
             </h3>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
-              Great job reinforcing your memory with active recall.
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Reviewed <strong className="font-mono tabular-nums">{reviewedCards.length}</strong> cards in this study run.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-600 dark:text-neutral-300">
-            Reviewed {reviewedCards.length} cards in this study session.
-          </div>
-
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-2 pt-2">
             <Button
               variant="outline"
               size="sm"
@@ -459,11 +465,12 @@ function FlashcardsContent() {
                 setReviewedCards([]);
                 setMode("study");
               }}
+              className="h-7 text-xs"
             >
-              <RotateCw className="w-4 h-4 mr-1.5" /> Restart Deck
+              <RotateCw className="w-3 h-3 mr-1.5" /> Restart deck
             </Button>
-            <Button size="sm" onClick={() => setMode("setup")}>
-              Select Another Deck
+            <Button size="sm" onClick={() => setMode("setup")} className="h-7 text-xs">
+              Select another deck
             </Button>
           </div>
         </Card>
@@ -474,7 +481,7 @@ function FlashcardsContent() {
 
 export default function FlashcardsPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-xs text-neutral-400">Loading flashcards...</div>}>
+    <Suspense fallback={<div className="p-8 text-center text-xs text-neutral-400 font-mono">Loading flashcards...</div>}>
       <FlashcardsContent />
     </Suspense>
   );

@@ -1,50 +1,60 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #f5f3ff;
-  --color-primary-100: #ede9fe;
-  --color-primary-200: #ddd6fe;
-  --color-primary-300: #c4b5fd;
-  --color-primary-400: #a78bfa;
-  --color-primary-500: #8b5cf6;
-  --color-primary-600: #635bff;
-  --color-primary-700: #5148e5;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
-  --color-primary-950: #1e1b4b;
+  --color-primary-50: #f0f5ff;
+  --color-primary-100: #e0ebff;
+  --color-primary-200: #bad4fe;
+  --color-primary-300: #7fb4fd;
+  --color-primary-400: #428ef9;
+  --color-primary-500: #1a6df0;
+  --color-primary-600: #0b52d9;
+  --color-primary-700: #073fb4;
+  --color-primary-800: #0b3690;
+  --color-primary-900: #0f2e73;
+  --color-primary-950: #0a1c47;
 
-  --color-secondary-50: #eef2ff;
-  --color-secondary-100: #e0e7ff;
-  --color-secondary-200: #c7d2fe;
-  --color-secondary-300: #a5b4fc;
-  --color-secondary-400: #818cf8;
-  --color-secondary-500: #4f46e5;
-  --color-secondary-600: #4338ca;
-  --color-secondary-700: #3730a3;
-  --color-secondary-800: #312e81;
-  --color-secondary-900: #1e1b4b;
-  --color-secondary-950: #0f172a;
+  --color-paper-50: #faf9f6;
+  --color-paper-100: #f4f2eb;
+  --color-paper-200: #e8e5da;
+  --color-paper-300: #d6d2c4;
+  --color-paper-400: #aba593;
+  --color-paper-500: #888270;
+  --color-paper-600: #686354;
+  --color-paper-700: #4f4b3f;
+  --color-paper-800: #3b382f;
+  --color-paper-900: #23221c;
+  --color-paper-950: #141310;
 }
 
 :root {
-  --background: #f8f9fc;
-  --foreground: #171923;
+  --background: #faf9f6;
+  --foreground: #1c1a17;
   --surface: #ffffff;
-  --surface-secondary: #f3f4f8;
-  --border: #e7e9f0;
+  --surface-secondary: #f4f2eb;
+  --border: #e8e5da;
+  --hairline: rgba(28, 26, 23, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #101116;
-    --foreground: #f5f6fa;
-    --surface: #1d202b;
-    --surface-secondary: #171922;
-    --border: #303442;
+    --background: #141311;
+    --foreground: #eeece4;
+    --surface: #1b1a17;
+    --surface-secondary: #22211e;
+    --border: #2e2c26;
+    --hairline: rgba(238, 236, 228, 0.08);
   }
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular numbers for all figures, dates and metrics */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }

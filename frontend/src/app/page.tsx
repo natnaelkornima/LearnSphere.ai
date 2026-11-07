@@ -2,166 +2,205 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import {
-  Sparkles,
   BookOpen,
-  MessageSquare,
+  ArrowRight,
+  Check,
+  FileText,
   Brain,
   Layers,
-  ArrowRight,
-  CheckCircle2,
-  Trophy,
-  UploadCloud,
-  FileText,
+  BarChart3,
 } from "@/components/ui/Icons";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 flex flex-col">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col font-sans">
       {/* Navigation Bar */}
-      <header className="h-20 border-b border-neutral-100 dark:border-neutral-800 px-6 md:px-12 flex items-center justify-between max-w-7xl mx-auto w-full">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-600 to-secondary-500 flex items-center justify-center text-white shadow-md shadow-primary-500/20">
-            <Sparkles className="w-5 h-5" />
+      <header className="h-16 border-b border-[var(--border)] px-6 md:px-12 flex items-center justify-between max-w-7xl mx-auto w-full">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-md bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center">
+            <BookOpen className="w-4 h-4" />
           </div>
-          <span className="font-extrabold text-xl tracking-tight text-neutral-900 dark:text-white">
-            LearnSphere <span className="text-primary-600 font-black">AI</span>
+          <span className="font-semibold text-base tracking-tight">
+            LearnSphere <span className="text-neutral-400 font-normal">AI</span>
           </span>
-        </div>
+        </Link>
 
         <div className="flex items-center gap-3">
-          <Link href="/login">
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
+          <Link href="/login" className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white px-3 py-1.5 transition-colors">
+            Sign in
           </Link>
           <Link href="/dashboard">
-            <Button size="sm" className="shadow-sm shadow-primary-500/20">
-              Open App <ArrowRight className="w-4 h-4 ml-1" />
+            <Button size="sm" className="h-8 px-3.5 text-xs font-medium">
+              Open workspace
             </Button>
           </Link>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 px-6 max-w-7xl mx-auto w-full text-center space-y-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 text-xs font-semibold animate-in fade-in">
-          <Sparkles className="w-3.5 h-3.5 text-primary-500" />
-          <span>The Next-Generation Active Learning Workspace</span>
+      <section className="pt-20 pb-20 md:pt-28 md:pb-28 px-6 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Headline and Call-to-Action */}
+          <div className="lg:col-span-6 space-y-6 text-left">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[var(--border)] bg-[var(--surface-secondary)] text-xs font-mono text-neutral-600 dark:text-neutral-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span>Grounded on course documents</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-medium tracking-tight text-neutral-950 dark:text-neutral-50 leading-[1.08]">
+              Turn course readings into notes, quizzes, and recall cards
+            </h1>
+
+            <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
+              Upload a textbook, paper, or syllabus. LearnSphere indexes page coordinates, answers questions with strict source citations, and builds practice sets that test what you remember.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <Link href="/dashboard">
+                <Button size="lg" className="h-11 px-6 text-sm font-medium w-full sm:w-auto">
+                  Open workspace <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button variant="outline" size="lg" className="h-11 px-5 text-sm font-medium w-full sm:w-auto">
+                  Try student demo
+                </Button>
+              </Link>
+            </div>
+
+            {/* Quiet feature claims */}
+            <div className="pt-4 grid grid-cols-2 gap-4 text-xs text-neutral-500 border-t border-[var(--border)]">
+              <div>
+                <p className="font-medium text-neutral-900 dark:text-neutral-200">Page citations</p>
+                <p className="text-neutral-500">Every response references the source page number</p>
+              </div>
+              <div>
+                <p className="font-medium text-neutral-900 dark:text-neutral-200">Server-scored</p>
+                <p className="text-neutral-500">Quiz keys stay hidden until answers are submitted</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Real Product Moment (Annotated Document + Grounded Tutor Card) */}
+          <div className="lg:col-span-6">
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-xs space-y-4">
+              {/* Document Window Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-[var(--border)] text-xs text-neutral-500">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-neutral-400" />
+                  <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                    Cell_Biology_Ch3.pdf
+                  </span>
+                </div>
+                <span className="font-mono text-[11px] text-neutral-400">p. 14 of 38</span>
+              </div>
+
+              {/* Document Excerpt with Citation Highlight */}
+              <div className="p-3.5 rounded-lg bg-[var(--surface-secondary)] text-xs leading-relaxed text-neutral-700 dark:text-neutral-300 font-serif">
+                <p className="text-neutral-500 text-[11px] font-mono mb-1.5">
+                  Source text excerpt
+                </p>
+                <p>
+                  &ldquo;...ATP synthase is embedded within the inner mitochondrial membrane, converting electrochemical proton potential into high-energy phosphate bonds through mechanical rotation.&rdquo;
+                </p>
+              </div>
+
+              {/* Grounded Tutor Response Card */}
+              <div className="p-4 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
+                    AI Tutor Response
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-[var(--border)]">
+                    p. 14 §2
+                  </span>
+                </div>
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-normal">
+                  ATP synthase harnesses the electrochemical proton gradient across the inner mitochondrial membrane to generate cellular ATP via rotational catalysis.
+                </p>
+              </div>
+
+              {/* Interactive Recall Card Mini Preview */}
+              <div className="p-3.5 rounded-lg border border-[var(--border)] bg-neutral-50 dark:bg-neutral-900/60 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-[10px] font-mono text-neutral-400 block">Flashcard practice</span>
+                  <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                    Where does ATP synthase reside?
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <kbd className="px-1.5 py-0.5 rounded border border-[var(--border)] bg-white dark:bg-neutral-800 font-mono text-[10px] text-neutral-500">
+                    Space
+                  </kbd>
+                  <span className="text-[11px] text-neutral-400">to flip</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight">
-          Turn Your Documents Into{" "}
-          <span className="bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-600 bg-clip-text text-transparent">
-            Active Knowledge
-          </span>
-        </h1>
-
-        <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-          Stop passively reading hundreds of PDF pages. LearnSphere AI extracts, indexes, and transforms textbooks into grounded AI tutoring, deterministic practice quizzes, and 3D flashcards.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <Link href="/dashboard">
-            <Button size="lg" className="w-full sm:w-auto text-base px-8 py-3.5 shadow-lg shadow-primary-500/25">
-              Launch Learning Workspace <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto text-base px-8 py-3.5">
-              Sign In / Student Portal
-            </Button>
-          </Link>
-        </div>
-
-        {/* Floating Feature Badges */}
-        <div className="pt-10 flex flex-wrap justify-center items-center gap-6 text-xs text-neutral-500 dark:text-neutral-400">
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Zero Hallucination Citations</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Server-Authoritative Quiz Scoring</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>3D Flip Active Recall</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>pgvector Semantic Search</span>
-          </div>
-        </div>
-
-        {/* Ambient background glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary-500/10 dark:bg-primary-500/15 blur-3xl rounded-full pointer-events-none -z-10" />
       </section>
 
       {/* The 4-Stage Cycle Section */}
-      <section className="py-20 bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800 px-6">
+      <section className="py-20 border-t border-[var(--border)] px-6 bg-[var(--surface)]">
         <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center space-y-3">
-            <h2 className="text-xs font-bold tracking-wider uppercase text-primary-600">
-              The Pedagogical Engine
+          <div className="space-y-2 max-w-xl">
+            <p className="text-xs font-mono text-neutral-500">
+              The learning cycle
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-neutral-950 dark:text-neutral-50">
+              Structured for active recall, not passive scrolling
             </h2>
-            <h3 className="text-3xl font-extrabold text-neutral-900 dark:text-neutral-100">
-              The 4-Stage Active Learning Cycle
-            </h3>
-            <p className="text-sm text-neutral-500 max-w-xl mx-auto">
-              Engineered based on cognitive science: retrieval practice, spaced repetition, and dual-coding.
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Every document moves through a repeatable workflow from raw PDF to verified mastery.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Stage 1 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3 shadow-xs">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 text-blue-600 flex items-center justify-center font-bold">
-                1
-              </div>
-              <h4 className="font-bold text-base text-neutral-900 dark:text-neutral-100">
+            {/* Step 1 */}
+            <div className="p-5 rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] space-y-3">
+              <span className="font-mono text-xs text-neutral-400">01</span>
+              <h3 className="font-medium text-sm text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-neutral-500" />
                 Upload & Convert
-              </h4>
-              <p className="text-xs text-neutral-500 leading-relaxed">
-                Ingest PDF textbooks, syllabi, or lecture slides. PyMuPDF extracts text by page, preserving coordinates and chunk boundaries.
+              </h3>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                PyMuPDF extracts text page by page, tracking coordinates and chunk boundaries so every assertion has a verifiable location.
               </p>
             </div>
 
-            {/* Stage 2 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3 shadow-xs">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950 text-purple-600 flex items-center justify-center font-bold">
-                2
-              </div>
-              <h4 className="font-bold text-base text-neutral-900 dark:text-neutral-100">
+            {/* Step 2 */}
+            <div className="p-5 rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] space-y-3">
+              <span className="font-mono text-xs text-neutral-400">02</span>
+              <h3 className="font-medium text-sm text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-neutral-500" />
                 Understand
-              </h4>
-              <p className="text-xs text-neutral-500 leading-relaxed">
-                Converse with your AI Tutor with strict inline page citations. Synthesize into 6 distinct summary styles.
+              </h3>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Ask questions scoped to one document or several. Answers cite page numbers inline and open the matching excerpt.
               </p>
             </div>
 
-            {/* Stage 3 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3 shadow-xs">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center font-bold">
-                3
-              </div>
-              <h4 className="font-bold text-base text-neutral-900 dark:text-neutral-100">
+            {/* Step 3 */}
+            <div className="p-5 rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] space-y-3">
+              <span className="font-mono text-xs text-neutral-400">03</span>
+              <h3 className="font-medium text-sm text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                <Brain className="w-4 h-4 text-neutral-500" />
                 Practice
-              </h4>
-              <p className="text-xs text-neutral-500 leading-relaxed">
-                Test knowledge with server-authoritative multiple choice quizzes and interactive 3D flip card recall decks.
+              </h3>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Generate practice quizzes scored deterministically on the server, plus 3D flip recall flashcards with spaced repetition intervals.
               </p>
             </div>
 
-            {/* Stage 4 */}
-            <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-3 shadow-xs">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-600 flex items-center justify-center font-bold">
-                4
-              </div>
-              <h4 className="font-bold text-base text-neutral-900 dark:text-neutral-100">
+            {/* Step 4 */}
+            <div className="p-5 rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] space-y-3">
+              <span className="font-mono text-xs text-neutral-400">04</span>
+              <h3 className="font-medium text-sm text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-neutral-500" />
                 Improve
-              </h4>
-              <p className="text-xs text-neutral-500 leading-relaxed">
-                Track persisted performance metrics, identify weak topics with real SQL aggregations, and follow adaptive recommendations.
+              </h3>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Track completion streaks and topic mastery percentages aggregated from stored quiz attempts and task logs.
               </p>
             </div>
           </div>
@@ -169,8 +208,18 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-neutral-200 dark:border-neutral-800 py-8 px-6 text-center text-xs text-neutral-500">
-        <p>© 2026 LearnSphere AI. Developed for active, measurable education.</p>
+      <footer className="mt-auto border-t border-[var(--border)] py-8 px-6 text-xs text-neutral-500">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© 2026 LearnSphere AI. Grounded document intelligence.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/login" className="hover:text-neutral-800 dark:hover:text-neutral-200">
+              Sign in
+            </Link>
+            <Link href="/dashboard" className="hover:text-neutral-800 dark:hover:text-neutral-200">
+              Dashboard
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );

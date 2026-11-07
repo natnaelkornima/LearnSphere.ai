@@ -21,24 +21,24 @@ export function ProgressBar({
   const percentage = Math.min(Math.max(Math.round((value / max) * 100), 0), 100);
 
   const variantBarStyles = {
-    primary: "bg-primary-600",
-    secondary: "bg-secondary-600",
-    success: "bg-emerald-600",
-    warning: "bg-amber-500",
+    primary: "bg-primary-600 dark:bg-primary-500",
+    secondary: "bg-neutral-800 dark:bg-neutral-200",
+    success: "bg-emerald-600 dark:bg-emerald-500",
+    warning: "bg-amber-600 dark:bg-amber-500",
   };
 
   return (
     <div className={cn("w-full space-y-1.5", className)} {...props}>
       {(label || showValue) && (
-        <div className="flex justify-between items-center text-xs text-neutral-600 dark:text-neutral-400 font-medium">
+        <div className="flex justify-between items-center text-xs text-neutral-600 dark:text-neutral-400">
           {label && <span>{label}</span>}
-          {showValue && <span>{percentage}%</span>}
+          {showValue && <span className="font-mono tabular-nums">{percentage}%</span>}
         </div>
       )}
-      <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
+      <div className="h-1.5 w-full overflow-hidden rounded-[2px] bg-neutral-200/80 dark:bg-neutral-800">
         <div
           className={cn(
-            "h-full transition-all duration-300 ease-out rounded-full",
+            "h-full transition-all duration-300 ease-out rounded-[2px]",
             variantBarStyles[variant]
           )}
           style={{ width: `${percentage}%` }}
@@ -47,4 +47,3 @@ export function ProgressBar({
     </div>
   );
 }
-

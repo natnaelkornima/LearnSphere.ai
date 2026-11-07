@@ -3,10 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Sparkles, AlertCircle } from "@/components/ui/Icons";
+import { BookOpen, AlertCircle } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
 
 export default function RegisterPage() {
@@ -32,86 +31,85 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-neutral-50 dark:bg-neutral-950">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[var(--background)] font-sans">
+      <div className="w-full max-w-sm space-y-6">
         {/* Brand header */}
         <div className="text-center space-y-2">
-          <Link href="/" className="inline-flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-600 to-secondary-500 flex items-center justify-center text-white shadow-md shadow-primary-500/20">
-              <Sparkles className="w-5 h-5" />
+          <Link href="/" className="inline-flex items-center gap-2">
+            <div className="w-8 h-8 rounded bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center">
+              <BookOpen className="w-4 h-4" />
             </div>
-            <span className="font-extrabold text-2xl tracking-tight text-neutral-900 dark:text-white">
-              LearnSphere <span className="text-primary-600">AI</span>
+            <span className="font-semibold text-base tracking-tight text-neutral-950 dark:text-neutral-50">
+              LearnSphere <span className="text-neutral-400 font-normal">AI</span>
             </span>
           </Link>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            Create your account to start converting documents into active knowledge
+          <p className="text-xs text-neutral-500">
+            Create an account to start indexing course materials
           </p>
         </div>
 
-        <Card className="shadow-lg border-neutral-200 dark:border-neutral-800">
-          <CardHeader className="space-y-1 pb-4">
-            <CardTitle className="text-lg">Create Student Account</CardTitle>
-            <CardDescription>
-              Free tier includes full RAG indexing, quizzes, and flashcards
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            {errorMsg && (
-              <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 text-red-600 text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                <span>{errorMsg}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Input
-                label="Full Name"
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Alex Johnson"
-                required
-              />
-
-              <Input
-                label="Email Address"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="alex@university.edu"
-                required
-              />
-
-              <Input
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 8 characters"
-                required
-              />
-
-              <Button
-                type="submit"
-                className="w-full justify-center"
-                isLoading={isLoading}
-              >
-                Create Account
-              </Button>
-            </form>
-
-            <p className="text-center text-xs text-neutral-500 pt-2">
-              Already have an account?{" "}
-              <Link href="/login" className="text-primary-600 hover:underline font-semibold">
-                Sign in
-              </Link>
+        <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-4">
+          <div className="space-y-1">
+            <h2 className="text-base font-medium text-neutral-900 dark:text-neutral-100">
+              Create account
+            </h2>
+            <p className="text-xs text-neutral-500">
+              Includes full document parsing, quizzes, and recall flashcards
             </p>
-          </CardContent>
-        </Card>
+          </div>
+
+          {errorMsg && (
+            <div className="p-3 rounded-md bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{errorMsg}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-3.5">
+            <Input
+              label="Full name"
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="Alex Johnson"
+              required
+            />
+
+            <Input
+              label="Email address"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="alex@university.edu"
+              required
+            />
+
+            <Input
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="At least 8 characters"
+              required
+            />
+
+            <Button
+              type="submit"
+              className="w-full justify-center h-9 text-xs font-medium"
+              isLoading={isLoading}
+            >
+              Create account
+            </Button>
+          </form>
+
+          <p className="text-center text-xs text-neutral-500 pt-2">
+            Already have an account?{" "}
+            <Link href="/login" className="text-neutral-900 dark:text-neutral-100 font-medium hover:underline">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
 }
-
