@@ -1,4 +1,6 @@
+@layer ui-sdk;
 @import "tailwindcss";
+@import "@ui-sdk/core/web.css" layer(components);
 
 @theme {
   --color-primary-50: #f0f5ff;
@@ -13,36 +15,61 @@
   --color-primary-900: #0f2e73;
   --color-primary-950: #0a1c47;
 
-  --color-paper-50: #faf9f6;
-  --color-paper-100: #f4f2eb;
-  --color-paper-200: #e8e5da;
-  --color-paper-300: #d6d2c4;
-  --color-paper-400: #aba593;
-  --color-paper-500: #888270;
-  --color-paper-600: #686354;
-  --color-paper-700: #4f4b3f;
-  --color-paper-800: #3b382f;
-  --color-paper-900: #23221c;
-  --color-paper-950: #141310;
+  --color-paper-50: #faf8f5;
+  --color-paper-100: #f4f0e6;
+  --color-paper-200: #ece5d6;
+  --color-paper-300: #ded5c0;
+  --color-paper-400: #bfb296;
+  --color-paper-500: #9e9072;
+  --color-paper-600: #7d7054;
+  --color-paper-700: #5e533d;
+  --color-paper-800: #3f3727;
+  --color-paper-900: #262117;
+  --color-paper-950: #14110b;
+
+  --color-oxford-50: #f0f4fa;
+  --color-oxford-100: #e0e9f4;
+  --color-oxford-500: #1b365d;
+  --color-oxford-700: #10223d;
+  --color-oxford-900: #0a1526;
+
+  --color-terracotta-500: #9e3722;
+  --color-terracotta-600: #852c1a;
 }
 
 :root {
-  --background: #faf9f6;
-  --foreground: #1c1a17;
+  --background: #faf8f5;
+  --foreground: #181715;
   --surface: #ffffff;
-  --surface-secondary: #f4f2eb;
-  --border: #e8e5da;
-  --hairline: rgba(28, 26, 23, 0.08);
+  --surface-secondary: #f4f0e6;
+  --border: #e6dfd1;
+  --hairline: rgba(24, 23, 21, 0.09);
+  --accent-ink: #11100e;
+  --accent-scholarly: #9e3722;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #141311;
     --foreground: #eeece4;
-    --surface: #1b1a17;
-    --surface-secondary: #22211e;
-    --border: #2e2c26;
-    --hairline: rgba(238, 236, 228, 0.08);
+    --surface: #1b1916;
+    --surface-secondary: #23211c;
+    --border: #2e2b24;
+    --hairline: rgba(238, 236, 228, 0.09);
+    --accent-ink: #fcfbf9;
+    --accent-scholarly: #d9583b;
+  }
+}
+
+::selection {
+  background-color: #e5ddca;
+  color: #181715;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::selection {
+    background-color: #3b362c;
+    color: #f7f5ee;
   }
 }
 

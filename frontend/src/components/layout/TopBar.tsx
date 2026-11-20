@@ -3,7 +3,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { UploadCloud } from "@/components/ui/Icons";
+import { UploadCloud, Search } from "@/components/ui/Icons";
 
 export function TopBar({
   onOpenUpload,
@@ -16,14 +16,14 @@ export function TopBar({
 
   const getPageTitle = (path: string) => {
     if (path.startsWith("/dashboard")) return "Overview";
-    if (path.startsWith("/library")) return "Document library";
-    if (path.startsWith("/tutor")) return "AI Tutor";
-    if (path.startsWith("/studio/summaries")) return "Summaries";
-    if (path.startsWith("/studio/quizzes")) return "Practice quizzes";
-    if (path.startsWith("/studio/flashcards")) return "Flashcards";
-    if (path.startsWith("/planner")) return "Study planner";
-    if (path.startsWith("/analytics")) return "Analytics";
-    if (path.startsWith("/settings")) return "Settings";
+    if (path.startsWith("/library")) return "Document Library";
+    if (path.startsWith("/tutor")) return "Grounded AI Tutor";
+    if (path.startsWith("/studio/summaries")) return "Structured Summaries";
+    if (path.startsWith("/studio/quizzes")) return "Practice Quizzes";
+    if (path.startsWith("/studio/flashcards")) return "Recall Flashcards";
+    if (path.startsWith("/planner")) return "Study Planner";
+    if (path.startsWith("/analytics")) return "Retention Analytics";
+    if (path.startsWith("/settings")) return "Preferences";
     return "Workspace";
   };
 
@@ -33,15 +33,15 @@ export function TopBar({
         {/* Mobile menu trigger */}
         <button
           onClick={onToggleMobileMenu}
-          className="md:hidden p-1.5 text-neutral-500 hover:bg-[var(--surface-secondary)] rounded"
-          aria-label="Open navigation"
+          className="md:hidden p-1.5 text-neutral-500 hover:bg-[var(--surface-secondary)] rounded cursor-pointer"
+          aria-label="Open navigation menu"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        <h1 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+        <h1 className="text-sm font-serif font-medium text-neutral-950 dark:text-neutral-50 tracking-tight">
           {getPageTitle(pathname)}
         </h1>
       </div>

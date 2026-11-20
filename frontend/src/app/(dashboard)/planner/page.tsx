@@ -15,6 +15,8 @@ import {
   Plus,
   AlertCircle,
   Check,
+  BookOpen,
+  ArrowRight,
 } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
 import { DocumentItem, StudyPlan, StudyTask } from "@/types";
@@ -120,46 +122,53 @@ export default function PlannerPage() {
     totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8">
+      {/* Editorial Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#e6dfd1] dark:border-[#2a2723] pb-6">
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-            Study schedules
-          </h2>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-            Structured daily milestones and task tracking toward your examination dates.
+          <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+            Curricular Study Milestones
+          </h1>
+          <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 font-serif italic">
+            Structured daily milestones and retrieval goals calibrated toward your target examination dates.
           </p>
         </div>
-        <Button onClick={() => setIsModalOpen(true)} className="h-8 text-xs">
-          <Plus className="w-3.5 h-3.5 mr-1.5" /> Generate plan
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          className="h-10 px-4 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+        >
+          <Plus className="w-3.5 h-3.5 mr-2" /> Schedule new syllabus
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Plans List */}
-        <div className="space-y-3">
-          <h3 className="text-xs font-medium text-neutral-500">
-            Active schedules
-          </h3>
+        <div className="space-y-4">
+          <h2 className="font-serif text-sm font-semibold text-neutral-900 dark:text-neutral-100 pb-2 border-b border-[#e6dfd1] dark:border-[#2a2723]">
+            Active study tracks
+          </h2>
 
           {isLoading ? (
-            <div className="space-y-2">
-              <Skeleton className="h-16 w-full rounded-md" />
-              <Skeleton className="h-16 w-full rounded-md" />
+            <div className="space-y-3">
+              <Skeleton className="h-20 w-full rounded-xl" />
+              <Skeleton className="h-20 w-full rounded-xl" />
             </div>
           ) : plans.length === 0 ? (
-            <Card>
-              <CardContent className="p-6 text-center text-xs text-neutral-400 space-y-3">
-                <Calendar className="w-6 h-6 mx-auto text-neutral-400" />
-                <p>No study plans scheduled yet.</p>
-                <Button size="sm" onClick={() => setIsModalOpen(true)} className="h-7 text-xs">
-                  Create plan
-                </Button>
-              </CardContent>
-            </Card>
+            <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 text-center space-y-3">
+              <Calendar className="w-6 h-6 mx-auto text-neutral-400" />
+              <p className="text-xs text-neutral-500 font-serif italic">
+                No active study schedules found.
+              </p>
+              <Button
+                size="sm"
+                onClick={() => setIsModalOpen(true)}
+                className="h-8 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+              >
+                Create schedule
+              </Button>
+            </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {plans.map((p) => {
                 const isSelected = activePlan?.id === p.id;
                 const pTotal = p.tasks?.length || 0;
@@ -171,22 +180,22 @@ export default function PlannerPage() {
                   <button
                     key={p.id}
                     onClick={() => setActivePlan(p)}
-                    className={`w-full text-left p-3.5 rounded-md border transition-colors ${
+                    className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${
                       isSelected
-                        ? "border-neutral-900 dark:border-neutral-100 bg-neutral-100 dark:bg-neutral-800"
-                        : "border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700"
+                        ? "border-neutral-900 dark:border-neutral-100 bg-white dark:bg-[#23211d] shadow-xs"
+                        : "border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] hover:border-neutral-400"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium text-xs text-neutral-900 dark:text-neutral-100 truncate">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-serif font-semibold text-xs text-neutral-900 dark:text-neutral-100 truncate">
                         {p.title}
-                      </h4>
-                      <Badge variant="outline" className="font-mono text-[10px]">
+                      </h3>
+                      <span className="font-mono text-xs font-semibold tabular-nums text-neutral-700 dark:text-neutral-300">
                         {pPercent}%
-                      </Badge>
+                      </span>
                     </div>
 
-                    <div className="mt-1.5 text-[11px] font-mono tabular-nums text-neutral-400 flex items-center gap-2">
+                    <div className="mt-2 text-[11px] font-mono tabular-nums text-neutral-500 dark:text-neutral-400 flex items-center gap-2">
                       <Clock className="w-3 h-3 text-neutral-400" />
                       <span>{p.daily_minutes_goal || p.daily_goal_minutes || 45}m/day</span>
                       {targetExam && (
@@ -203,87 +212,89 @@ export default function PlannerPage() {
         {/* Right 2 Columns: Active Plan Tasks & Progress */}
         <div className="lg:col-span-2">
           {activePlan ? (
-            <Card>
-              <CardHeader className="border-b border-neutral-100 dark:border-neutral-800/80 pb-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] overflow-hidden shadow-xs">
+              <div className="p-6 md:p-8 border-b border-[#e6dfd1] dark:border-[#2a2723] bg-white/70 dark:bg-[#1c1b18] space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <CardTitle className="text-base">{activePlan.title}</CardTitle>
-                    <CardDescription className="flex items-center gap-2 mt-0.5">
-                      <span className="font-mono tabular-nums">{completedTasks} of {totalTasks} milestones completed</span>
+                    <h2 className="font-serif text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+                      {activePlan.title}
+                    </h2>
+                    <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500 font-serif italic">
+                      <span className="font-mono tabular-nums not-italic">{completedTasks} of {totalTasks} milestones completed</span>
                       {(activePlan.target_exam_date || activePlan.target_date) && (
                         <>
                           <span>•</span>
-                          <span>Exam: {formatDate(activePlan.target_exam_date || activePlan.target_date || "")}</span>
+                          <span>Target: {formatDate(activePlan.target_exam_date || activePlan.target_date || "")}</span>
                         </>
                       )}
-                    </CardDescription>
+                    </div>
                   </div>
-                  <Badge variant={progressPercent === 100 ? "success" : "outline"} className="self-start sm:self-auto font-mono text-[11px]">
-                    {progressPercent}%
-                  </Badge>
+                  <span className="font-mono text-sm font-semibold tabular-nums px-2.5 py-1 rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-[#faf8f5] dark:bg-[#1f1d1a] text-neutral-800 dark:text-neutral-200">
+                    {progressPercent}% Complete
+                  </span>
                 </div>
 
-                <div className="pt-3">
+                <div className="pt-2">
                   <ProgressBar
                     value={progressPercent}
                     variant={progressPercent === 100 ? "success" : "primary"}
                   />
                 </div>
-              </CardHeader>
+              </div>
 
-              <CardContent className="p-5 space-y-2.5">
-                <h4 className="text-xs font-medium text-neutral-500 mb-1">
-                  Milestones
-                </h4>
+              <div className="p-6 md:p-8 space-y-4">
+                <h3 className="font-serif text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                  Target milestones & progression
+                </h3>
 
                 {(!activePlan.tasks || activePlan.tasks.length === 0) ? (
-                  <p className="text-xs text-neutral-400 py-4 text-center">
-                    No milestone tasks generated for this plan.
+                  <p className="text-xs text-neutral-400 py-6 text-center font-serif italic">
+                    No milestone tasks generated for this schedule.
                   </p>
                 ) : (
-                  <div className="space-y-1.5">
+                  <div className="space-y-2.5">
                     {activePlan.tasks.map((task) => {
                       const isCompleted = task.is_completed ?? (task.status === "completed");
                       return (
                         <div
                           key={task.id}
                           onClick={() => handleToggleTask(task)}
-                          className={`p-3 rounded-md border flex items-start gap-3 transition-colors cursor-pointer ${
+                          className={`p-4 rounded-xl border flex items-start gap-3.5 transition-all cursor-pointer ${
                             isCompleted
-                              ? "border-neutral-200/60 dark:border-neutral-800/60 bg-neutral-50/50 dark:bg-neutral-900/50 text-neutral-400"
-                              : "border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700"
+                              ? "border-[#e6dfd1]/60 dark:border-[#2a2723]/60 bg-neutral-100/40 dark:bg-[#1a1917]/40 text-neutral-400"
+                              : "border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] hover:border-neutral-400 shadow-2xs"
                           }`}
                         >
                           <button
                             type="button"
-                            className={`mt-0.5 w-4 h-4 rounded-[3px] flex items-center justify-center transition-colors border ${
+                            className={`mt-0.5 w-5 h-5 rounded flex items-center justify-center transition-colors border ${
                               isCompleted
                                 ? "bg-neutral-900 dark:bg-neutral-100 border-transparent text-white dark:text-neutral-900"
                                 : "border-neutral-300 dark:border-neutral-600 bg-transparent"
                             }`}
                           >
-                            {isCompleted && <Check className="w-3 h-3 stroke-3" />}
+                            {isCompleted && <Check className="w-3.5 h-3.5 stroke-3" />}
                           </button>
 
                           <div className="flex-1 min-w-0">
                             <p
-                              className={`text-xs font-medium ${
+                              className={`text-xs font-semibold ${
                                 isCompleted
                                   ? "line-through text-neutral-400 dark:text-neutral-500"
-                                  : "text-neutral-900 dark:text-neutral-100"
+                                  : "text-neutral-900 dark:text-neutral-100 font-serif text-sm"
                               }`}
                             >
                               {task.title}
                             </p>
                             {task.description && (
-                              <p className="text-[11px] text-neutral-500 mt-0.5">
+                              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
                                 {task.description}
                               </p>
                             )}
                           </div>
 
                           {task.estimated_minutes && (
-                            <span className="text-[11px] font-mono tabular-nums text-neutral-400 flex items-center gap-1 flex-shrink-0">
+                            <span className="text-[11px] font-mono tabular-nums text-neutral-500 flex items-center gap-1 flex-shrink-0 pt-0.5">
                               <Clock className="w-3 h-3 text-neutral-400" />
                               {task.estimated_minutes}m
                             </span>
@@ -293,19 +304,29 @@ export default function PlannerPage() {
                     })}
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ) : (
-            <EmptyState
-              icon={<Calendar className="w-6 h-6 text-neutral-500" />}
-              title="No plan selected"
-              description="Select a schedule on the left or generate a new study plan to begin."
-              action={
-                <Button size="sm" onClick={() => setIsModalOpen(true)} className="h-7 text-xs">
-                  <Plus className="w-3 h-3 mr-1" /> Generate plan
-                </Button>
-              }
-            />
+            <div className="rounded-2xl border border-dashed border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5]/50 dark:bg-[#171614]/50 p-16 text-center space-y-4">
+              <div className="w-12 h-12 rounded-full border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] flex items-center justify-center mx-auto text-neutral-500">
+                <Calendar className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                  No study schedule selected
+                </h3>
+                <p className="text-xs text-neutral-500 max-w-md mx-auto font-serif italic">
+                  Select an active track on the left or generate a new curricular plan to schedule your study milestones.
+                </p>
+              </div>
+              <Button
+                size="sm"
+                onClick={() => setIsModalOpen(true)}
+                className="h-8 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+              >
+                <Plus className="w-3.5 h-3.5 mr-1.5" /> Schedule new syllabus
+              </Button>
+            </div>
           )}
         </div>
       </div>
@@ -314,25 +335,25 @@ export default function PlannerPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Generate study schedule"
-        description="Select a reading and define your target date to synthesize daily milestones."
+        title="Schedule Curricular Milestones"
+        description="Select an indexed course reading and set your target date to synthesize daily milestones."
       >
-        <form onSubmit={handleCreatePlan} className="space-y-3.5">
+        <form onSubmit={handleCreatePlan} className="space-y-4">
           {errorMsg && (
-            <div className="p-2.5 rounded bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 text-xs flex items-center gap-1.5">
-              <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+            <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-400 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{errorMsg}</span>
             </div>
           )}
 
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
-              Target document
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+              Target course reading
             </label>
             <select
               value={selectedDocId}
               onChange={(e) => setSelectedDocId(e.target.value)}
-              className="w-full text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-850 p-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-primary-600"
+              className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200"
               required
             >
               <option value="">Select an indexed reading...</option>
@@ -351,7 +372,7 @@ export default function PlannerPage() {
             onChange={(e) => setPlanTitle(e.target.value)}
           />
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <Input
               type="date"
               label="Target finish date"
@@ -359,8 +380,8 @@ export default function PlannerPage() {
               onChange={(e) => setTargetDate(e.target.value)}
               required
             />
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                 Daily goal (minutes)
               </label>
               <input
@@ -370,19 +391,19 @@ export default function PlannerPage() {
                 step={15}
                 value={dailyMinutes}
                 onChange={(e) => setDailyMinutes(Number(e.target.value))}
-                className="w-full text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-850 p-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-primary-600"
+                className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200 font-mono"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
+          <div className="flex justify-end gap-3 pt-3 border-t border-[#e6dfd1] dark:border-[#2a2723]">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => setIsModalOpen(false)}
               disabled={isGenerating}
-              className="h-7 text-xs"
+              className="h-8 text-xs border-[#e6dfd1] dark:border-[#2a2723]"
             >
               Cancel
             </Button>
@@ -391,7 +412,7 @@ export default function PlannerPage() {
               size="sm"
               disabled={isGenerating}
               isLoading={isGenerating}
-              className="h-7 text-xs"
+              className="h-8 text-xs font-semibold bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
             >
               {isGenerating ? "Synthesizing schedule..." : "Create schedule"}
             </Button>

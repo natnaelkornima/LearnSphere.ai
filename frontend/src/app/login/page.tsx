@@ -3,10 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { BookOpen, AlertCircle, ArrowRight, User } from "@/components/ui/Icons";
+import { BookOpen, AlertCircle, User } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
 
 export default function LoginPage() {
@@ -36,52 +35,52 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[var(--background)] font-sans">
-      <div className="w-full max-w-sm space-y-6">
-        {/* Brand header */}
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#f7f4ee] dark:bg-[#12110f] font-sans">
+      <div className="w-full max-w-md space-y-8">
+        {/* Academic Brand header */}
         <div className="text-center space-y-2">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center">
-              <BookOpen className="w-4 h-4" />
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-lg bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 flex items-center justify-center shadow-xs">
+              <BookOpen className="w-5 h-5" />
             </div>
-            <span className="font-semibold text-base tracking-tight text-neutral-950 dark:text-neutral-50">
-              LearnSphere <span className="text-neutral-400 font-normal">AI</span>
+            <span className="font-serif font-bold text-xl tracking-tight text-neutral-900 dark:text-neutral-100">
+              LearnSphere <span className="font-sans text-xs uppercase tracking-widest text-neutral-500 font-semibold">AI</span>
             </span>
           </Link>
-          <p className="text-xs text-neutral-500">
-            Sign in to access your course documents and study history
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 font-serif italic">
+            Enter your academic credentials or use the demonstration profile.
           </p>
         </div>
 
-        <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-4">
-          <div className="space-y-1">
-            <h2 className="text-base font-medium text-neutral-900 dark:text-neutral-100">
-              Sign in
-            </h2>
-            <p className="text-xs text-neutral-500">
-              Enter credentials or continue with student demo
+        <div className="p-8 rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] space-y-6 shadow-sm">
+          <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-4">
+            <h1 className="font-serif text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+              Scholar Sign In
+            </h1>
+            <p className="text-xs text-neutral-500 font-serif italic mt-0.5">
+              Access your indexed monographs, vector embeddings, and recall history.
             </p>
           </div>
 
           {errorMsg && (
-            <div className="p-3 rounded-md bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-xs flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMsg}</span>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              label="Email address"
+              label="University email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="student@university.edu"
+              placeholder="scholar@university.edu"
               required
             />
 
             <Input
-              label="Password"
+              label="Secret key or password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -91,20 +90,20 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full justify-center h-9 text-xs font-medium"
+              className="w-full justify-center h-10 text-xs font-semibold bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200"
               isLoading={isLoading}
             >
-              Sign in
+              Sign in to workspace
             </Button>
           </form>
 
-          <div className="relative my-3">
+          <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[var(--border)]" />
+              <div className="w-full border-t border-[#e6dfd1] dark:border-[#2a2723]" />
             </div>
-            <div className="relative flex justify-center text-[11px]">
-              <span className="bg-[var(--surface)] px-2 text-neutral-400">
-                or
+            <div className="relative flex justify-center text-xs">
+              <span className="bg-[#faf8f5] dark:bg-[#171614] px-3 font-serif italic text-neutral-400">
+                or rapid verification
               </span>
             </div>
           </div>
@@ -113,15 +112,15 @@ export default function LoginPage() {
             type="button"
             variant="outline"
             onClick={handleDevBypass}
-            className="w-full justify-center h-9 text-xs font-medium"
+            className="w-full justify-center h-10 text-xs font-medium border-[#e6dfd1] dark:border-[#2a2723]"
           >
-            <User className="w-3.5 h-3.5 text-neutral-500 mr-1.5" />
-            Continue as student demo
+            <User className="w-3.5 h-3.5 text-neutral-500 mr-2" />
+            Continue as verified student scholar
           </Button>
 
-          <p className="text-center text-xs text-neutral-500 pt-2">
-            Need an account?{" "}
-            <Link href="/register" className="text-neutral-900 dark:text-neutral-100 font-medium hover:underline">
+          <p className="text-center text-xs text-neutral-500 pt-2 border-t border-[#e6dfd1] dark:border-[#2a2723]">
+            New to LearnSphere?{" "}
+            <Link href="/register" className="text-neutral-900 dark:text-neutral-100 font-semibold underline underline-offset-2">
               Register here
             </Link>
           </p>

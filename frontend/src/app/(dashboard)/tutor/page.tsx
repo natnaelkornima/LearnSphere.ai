@@ -18,8 +18,8 @@ import { Conversation, DocumentItem, Message, Citation } from "@/types";
 import { formatDate } from "@/lib/utils";
 
 const SAMPLE_PROMPTS = [
-  "Explain the core concept in simple terms with an analogy",
-  "What key definitions or formulas are introduced in the text?",
+  "Explain the core mechanism in simple terms with an analogy",
+  "What key definitions or theorems are introduced in the text?",
   "Synthesize the author's primary argument into three takeaways",
   "Create a 3-question conceptual check from this material",
 ];
@@ -149,13 +149,13 @@ function TutorContent() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] w-full overflow-hidden bg-[#faf9f6] dark:bg-[#12110e]">
+    <div className="flex h-[calc(100vh-3.5rem)] w-full overflow-hidden bg-[var(--background)] selection:bg-[#e5ddca] dark:selection:bg-[#3b362c]">
       {/* Column 1: Conversations & Document Scoping Sidebar */}
-      <div className="w-72 hidden md:flex flex-col border-r border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex-shrink-0">
-        <div className="p-3.5 border-b border-neutral-200/80 dark:border-neutral-800 space-y-3">
+      <div className="w-72 hidden md:flex flex-col border-r border-[var(--border)] bg-[var(--surface)] flex-shrink-0">
+        <div className="p-3.5 border-b border-[var(--border)] space-y-3">
           <Button
             onClick={startNewConversation}
-            className="w-full justify-center h-8 text-xs"
+            className="w-full justify-center h-8 text-xs font-medium"
             size="sm"
           >
             <Plus className="w-3.5 h-3.5 mr-1.5" /> New conversation
@@ -163,15 +163,15 @@ function TutorContent() {
 
           {/* Document Scope Selector */}
           <div className="space-y-1">
-            <label className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+            <label className="text-[11px] font-mono uppercase tracking-wider text-neutral-500">
               Grounded document scope
             </label>
             <select
               value={selectedDocId}
               onChange={(e) => setSelectedDocId(e.target.value)}
-              className="w-full text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-neutral-50/70 dark:bg-neutral-800/80 p-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-primary-600"
+              className="w-full text-xs rounded-md border border-[var(--border)] bg-[var(--surface-secondary)] p-2 text-neutral-950 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 cursor-pointer"
             >
-              <option value="">All indexed documents</option>
+              <option value="">All indexed course documents</option>
               {documents
                 .filter((d) => d.status === "ready")
                 .map((d) => (
@@ -185,8 +185,8 @@ function TutorContent() {
 
         {/* Conversation list */}
         <div className="flex-1 overflow-y-auto p-2 space-y-0.5">
-          <p className="px-2 pt-1 pb-1 text-[11px] font-medium text-neutral-400 dark:text-neutral-500">
-            Recent sessions
+          <p className="px-2.5 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+            Recent Socratic Sessions
           </p>
           {isLoadingHistory ? (
             <div className="space-y-1.5 p-2">
@@ -195,7 +195,7 @@ function TutorContent() {
               <Skeleton className="h-8 w-full rounded" />
             </div>
           ) : conversations.length === 0 ? (
-            <div className="p-4 text-center text-xs text-neutral-400">
+            <div className="p-4 text-center text-xs text-neutral-400 font-serif">
               No previous conversations.
             </div>
           ) : (
@@ -205,10 +205,10 @@ function TutorContent() {
                 <button
                   key={c.id}
                   onClick={() => selectConversation(c)}
-                  className={`w-full text-left px-2.5 py-2 rounded-md text-xs font-medium flex items-center justify-between transition-colors ${
+                  className={`w-full text-left px-2.5 py-2 rounded-md text-xs font-medium flex items-center justify-between transition-colors cursor-pointer ${
                     isSelected
-                      ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
-                      : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850"
+                      ? "bg-[var(--surface-secondary)] text-neutral-950 dark:text-neutral-50 font-semibold"
+                      : "text-neutral-600 dark:text-neutral-400 hover:bg-[var(--surface-secondary)] hover:text-neutral-900 dark:hover:text-neutral-100 font-normal"
                   }`}
                 >
                   <div className="truncate flex items-center gap-2">
@@ -226,15 +226,15 @@ function TutorContent() {
       </div>
 
       {/* Column 2: Main Chat Canvas */}
-      <div className="flex-1 flex flex-col min-w-0 bg-[#faf9f6] dark:bg-[#12110e]">
+      <div className="flex-1 flex flex-col min-w-0 bg-[var(--background)]">
         {/* Chat Header */}
-        <div className="h-13 px-6 border-b border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-between">
+        <div className="h-13 px-6 border-b border-[var(--border)] bg-[var(--surface)] flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-7 h-7 rounded border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 flex items-center justify-center text-neutral-700 dark:text-neutral-300">
+            <div className="w-7 h-7 rounded border border-[var(--border)] bg-[var(--surface-secondary)] flex items-center justify-center text-neutral-700 dark:text-neutral-300">
               <BookOpen className="w-3.5 h-3.5" />
             </div>
             <div className="truncate">
-              <h3 className="font-medium text-xs text-neutral-900 dark:text-neutral-100 truncate">
+              <h3 className="font-serif font-medium text-xs text-neutral-950 dark:text-neutral-50 truncate">
                 {activeConv?.title || "Socratic AI Tutor"}
               </h3>
               <p className="text-[11px] text-neutral-500 truncate">
@@ -250,7 +250,7 @@ function TutorContent() {
               size="sm"
               variant="outline"
               onClick={() => setIsInspectorOpen(true)}
-              className="text-xs h-7"
+              className="text-xs h-7 px-2.5 font-medium"
             >
               <BookOpen className="w-3 h-3 mr-1.5" /> Source citation
             </Button>
@@ -261,25 +261,25 @@ function TutorContent() {
         <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
           {messages.length === 0 ? (
             <div className="max-w-xl mx-auto py-12 text-center space-y-6">
-              <div className="w-10 h-10 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-850 mx-auto flex items-center justify-center text-neutral-700 dark:text-neutral-300">
+              <div className="w-10 h-10 rounded border border-[var(--border)] bg-[var(--surface)] mx-auto flex items-center justify-center text-neutral-800 dark:text-neutral-200">
                 <BookOpen className="w-5 h-5" />
               </div>
-              <div className="space-y-1.5">
-                <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+              <div className="space-y-2">
+                <h3 className="text-xl font-serif font-normal text-neutral-950 dark:text-neutral-50">
                   What would you like to examine today?
                 </h3>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-md mx-auto">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-md mx-auto leading-relaxed">
                   Ask targeted questions about your course materials. Every response includes verifiable page citations from the original text.
                 </p>
               </div>
 
               {/* Sample Prompts */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left pt-2">
                 {SAMPLE_PROMPTS.map((prompt, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSendMessage(prompt)}
-                    className="p-3 text-xs rounded-md border border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors text-neutral-700 dark:text-neutral-300 flex items-center justify-between group"
+                    className="p-3 text-xs rounded-md border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-secondary)] transition-colors text-neutral-800 dark:text-neutral-200 flex items-center justify-between group cursor-pointer"
                   >
                     <span>{prompt}</span>
                     <ChevronRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors flex-shrink-0 ml-2" />
@@ -301,8 +301,8 @@ function TutorContent() {
                   <div
                     className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 text-[10px] font-mono border ${
                       isAssistant
-                        ? "border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-850 text-neutral-700 dark:text-neutral-300"
-                        : "border-neutral-300 dark:border-neutral-700 bg-neutral-900 text-neutral-100 dark:bg-neutral-100 dark:text-neutral-900"
+                        ? "border-[var(--border)] bg-[var(--surface)] text-neutral-800 dark:text-neutral-200"
+                        : "border-neutral-800 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
                     }`}
                   >
                     {isAssistant ? "AI" : "YOU"}
@@ -312,23 +312,24 @@ function TutorContent() {
                   <div
                     className={`rounded-lg p-4 text-[13.5px] leading-relaxed ${
                       isAssistant
-                        ? "bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-neutral-900 dark:text-neutral-100"
-                        : "bg-neutral-900 text-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
+                        ? "bg-[var(--surface)] border border-[var(--border)] text-neutral-950 dark:text-neutral-50 shadow-2xs font-serif"
+                        : "bg-neutral-900 text-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 font-sans"
                     }`}
                   >
                     <div className="whitespace-pre-wrap">{msg.content}</div>
 
                     {/* Citations List if available */}
                     {isAssistant && msg.citations && msg.citations.length > 0 && (
-                      <div className="mt-3 pt-2.5 border-t border-neutral-100 dark:border-neutral-800/80 flex flex-wrap items-center gap-1.5">
-                        <span className="text-[11px] font-medium text-neutral-400 dark:text-neutral-500 mr-1">
+                      <div className="mt-3 pt-2.5 border-t border-[var(--border)] flex flex-wrap items-center gap-1.5 font-sans">
+                        <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500 mr-1">
                           Citations:
                         </span>
                         {msg.citations.map((c, i) => (
                           <button
                             key={i}
+                            type="button"
                             onClick={() => openCitationInspector(c)}
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-mono border border-primary-200 dark:border-primary-900 bg-primary-50/60 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 hover:border-primary-400 dark:hover:border-primary-700 transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-mono border border-[#c4533a]/30 bg-[#fbf2ee] dark:bg-[#2d1b16] text-[#9e3722] dark:text-[#ea7258] hover:bg-[#f6e5dd] transition-colors cursor-pointer"
                           >
                             <span>
                               p. {c.page_start || 1}
@@ -346,12 +347,12 @@ function TutorContent() {
 
           {isSending && (
             <div className="flex gap-3 max-w-3xl mr-auto items-center">
-              <div className="w-6 h-6 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-850 flex items-center justify-center text-[10px] font-mono text-neutral-500">
+              <div className="w-6 h-6 rounded border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[10px] font-mono text-neutral-500">
                 AI
               </div>
-              <div className="px-3.5 py-2.5 rounded-lg bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 text-xs text-neutral-500 flex items-center gap-2">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary-600 animate-pulse" />
-                <span>Searching indexed chunks and formulating response...</span>
+              <div className="px-3.5 py-2.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-xs text-neutral-500 flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#9e3722] animate-pulse" />
+                <span>Searching indexed document chunks and formulating Socratic response...</span>
               </div>
             </div>
           )}
@@ -359,7 +360,7 @@ function TutorContent() {
         </div>
 
         {/* Chat Input Bar */}
-        <div className="p-3.5 bg-white dark:bg-neutral-900 border-t border-neutral-200/80 dark:border-neutral-800">
+        <div className="p-3.5 bg-[var(--surface)] border-t border-[var(--border)]">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -378,14 +379,14 @@ function TutorContent() {
               }}
               placeholder="Ask a question about the document text (e.g., 'What is the proof on page 14?')..."
               rows={1}
-              className="flex-1 min-h-[38px] max-h-32 p-2.5 text-xs rounded-md border border-neutral-300 dark:border-neutral-700 bg-neutral-50/70 dark:bg-neutral-800/80 focus:outline-none focus:ring-1 focus:ring-primary-600 resize-none text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
+              className="flex-1 min-h-[38px] max-h-32 p-2.5 text-xs rounded-md border border-[var(--border)] bg-[var(--surface-secondary)] focus:outline-none focus:ring-1 focus:ring-neutral-900 resize-none text-neutral-950 dark:text-neutral-50 placeholder:text-neutral-400"
             />
             <Button
               type="submit"
               disabled={!inputMessage.trim() || isSending}
               isLoading={isSending}
               size="sm"
-              className="h-[38px] px-3.5"
+              className="h-[38px] px-3.5 font-medium"
             >
               <Send className="w-3.5 h-3.5" />
             </Button>
@@ -395,34 +396,34 @@ function TutorContent() {
 
       {/* Column 3: Collapsible Citation Inspector / Excerpt Viewer */}
       {isInspectorOpen && activeCitation && (
-        <div className="w-80 md:w-96 border-l border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex flex-col flex-shrink-0 animate-in slide-in-from-right duration-150">
-          <div className="h-13 px-4 border-b border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between">
+        <div className="w-80 md:w-96 border-l border-[var(--border)] bg-[var(--surface)] flex flex-col flex-shrink-0 animate-in slide-in-from-right duration-150">
+          <div className="h-13 px-4 border-b border-[var(--border)] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <BookOpen className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-300" />
-              <h4 className="font-medium text-xs text-neutral-900 dark:text-neutral-100">
-                Source reference
+              <BookOpen className="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300" />
+              <h4 className="font-serif font-medium text-xs text-neutral-950 dark:text-neutral-50">
+                Source Document Coordinate
               </h4>
             </div>
             <button
               onClick={() => setIsInspectorOpen(false)}
-              className="p-1 rounded text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
+              className="p-1 rounded text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            <div className="p-3 rounded-md bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-700/80 space-y-1.5">
+            <div className="p-3 rounded-md bg-[var(--surface-secondary)] border border-[var(--border)] space-y-1.5">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                <span className="text-xs font-serif font-medium text-neutral-950 dark:text-neutral-50 truncate">
                   {activeCitation.document_title || "Document"}
                 </span>
-                <Badge variant="outline" className="font-mono text-[10px]">
+                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded border border-[#c4533a]/30 bg-[#fbf2ee] dark:bg-[#2d1b16] text-[#9e3722] dark:text-[#ea7258]">
                   p. {activeCitation.page_start || 1}
                   {activeCitation.page_end && activeCitation.page_end !== activeCitation.page_start
                     ? `–${activeCitation.page_end}`
                     : ""}
-                </Badge>
+                </span>
               </div>
               {activeCitation.relevance_score && (
                 <p className="text-[10px] font-mono tabular-nums text-neutral-500">
@@ -432,16 +433,16 @@ function TutorContent() {
             </div>
 
             <div className="space-y-1.5">
-              <h5 className="text-[11px] font-medium text-neutral-500">
-                Extracted verbatim excerpt
+              <h5 className="text-[11px] font-mono uppercase tracking-wider text-neutral-500">
+                Extracted Verbatim Excerpt
               </h5>
-              <div className="p-3.5 rounded-md bg-[#faf8f2] dark:bg-[#181714] border border-[#e6dfd1] dark:border-[#2e2a22] text-xs leading-relaxed font-mono text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap selection:bg-amber-200 dark:selection:bg-amber-900">
+              <div className="p-3.5 rounded-md bg-[#faf8f2] dark:bg-[#181613] border border-[#e4dbca] dark:border-[#38332a] text-xs leading-relaxed font-serif text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap selection:bg-[#e5ddca] dark:selection:bg-[#3b362c]">
                 {activeCitation.excerpt || "No excerpt text available."}
               </div>
             </div>
 
-            <p className="text-[11px] text-neutral-400 leading-normal">
-              Indexed from the original document chunk via vector embeddings to ensure fidelity.
+            <p className="text-[11px] text-neutral-400 leading-normal font-sans">
+              Extracted from page-preserving chunks via vector embeddings to ensure scholarly fidelity.
             </p>
           </div>
         </div>
