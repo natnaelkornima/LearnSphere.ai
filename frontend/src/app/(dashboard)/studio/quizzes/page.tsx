@@ -2,9 +2,7 @@
 
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Skeleton } from "@/components/ui/Skeleton";
 import {
@@ -140,14 +138,14 @@ function QuizzesContent() {
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-5xl mx-auto space-y-8">
-      {/* Editorial Header */}
-      <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-6">
-        <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Evaluative Assessments
+    <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8 font-sans">
+      {/* Page Header */}
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          Diagnostic Practice Assessments
         </h1>
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 font-serif italic">
-          Diagnostic multiple-choice tests synthesized and evaluated against your primary source literature.
+        <p className="mt-1 text-xs text-slate-500">
+          Multiple-choice exams synthesized and evaluated against your primary course literature.
         </p>
       </div>
 
@@ -155,12 +153,12 @@ function QuizzesContent() {
       {mode === "setup" && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 space-y-6 shadow-xs">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6 shadow-2xs">
               <div>
-                <h2 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
                   Configure assessment parameters
                 </h2>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   Questions are generated deterministically from semantic text chunks with exact citations.
                 </p>
               </div>
@@ -174,13 +172,13 @@ function QuizzesContent() {
 
               {/* Document Selector */}
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+                <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
                   Source text
                 </label>
                 <select
                   value={selectedDocId}
                   onChange={(e) => setSelectedDocId(e.target.value)}
-                  className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200"
+                  className="w-full text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
                 >
                   <option value="">Select an indexed reading...</option>
                   {documents.map((d) => (
@@ -194,33 +192,33 @@ function QuizzesContent() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Question Count */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+                  <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
                     Question count
                   </label>
                   <select
                     value={questionCount}
                     onChange={(e) => setQuestionCount(Number(e.target.value))}
-                    className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200"
+                    className="w-full text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   >
                     <option value={3}>3 questions (focused check)</option>
-                    <option value={5}>5 questions (standard battery)</option>
+                    <option value={5}>5 questions (standard set)</option>
                     <option value={10}>10 questions (comprehensive exam)</option>
                   </select>
                 </div>
 
                 {/* Difficulty */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
-                    Cognitive rigor
+                  <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                    Difficulty level
                   </label>
                   <select
                     value={difficulty}
                     onChange={(e) => setDifficulty(e.target.value)}
-                    className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200"
+                    className="w-full text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   >
                     <option value="easy">Foundational (retrieval & terminology)</option>
-                    <option value="medium">Standard (application & analytical comparison)</option>
-                    <option value="hard">Advanced (synthetic deduction & critical case)</option>
+                    <option value="medium">Standard (application & analysis)</option>
+                    <option value="hard">Advanced (deduction & case study)</option>
                   </select>
                 </div>
               </div>
@@ -229,7 +227,7 @@ function QuizzesContent() {
                 onClick={handleGenerate}
                 disabled={!selectedDocId || isGenerating}
                 isLoading={isGenerating}
-                className="w-full justify-center h-10 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+                className="w-full justify-center h-10 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               >
                 <Brain className="w-3.5 h-3.5 mr-2" />
                 {isGenerating ? "Synthesizing exam..." : "Create practice assessment"}
@@ -239,32 +237,32 @@ function QuizzesContent() {
 
           {/* Previous Quizzes Column */}
           <div>
-            <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-4 shadow-xs">
-              <h2 className="font-serif text-sm font-semibold text-neutral-900 dark:text-neutral-100 pb-2 border-b border-[#e6dfd1] dark:border-[#2a2723]">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4 shadow-2xs">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 pb-2 border-b border-slate-100 dark:border-slate-800">
                 Available tests
               </h2>
 
               <div className="space-y-2.5 max-h-96 overflow-y-auto">
                 {isLoadingHistory ? (
                   <div className="space-y-2">
-                    <Skeleton className="h-12 w-full rounded-lg" />
-                    <Skeleton className="h-12 w-full rounded-lg" />
+                    <Skeleton className="h-12 w-full rounded-xl" />
+                    <Skeleton className="h-12 w-full rounded-xl" />
                   </div>
                 ) : previousQuizzes.length === 0 ? (
-                  <p className="text-xs text-neutral-400 text-center py-6 font-serif italic">
+                  <p className="text-xs text-slate-400 text-center py-6">
                     No assessments generated yet.
                   </p>
                 ) : (
                   previousQuizzes.map((q) => (
                     <div
                       key={q.id}
-                      className="p-3 rounded-lg border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] flex items-center justify-between gap-3 hover:border-neutral-400 transition-colors"
+                      className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850 flex items-center justify-between gap-3 hover:border-slate-300 transition-colors"
                     >
                       <div className="min-w-0">
-                        <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                        <p className="text-xs font-medium text-slate-900 dark:text-slate-100 truncate">
                           {q.title}
                         </p>
-                        <p className="text-[11px] font-mono tabular-nums text-neutral-500 dark:text-neutral-400 mt-0.5">
+                        <p className="text-[11px] text-slate-500 mt-0.5">
                           {q.questions?.length || 0} items • {q.difficulty}
                         </p>
                       </div>
@@ -272,7 +270,7 @@ function QuizzesContent() {
                         size="sm"
                         variant="outline"
                         onClick={() => handleStartExisting(q.id)}
-                        className="h-7 text-xs px-2.5 font-mono"
+                        className="h-7 text-xs px-2.5 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       >
                         Start
                       </Button>
@@ -287,19 +285,19 @@ function QuizzesContent() {
 
       {/* MODE 2: ACTIVE QUIZ PLAYER */}
       {mode === "playing" && activeQuiz && currentQuestion && (
-        <div className="max-w-3xl mx-auto rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] overflow-hidden shadow-xs">
+        <div className="max-w-3xl mx-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
           {/* Header Bar */}
-          <div className="p-6 border-b border-[#e6dfd1] dark:border-[#2a2723] space-y-3 bg-white/70 dark:bg-[#1c1b18]">
+          <div className="p-6 border-b border-slate-200 dark:border-slate-800 space-y-3 bg-slate-50/70 dark:bg-slate-850">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-serif text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                   {activeQuiz.title}
                 </h2>
-                <p className="text-xs font-mono tabular-nums text-neutral-500 dark:text-neutral-400 mt-0.5">
-                  Question {String(currentQIndex + 1).padStart(2, "0")} of {String(activeQuiz.questions.length).padStart(2, "0")}
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Question {currentQIndex + 1} of {activeQuiz.questions.length}
                 </p>
               </div>
-              <span className="px-2 py-0.5 rounded border border-[#e6dfd1] dark:border-[#2e2a25] font-mono text-[10px] uppercase text-neutral-600 dark:text-neutral-400">
+              <span className="px-2.5 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-[11px] font-medium text-slate-600 dark:text-slate-300">
                 {activeQuiz.difficulty}
               </span>
             </div>
@@ -312,10 +310,10 @@ function QuizzesContent() {
           {/* Question Body */}
           <div className="p-8 space-y-6">
             <div className="space-y-2">
-              <span className="text-xs font-mono tabular-nums uppercase tracking-wider text-neutral-500">
-                Item {String(currentQIndex + 1).padStart(2, "0")}
+              <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                Question {currentQIndex + 1}
               </span>
-              <h3 className="font-serif text-lg md:text-xl font-medium text-neutral-900 dark:text-neutral-100 leading-snug">
+              <h3 className="text-lg md:text-xl font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {currentQuestion.prompt || currentQuestion.question_text}
               </h3>
             </div>
@@ -331,26 +329,26 @@ function QuizzesContent() {
                     onClick={() => selectOption(currentQuestion.id, key)}
                     className={`w-full p-4 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
                       isSelected
-                        ? "border-neutral-900 dark:border-neutral-100 bg-white dark:bg-[#23211d] shadow-xs"
-                        : "border-[#e6dfd1] dark:border-[#2a2723] hover:border-neutral-400 bg-white/80 dark:bg-[#1a1917]"
+                        ? "border-blue-600 bg-blue-50/60 dark:bg-blue-950/40 text-blue-900 dark:text-blue-100 shadow-xs"
+                        : "border-slate-200 dark:border-slate-800 hover:border-slate-300 bg-white dark:bg-slate-900"
                     }`}
                   >
                     <div className="flex items-center gap-3.5">
                       <span
-                        className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono text-xs font-semibold uppercase border transition-colors ${
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold uppercase border transition-colors ${
                           isSelected
-                            ? "bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 border-transparent"
-                            : "bg-neutral-100 dark:bg-[#23211d] border-[#e6dfd1] dark:border-[#2e2a25] text-neutral-700 dark:text-neutral-300"
+                            ? "bg-blue-600 text-white border-transparent"
+                            : "bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
                         }`}
                       >
                         {key}
                       </span>
-                      <span className="text-sm text-neutral-900 dark:text-neutral-100 leading-relaxed font-sans">
+                      <span className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
                         {label}
                       </span>
                     </div>
                     {isSelected && (
-                      <Check className="w-4 h-4 text-neutral-900 dark:text-neutral-100 flex-shrink-0" />
+                      <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                     )}
                   </button>
                 );
@@ -359,13 +357,13 @@ function QuizzesContent() {
           </div>
 
           {/* Player Footer & Quick-Jump */}
-          <div className="px-8 py-4 bg-white/80 dark:bg-[#191816] border-t border-[#e6dfd1] dark:border-[#2a2723] flex items-center justify-between">
+          <div className="px-8 py-4 bg-slate-50 dark:bg-slate-850 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <Button
               variant="outline"
               size="sm"
               disabled={currentQIndex === 0}
               onClick={() => setCurrentQIndex((prev) => prev - 1)}
-              className="h-8 text-xs border-[#e6dfd1] dark:border-[#2a2723]"
+              className="h-8 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
             >
               <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Previous
             </Button>
@@ -379,12 +377,12 @@ function QuizzesContent() {
                   <button
                     key={q.id}
                     onClick={() => setCurrentQIndex(idx)}
-                    className={`w-7 h-7 rounded-lg text-xs font-mono tabular-nums font-medium transition-colors cursor-pointer ${
+                    className={`w-7 h-7 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                       isCurrent
-                        ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+                        ? "bg-blue-600 text-white font-semibold"
                         : answered
-                        ? "border border-neutral-300 dark:border-neutral-700 bg-neutral-200 dark:bg-[#2e2a25] text-neutral-900 dark:text-neutral-100"
-                        : "border border-transparent text-neutral-400 hover:border-[#e6dfd1]"
+                        ? "bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200"
+                        : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                     }`}
                   >
                     {idx + 1}
@@ -397,16 +395,16 @@ function QuizzesContent() {
               <Button
                 size="sm"
                 onClick={() => setCurrentQIndex((prev) => prev + 1)}
-                className="h-8 text-xs bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+                className="h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               >
-                Next item <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                Next question <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             ) : (
               <Button
                 size="sm"
                 onClick={handleSubmitQuiz}
                 isLoading={isSubmitting}
-                className="h-8 text-xs font-semibold bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+                className="h-8 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white border-transparent"
               >
                 Submit assessment
               </Button>
@@ -419,26 +417,26 @@ function QuizzesContent() {
       {mode === "results" && quizResult && activeQuiz && (
         <div className="space-y-8 max-w-3xl mx-auto">
           {/* Score Header Card */}
-          <div className="rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-8 text-center space-y-6 shadow-xs">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-6 shadow-2xs">
             <div>
-              <span className="font-mono text-xs uppercase tracking-wider text-neutral-500">
-                Evaluation Summary
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Assessment Results
               </span>
-              <h2 className="font-serif text-2xl font-semibold text-neutral-900 dark:text-neutral-100 mt-1">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mt-1">
                 {activeQuiz.title}
               </h2>
             </div>
 
-            <div className="inline-grid grid-cols-2 gap-8 px-8 py-5 rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a]">
+            <div className="inline-grid grid-cols-2 gap-8 px-8 py-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850">
               <div>
-                <p className="text-xs font-mono uppercase tracking-wider text-neutral-500">Score percentage</p>
-                <p className="text-3xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100 mt-1">
+                <p className="text-xs font-medium text-slate-500">Overall score</p>
+                <p className="text-3xl font-bold tabular-nums text-slate-900 dark:text-slate-100 mt-1">
                   {quizResult.score_percentage ?? quizResult.percentage ?? 0}%
                 </p>
               </div>
-              <div className="border-l border-[#e6dfd1] dark:border-[#2a2723] pl-8">
-                <p className="text-xs font-mono uppercase tracking-wider text-neutral-500">Correct answers</p>
-                <p className="text-3xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100 mt-1">
+              <div className="border-l border-slate-200 dark:border-slate-700 pl-8">
+                <p className="text-xs font-medium text-slate-500">Correct answers</p>
+                <p className="text-3xl font-bold tabular-nums text-slate-900 dark:text-slate-100 mt-1">
                   {quizResult.correct_answers_count ?? quizResult.correct_count} / {quizResult.total_questions_count ?? activeQuiz.questions.length}
                 </p>
               </div>
@@ -453,14 +451,14 @@ function QuizzesContent() {
                   setCurrentQIndex(0);
                   setMode("playing");
                 }}
-                className="h-8 text-xs border-[#e6dfd1] dark:border-[#2a2723]"
+                className="h-8 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
               >
                 <RotateCw className="w-3.5 h-3.5 mr-1.5" /> Retake assessment
               </Button>
               <Button
                 size="sm"
                 onClick={() => setMode("setup")}
-                className="h-8 text-xs bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+                className="h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               >
                 New assessment
               </Button>
@@ -469,8 +467,8 @@ function QuizzesContent() {
 
           {/* Question Breakdown with Explanations */}
           <div className="space-y-4">
-            <h2 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-              Diagnostic item breakdown & grounding
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+              Item breakdown and explanations
             </h2>
 
             {activeQuiz.questions.map((q, idx) => {
@@ -489,47 +487,47 @@ function QuizzesContent() {
               return (
                 <div
                   key={q.id}
-                  className={`rounded-xl border p-5 space-y-3 bg-[#faf8f5] dark:bg-[#171614] ${
+                  className={`rounded-2xl border p-5 space-y-3 bg-white dark:bg-slate-900 shadow-2xs ${
                     isCorrect
-                      ? "border-emerald-300 dark:border-emerald-800/60"
-                      : "border-red-300 dark:border-red-800/60"
+                      ? "border-emerald-200 dark:border-emerald-800"
+                      : "border-red-200 dark:border-red-800"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="space-y-1">
-                      <span className="text-[10px] font-mono tabular-nums text-neutral-500 uppercase">
-                        Item {String(idx + 1).padStart(2, "0")}
+                      <span className="text-xs font-semibold text-slate-400">
+                        Item {idx + 1}
                       </span>
-                      <h3 className="font-serif text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                         {q.prompt || q.question_text}
                       </h3>
                     </div>
                     <span
-                      className={`px-2 py-0.5 rounded font-mono text-[10px] uppercase font-semibold flex-shrink-0 ${
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 ${
                         isCorrect
-                          ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300"
-                          : "bg-red-100 dark:bg-red-950/60 text-red-800 dark:text-red-300"
+                          ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+                          : "bg-red-50 dark:bg-red-950/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800"
                       }`}
                     >
                       {isCorrect ? "Correct" : "Incorrect"}
                     </span>
                   </div>
 
-                  <div className="text-xs font-mono space-y-1 pt-1 text-neutral-700 dark:text-neutral-300">
+                  <div className="text-xs space-y-1 pt-1 text-slate-600 dark:text-slate-400">
                     <p>
-                      Selected response: <span className="font-bold">{selectedKey || "None"}</span>
+                      Your answer: <span className="font-semibold text-slate-900 dark:text-slate-100">{selectedKey || "None"}</span>
                     </p>
                     {!isCorrect && (
-                      <p className="text-emerald-700 dark:text-emerald-400">
-                        Verified key: <span className="font-bold">{correctKey}</span>
+                      <p className="text-emerald-600 dark:text-emerald-400">
+                        Correct answer: <span className="font-semibold">{correctKey}</span>
                       </p>
                     )}
                   </div>
 
                   {explanationText && (
-                    <div className="p-3.5 rounded-lg bg-white dark:bg-[#1f1d1a] border border-[#e6dfd1] dark:border-[#2a2723] text-xs leading-relaxed text-neutral-700 dark:text-neutral-300 font-serif">
-                      <span className="font-sans font-semibold text-neutral-900 dark:text-neutral-100 not-italic mr-1">
-                        Pedagogical rationale:
+                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs leading-relaxed text-slate-700 dark:text-slate-300 font-sans">
+                      <span className="font-semibold text-slate-900 dark:text-slate-100 mr-1">
+                        Rationale:
                       </span>
                       {explanationText}
                     </div>
@@ -546,7 +544,7 @@ function QuizzesContent() {
 
 export default function QuizzesPage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400 font-mono">Loading assessment suite...</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-xs text-slate-400">Loading quizzes...</div>}>
       <QuizzesContent />
     </Suspense>
   );

@@ -2,9 +2,7 @@
 
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Skeleton } from "@/components/ui/Skeleton";
 import {
@@ -13,9 +11,6 @@ import {
   AlertCircle,
   CheckCircle2,
   BookOpen,
-  ArrowRight,
-  ArrowLeft,
-  Sparkles,
 } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
 import { DocumentItem, Flashcard, FlashcardSet } from "@/types";
@@ -166,14 +161,14 @@ function FlashcardsContent() {
   const currentCard: Flashcard | undefined = activeSet?.cards?.[currentIndex];
 
   return (
-    <div className="p-6 md:p-10 max-w-5xl mx-auto space-y-8">
-      {/* Editorial Header */}
-      <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-6">
-        <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+    <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8 font-sans">
+      {/* Page Header */}
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           Spaced Retrieval Flashcards
         </h1>
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 font-serif italic">
-          Active recall drills with keyboard-navigated physical card decks.
+        <p className="mt-1 text-xs text-slate-500">
+          Active recall drills with keyboard-navigated interactive card decks.
         </p>
       </div>
 
@@ -181,13 +176,13 @@ function FlashcardsContent() {
       {mode === "setup" && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 space-y-6 shadow-xs">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6 shadow-2xs">
               <div>
-                <h2 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
                   Synthesize new study deck
                 </h2>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
-                  Extract core principles, theoretical distinctions, and terminology into active recall pairs.
+                <p className="text-xs text-slate-500 mt-1">
+                  Extract core principles, definitions, and conceptual questions into active recall cards.
                 </p>
               </div>
 
@@ -200,13 +195,13 @@ function FlashcardsContent() {
 
               {/* Document Selector */}
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
-                  Source text
+                <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                  Source reading
                 </label>
                 <select
                   value={selectedDocId}
                   onChange={(e) => setSelectedDocId(e.target.value)}
-                  className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200"
+                  className="w-full text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
                 >
                   <option value="">Select an indexed reading...</option>
                   {documents.map((d) => (
@@ -219,31 +214,27 @@ function FlashcardsContent() {
 
               {/* Card Count */}
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+                <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
                   Deck volume
                 </label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { count: 5, label: "5 cards", desc: "Rapid review" },
                     { count: 10, label: "10 cards", desc: "Standard session" },
-                    { count: 15, label: "15 cards", desc: "Deep consolidation" },
+                    { count: 15, label: "15 cards", desc: "Deep recall" },
                   ].map((option) => (
                     <button
                       key={option.count}
                       type="button"
                       onClick={() => setCardCount(option.count)}
-                      className={`p-3 rounded-lg border text-left transition-colors cursor-pointer ${
+                      className={`p-3 rounded-xl border text-left transition-colors cursor-pointer ${
                         cardCount === option.count
-                          ? "border-neutral-900 dark:border-neutral-100 bg-white dark:bg-[#23211d] shadow-xs"
-                          : "border-[#e6dfd1] dark:border-[#2a2723] bg-neutral-50/50 dark:bg-[#1a1917] hover:border-neutral-400"
+                          ? "border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 shadow-xs"
+                          : "border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-850 hover:border-slate-300"
                       }`}
                     >
-                      <div className="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-                        {option.label}
-                      </div>
-                      <div className="text-[11px] text-neutral-500 mt-0.5">
-                        {option.desc}
-                      </div>
+                      <div className="text-xs font-semibold">{option.label}</div>
+                      <div className="text-[11px] text-slate-500 mt-0.5">{option.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -253,7 +244,7 @@ function FlashcardsContent() {
                 onClick={handleGenerate}
                 disabled={!selectedDocId || isGenerating}
                 isLoading={isGenerating}
-                className="w-full justify-center h-10 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+                className="w-full justify-center h-10 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               >
                 <Layers className="w-3.5 h-3.5 mr-2" />
                 {isGenerating ? "Synthesizing cards..." : "Generate study deck"}
@@ -263,32 +254,32 @@ function FlashcardsContent() {
 
           {/* Existing Decks Column */}
           <div>
-            <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-4 shadow-xs">
-              <h2 className="font-serif text-sm font-semibold text-neutral-900 dark:text-neutral-100 pb-2 border-b border-[#e6dfd1] dark:border-[#2a2723]">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4 shadow-2xs">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 pb-2 border-b border-slate-100 dark:border-slate-800">
                 Saved study decks
               </h2>
 
               <div className="space-y-2.5 max-h-96 overflow-y-auto">
                 {isLoadingHistory ? (
                   <div className="space-y-2">
-                    <Skeleton className="h-12 w-full rounded-lg" />
-                    <Skeleton className="h-12 w-full rounded-lg" />
+                    <Skeleton className="h-12 w-full rounded-xl" />
+                    <Skeleton className="h-12 w-full rounded-xl" />
                   </div>
                 ) : deckSets.length === 0 ? (
-                  <p className="text-xs text-neutral-400 text-center py-6 font-serif italic">
+                  <p className="text-xs text-slate-400 text-center py-6">
                     No flashcard sets generated yet. Select a reading to synthesize your first deck.
                   </p>
                 ) : (
                   deckSets.map((ds) => (
                     <div
                       key={ds.id}
-                      className="p-3 rounded-lg border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] flex items-center justify-between gap-3 hover:border-neutral-400 transition-colors"
+                      className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850 flex items-center justify-between gap-3 hover:border-slate-300 transition-colors"
                     >
                       <div className="min-w-0">
-                        <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                        <p className="text-xs font-medium text-slate-900 dark:text-slate-100 truncate">
                           {ds.title}
                         </p>
-                        <p className="text-[11px] font-mono tabular-nums text-neutral-500 dark:text-neutral-400 mt-0.5">
+                        <p className="text-[11px] text-slate-500 mt-0.5">
                           {ds.cards?.length || 0} cards • {formatDate(ds.created_at)}
                         </p>
                       </div>
@@ -296,7 +287,7 @@ function FlashcardsContent() {
                         size="sm"
                         variant="outline"
                         onClick={() => handleStartExisting(ds.id)}
-                        className="h-7 text-xs px-2.5 font-mono"
+                        className="h-7 text-xs px-2.5 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       >
                         Study
                       </Button>
@@ -313,21 +304,21 @@ function FlashcardsContent() {
       {mode === "study" && activeSet && currentCard && (
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Header & Progress */}
-          <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-3">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3 shadow-2xs">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-serif text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                   {activeSet.title}
                 </h2>
-                <p className="text-xs font-mono tabular-nums text-neutral-500 dark:text-neutral-400 mt-0.5">
-                  Card {String(currentIndex + 1).padStart(2, "0")} of {String(activeSet.cards.length).padStart(2, "0")}
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Card {currentIndex + 1} of {activeSet.cards.length}
                 </p>
               </div>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setMode("setup")}
-                className="text-xs h-7 border-[#e6dfd1] dark:border-[#2a2723]"
+                className="text-xs h-7 border-slate-200 dark:border-slate-700"
               >
                 Exit session
               </Button>
@@ -343,18 +334,18 @@ function FlashcardsContent() {
             onClick={() => setIsFlipped((prev) => !prev)}
           >
             <div
-              className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] shadow-md ${
+              className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm ${
                 isFlipped ? "[transform:rotateY(180deg)]" : ""
               }`}
             >
-              {/* FRONT: Front Prompt / Question */}
-              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-[#faf8f5] dark:bg-[#181715] rounded-2xl p-8 flex flex-col justify-between border border-[#e6dfd1] dark:border-[#2e2a25]">
-                <div className="flex items-center justify-between border-b border-[#e6dfd1] dark:border-[#2a2723] pb-3">
-                  <span className="font-mono text-xs uppercase tracking-wider text-neutral-500">
+              {/* FRONT: Front Prompt */}
+              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-white dark:bg-slate-900 rounded-2xl p-8 flex flex-col justify-between border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                  <span className="text-xs font-medium text-slate-400">
                     Prompt
                   </span>
-                  <span className="text-xs font-mono text-neutral-500 flex items-center gap-1.5">
-                    <kbd className="px-2 py-0.5 rounded border border-[#d6cfc1] dark:border-[#38332c] bg-white dark:bg-[#23211d] text-[10px] font-semibold text-neutral-700 dark:text-neutral-300 shadow-2xs">
+                  <span className="text-xs text-slate-400 flex items-center gap-1.5">
+                    <kbd className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-[10px] font-semibold text-slate-700 dark:text-slate-300">
                       Space
                     </kbd>
                     <span>flip card</span>
@@ -362,24 +353,24 @@ function FlashcardsContent() {
                 </div>
 
                 <div className="text-center my-auto px-6 py-4">
-                  <p className="font-serif text-xl md:text-2xl font-medium text-neutral-900 dark:text-neutral-100 leading-relaxed">
+                  <p className="text-xl md:text-2xl font-medium text-slate-900 dark:text-slate-100 leading-snug">
                     {currentCard.front || currentCard.front_content}
                   </p>
                 </div>
 
-                <div className="text-center text-xs font-serif italic text-neutral-500 dark:text-neutral-400 pt-2 border-t border-[#e6dfd1] dark:border-[#2a2723]">
-                  Recall the core definition or proposition, then tap or press space to verify.
+                <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  Recall the core definition, then click or press Space to verify.
                 </div>
               </div>
 
-              {/* BACK: Back Answer / Definition */}
-              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-[#171e28] text-neutral-100 rounded-2xl p-8 flex flex-col justify-between border border-[#2b3545] shadow-lg">
-                <div className="flex items-center justify-between border-b border-[#2b3545] pb-3">
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#9cb1cd]">
-                    Verified synthesis
+              {/* BACK: Back Answer */}
+              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-slate-900 text-white rounded-2xl p-8 flex flex-col justify-between border border-slate-800 shadow-md">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <span className="text-xs font-medium text-blue-400">
+                    Verified Answer
                   </span>
-                  <span className="text-xs font-mono text-[#9cb1cd] flex items-center gap-1.5">
-                    <kbd className="px-2 py-0.5 rounded border border-[#3b475c] bg-[#1e2634] text-[10px] font-semibold text-[#d0dbe9]">
+                  <span className="text-xs text-slate-400 flex items-center gap-1.5">
+                    <kbd className="px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-[10px] font-semibold text-slate-300">
                       Space
                     </kbd>
                     <span>flip card</span>
@@ -387,12 +378,12 @@ function FlashcardsContent() {
                 </div>
 
                 <div className="text-center my-auto px-6 py-4">
-                  <p className="text-base md:text-lg leading-relaxed font-sans text-neutral-100">
+                  <p className="text-base md:text-lg leading-relaxed text-slate-100 font-sans">
                     {currentCard.back || currentCard.back_content}
                   </p>
                 </div>
 
-                <div className="text-center text-xs text-[#9cb1cd] pt-2 border-t border-[#2b3545]">
+                <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-800">
                   Select your retrieval tier below to register spaced repetition intervals.
                 </div>
               </div>
@@ -400,22 +391,22 @@ function FlashcardsContent() {
           </div>
 
           {/* Rating Buttons */}
-          <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-3">
-            <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
-              <span className="font-serif italic">
-                {isFlipped ? "Score your retrieval accuracy:" : "Assess recall strength (advances to next card):"}
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3 shadow-2xs">
+            <div className="flex items-center justify-between text-xs text-slate-500">
+              <span>
+                {isFlipped ? "Score your recall accuracy:" : "Assess recall strength (advances to next card):"}
               </span>
-              <span className="font-mono text-[11px] text-neutral-400">
+              <span className="text-[11px] text-slate-400">
                 Keys 1 - 4
               </span>
             </div>
 
             <div className="grid grid-cols-4 gap-3">
               {[
-                { rating: "again", key: "1", label: "Again", desc: "Forgot", borderHover: "hover:border-red-400" },
-                { rating: "hard", key: "2", label: "Hard", desc: "Struggled", borderHover: "hover:border-amber-400" },
-                { rating: "good", key: "3", label: "Good", desc: "Recalled", borderHover: "hover:border-blue-400" },
-                { rating: "easy", key: "4", label: "Easy", desc: "Mastered", borderHover: "hover:border-emerald-400" },
+                { rating: "again", key: "1", label: "Again", desc: "Forgot", hover: "hover:border-red-400" },
+                { rating: "hard", key: "2", label: "Hard", desc: "Struggled", hover: "hover:border-amber-400" },
+                { rating: "good", key: "3", label: "Good", desc: "Recalled", hover: "hover:border-blue-400" },
+                { rating: "easy", key: "4", label: "Easy", desc: "Mastered", hover: "hover:border-emerald-400" },
               ].map((tier) => (
                 <button
                   key={tier.rating}
@@ -423,12 +414,12 @@ function FlashcardsContent() {
                     e.stopPropagation();
                     handleRate(tier.rating as any);
                   }}
-                  className={`p-3 rounded-lg border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] ${tier.borderHover} transition-all flex flex-col items-center cursor-pointer shadow-2xs hover:shadow-xs`}
+                  className={`p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/60 ${tier.hover} transition-all flex flex-col items-center cursor-pointer shadow-2xs`}
                 >
-                  <span className="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+                  <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
                     [{tier.key}] {tier.label}
                   </span>
-                  <span className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
+                  <span className="text-[11px] text-slate-400 mt-0.5">
                     {tier.desc}
                   </span>
                 </button>
@@ -440,17 +431,17 @@ function FlashcardsContent() {
 
       {/* MODE 3: SESSION COMPLETED */}
       {mode === "finished" && (
-        <div className="max-w-md mx-auto text-center rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-10 space-y-6 shadow-sm">
-          <div className="w-12 h-12 rounded-full border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mx-auto">
+        <div className="max-w-md mx-auto text-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 space-y-6 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-200 dark:border-emerald-800">
             <CheckCircle2 className="w-6 h-6" />
           </div>
 
           <div className="space-y-1.5">
-            <h2 className="font-serif text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
               Drill Run Complete
             </h2>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 font-serif italic">
-              Successfully reviewed <strong className="font-mono tabular-nums not-italic">{reviewedCards.length}</strong> cards in this practice interval.
+            <p className="text-xs text-slate-500">
+              Successfully reviewed <strong className="text-slate-900 dark:text-slate-100">{reviewedCards.length}</strong> cards in this practice run.
             </p>
           </div>
 
@@ -464,14 +455,14 @@ function FlashcardsContent() {
                 setReviewedCards([]);
                 setMode("study");
               }}
-              className="h-9 px-4 text-xs font-medium border-[#e6dfd1] dark:border-[#2a2723]"
+              className="h-9 px-4 text-xs font-medium border-slate-200 dark:border-slate-700"
             >
               <RotateCw className="w-3.5 h-3.5 mr-2" /> Repeat deck
             </Button>
             <Button
               size="sm"
               onClick={() => setMode("setup")}
-              className="h-9 px-4 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+              className="h-9 px-4 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
             >
               Return to decks
             </Button>
@@ -484,7 +475,7 @@ function FlashcardsContent() {
 
 export default function FlashcardsPage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400 font-mono">Loading flashcard studio...</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-xs text-slate-400">Loading flashcards...</div>}>
       <FlashcardsContent />
     </Suspense>
   );

@@ -3,73 +3,60 @@
 @import "@ui-sdk/core/web.css" layer(components);
 
 @theme {
-  --color-primary-50: #f0f5ff;
-  --color-primary-100: #e0ebff;
-  --color-primary-200: #bad4fe;
-  --color-primary-300: #7fb4fd;
-  --color-primary-400: #428ef9;
-  --color-primary-500: #1a6df0;
-  --color-primary-600: #0b52d9;
-  --color-primary-700: #073fb4;
-  --color-primary-800: #0b3690;
-  --color-primary-900: #0f2e73;
-  --color-primary-950: #0a1c47;
-
-  --color-paper-50: #faf8f5;
-  --color-paper-100: #f4f0e6;
-  --color-paper-200: #ece5d6;
-  --color-paper-300: #ded5c0;
-  --color-paper-400: #bfb296;
-  --color-paper-500: #9e9072;
-  --color-paper-600: #7d7054;
-  --color-paper-700: #5e533d;
-  --color-paper-800: #3f3727;
-  --color-paper-900: #262117;
-  --color-paper-950: #14110b;
-
-  --color-oxford-50: #f0f4fa;
-  --color-oxford-100: #e0e9f4;
-  --color-oxford-500: #1b365d;
-  --color-oxford-700: #10223d;
-  --color-oxford-900: #0a1526;
-
-  --color-terracotta-500: #9e3722;
-  --color-terracotta-600: #852c1a;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+  --color-brand-950: #172554;
 }
 
 :root {
-  --background: #faf8f5;
-  --foreground: #181715;
+  --background: #f8fafc;
+  --foreground: #0f172a;
   --surface: #ffffff;
-  --surface-secondary: #f4f0e6;
-  --border: #e6dfd1;
-  --hairline: rgba(24, 23, 21, 0.09);
-  --accent-ink: #11100e;
-  --accent-scholarly: #9e3722;
+  --surface-secondary: #f1f5f9;
+  --surface-tertiary: #e2e8f0;
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-subtle: #eff6ff;
+  --text-muted: #64748b;
+  --text-secondary: #475569;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #141311;
-    --foreground: #eeece4;
-    --surface: #1b1916;
-    --surface-secondary: #23211c;
-    --border: #2e2b24;
-    --hairline: rgba(238, 236, 228, 0.09);
-    --accent-ink: #fcfbf9;
-    --accent-scholarly: #d9583b;
+    --background: #090d16;
+    --foreground: #f8fafc;
+    --surface: #0f172a;
+    --surface-secondary: #1e293b;
+    --surface-tertiary: #334155;
+    --border: #1e293b;
+    --border-subtle: #172033;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --primary-subtle: #172554;
+    --text-muted: #94a3b8;
+    --text-secondary: #cbd5e1;
   }
 }
 
 ::selection {
-  background-color: #e5ddca;
-  color: #181715;
+  background-color: #bfdbfe;
+  color: #1e3a8a;
 }
 
 @media (prefers-color-scheme: dark) {
   ::selection {
-    background-color: #3b362c;
-    color: #f7f5ee;
+    background-color: #1e40af;
+    color: #eff6ff;
   }
 }
 
@@ -81,7 +68,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Tabular numbers for all figures, dates and metrics */
+/* Tabular numbers for all figures, dates, and metrics */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }

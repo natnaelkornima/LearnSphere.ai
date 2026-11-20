@@ -14,7 +14,6 @@ import {
   Settings,
   FileText,
   LogOut,
-  User as UserIcon,
 } from "@/components/ui/Icons";
 
 interface NavItem {
@@ -80,7 +79,7 @@ export function AppSidebar({
       ],
     },
     {
-      title: "Planning & Retention",
+      title: "Retention & Goals",
       items: [
         {
           name: "Study Planner",
@@ -93,7 +92,7 @@ export function AppSidebar({
           icon: <BarChart3 className="w-4 h-4" />,
         },
         {
-          name: "Preferences",
+          name: "Settings",
           href: "/settings",
           icon: <Settings className="w-4 h-4" />,
         },
@@ -104,28 +103,28 @@ export function AppSidebar({
   return (
     <aside
       className={cn(
-        "flex flex-col h-full bg-[var(--surface)] border-r border-[var(--border)] w-60 select-none",
+        "flex flex-col h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 w-60 select-none",
         className
       )}
     >
       {/* Brand Header */}
-      <div className="h-14 flex items-center px-5 border-b border-[var(--border)] gap-2.5">
-        <div className="w-7 h-7 rounded border border-neutral-800 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 flex items-center justify-center shrink-0">
+      <div className="h-14 flex items-center px-4 border-b border-slate-200 dark:border-slate-800 gap-2.5">
+        <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
           <BookOpen className="w-3.5 h-3.5" />
         </div>
         <div className="min-w-0">
-          <span className="font-serif font-medium text-sm tracking-tight text-neutral-950 dark:text-neutral-50 block truncate">
-            LearnSphere <span className="font-sans text-xs text-neutral-500 font-normal">AI</span>
+          <span className="font-semibold text-sm tracking-tight text-slate-900 dark:text-slate-100 block truncate">
+            LearnSphere <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">AI</span>
           </span>
         </div>
       </div>
 
       {/* Navigation Sections */}
-      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-5">
+      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
         {sections.map((section, idx) => (
           <div key={idx} className="space-y-0.5">
             {section.title && (
-              <h4 className="px-2.5 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+              <h4 className="px-2 pt-2 pb-1 text-[11px] font-medium text-slate-400 dark:text-slate-500">
                 {section.title}
               </h4>
             )}
@@ -139,10 +138,10 @@ export function AppSidebar({
                   href={item.href}
                   onClick={onNavigate}
                   className={cn(
-                    "flex items-center justify-between px-2.5 py-1.5 text-xs rounded-md transition-colors",
+                    "flex items-center justify-between px-2.5 py-1.5 text-xs rounded-lg transition-colors",
                     isActive
-                      ? "bg-[var(--surface-secondary)] text-neutral-950 dark:text-neutral-50 font-medium"
-                      : "text-neutral-600 dark:text-neutral-400 hover:bg-[var(--surface-secondary)] hover:text-neutral-900 dark:hover:text-neutral-200 font-normal"
+                      ? "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium"
+                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 font-normal"
                   )}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
@@ -150,8 +149,8 @@ export function AppSidebar({
                       className={cn(
                         "shrink-0",
                         isActive
-                          ? "text-neutral-950 dark:text-neutral-50"
-                          : "text-neutral-400 dark:text-neutral-500"
+                          ? "text-blue-600 dark:text-blue-400"
+                          : "text-slate-400 dark:text-slate-500"
                       )}
                     >
                       {item.icon}
@@ -161,10 +160,10 @@ export function AppSidebar({
                   {item.badge && (
                     <span
                       className={cn(
-                        "text-[10px] font-mono px-1.5 py-0.2 rounded border",
+                        "text-[10px] px-1.5 py-0.5 rounded font-medium",
                         isActive
-                          ? "border-[#c4533a]/30 text-[#9e3722] dark:text-[#ea7258] bg-[#fbf2ee] dark:bg-[#2d1b16]"
-                          : "border-transparent text-neutral-400"
+                          ? "bg-blue-200/60 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
                       )}
                     >
                       {item.badge}
@@ -178,20 +177,20 @@ export function AppSidebar({
       </div>
 
       {/* Student Profile Footer */}
-      <div className="p-3 border-t border-[var(--border)]">
-        <div className="flex items-center justify-between p-2 rounded-md bg-[var(--surface-secondary)] border border-[var(--border)]">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="w-6 h-6 rounded-full bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 flex items-center justify-center text-[10px] font-mono font-medium shrink-0">
+      <div className="p-3 border-t border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-850 border border-slate-200/80 dark:border-slate-800">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-6 h-6 rounded-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 flex items-center justify-center text-[10px] font-medium shrink-0">
               AR
             </div>
             <div className="truncate">
-              <p className="text-xs font-medium text-neutral-950 dark:text-neutral-50 truncate">Alex Rivera</p>
-              <p className="text-[10px] font-mono text-neutral-500 truncate">3-day recall streak</p>
+              <p className="text-xs font-medium text-slate-900 dark:text-slate-100 truncate">Alex Rivera</p>
+              <p className="text-[10px] text-slate-500 truncate">3-day study streak</p>
             </div>
           </div>
           <Link
             href="/login"
-            className="p-1 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 rounded transition-colors"
+            className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded transition-colors"
             title="Sign out"
           >
             <LogOut className="w-3.5 h-3.5" />

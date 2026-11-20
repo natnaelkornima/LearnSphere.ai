@@ -18,6 +18,7 @@ import {
   Sparkles,
   Search,
   ChevronRight,
+  Target,
 } from "@/components/ui/Icons";
 
 export default function LandingPage() {
@@ -43,36 +44,31 @@ export default function LandingPage() {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col font-sans selection:bg-[#e5ddca] dark:selection:bg-[#3b362c]">
-      {/* Top Academic Header */}
-      <header className="h-16 border-b border-[var(--border)] px-6 md:px-10 flex items-center justify-between max-w-7xl mx-auto w-full sticky top-0 bg-[var(--background)]/90 backdrop-blur-md z-40">
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded border border-neutral-800 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 flex items-center justify-center font-bold text-sm shadow-xs transition-transform group-hover:scale-[1.02]">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col font-sans">
+      {/* Top Navigation */}
+      <header className="h-16 border-b border-slate-200 dark:border-slate-800 px-6 md:px-10 flex items-center justify-between max-w-7xl mx-auto w-full sticky top-0 bg-white/80 dark:bg-[#090d16]/80 backdrop-blur-md z-40">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
             <BookOpen className="w-4 h-4" />
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="font-semibold text-sm tracking-tight text-neutral-950 dark:text-neutral-50 font-serif">
-              LearnSphere <span className="text-neutral-500 font-sans font-normal text-xs">AI</span>
-            </span>
-            <span className="hidden sm:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono border border-[var(--border)] bg-[var(--surface-secondary)] text-neutral-600 dark:text-neutral-400">
-              edtech workspace · v2.4
-            </span>
-          </div>
+          <span className="font-semibold text-base tracking-tight text-slate-900 dark:text-slate-100">
+            LearnSphere <span className="text-blue-600 dark:text-blue-400 font-medium">AI</span>
+          </span>
         </Link>
 
-        {/* Center Editorial Navigation */}
-        <nav className="hidden md:flex items-center gap-7 text-xs text-neutral-600 dark:text-neutral-400 font-medium">
-          <a href="#cycle" className="hover:text-neutral-950 dark:hover:text-white transition-colors">
-            Cognitive loop
+        {/* Center Navigation */}
+        <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-slate-600 dark:text-slate-400">
+          <a href="#features" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+            Capabilities
           </a>
-          <a href="#demo" className="hover:text-neutral-950 dark:hover:text-white transition-colors">
+          <a href="#demo" className="hover:text-slate-900 dark:hover:text-white transition-colors">
             Interactive console
           </a>
-          <a href="#matrix" className="hover:text-neutral-950 dark:hover:text-white transition-colors">
-            Architecture matrix
+          <a href="#workflow" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+            Workflow
           </a>
-          <a href="#disciplines" className="hover:text-neutral-950 dark:hover:text-white transition-colors">
-            Curricula
+          <a href="#pricing" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+            Plans
           </a>
         </nav>
 
@@ -80,704 +76,650 @@ export default function LandingPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/login"
-            className="text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white px-2 py-1.5 transition-colors font-medium"
+            className="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-2 py-1.5 transition-colors"
           >
             Sign in
           </Link>
           <Link href="/dashboard">
-            <Button size="sm" className="h-8 px-3.5 text-xs font-medium">
+            <Button size="sm" className="h-9 px-4 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent">
               Open workspace
-              <ArrowRight className="w-3.5 h-3.5 ml-1" />
+              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
             </Button>
           </Link>
         </div>
       </header>
 
-      {/* Hero Section: Asymmetric Scholarly Spread */}
-      <section className="pt-14 pb-20 md:pt-20 md:pb-28 px-6 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
-          {/* Left Column: Thesis and Grounding Authority */}
-          <div className="lg:col-span-6 space-y-6 text-left lg:pt-2">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[var(--border)] bg-[var(--surface-secondary)] text-xs font-mono text-neutral-700 dark:text-neutral-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 inline-block" />
-              <span>Strict page coordinate retrieval · zero citation drift</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-serif font-normal tracking-tight text-neutral-950 dark:text-neutral-50 leading-[1.12]">
-              Turn course readings into verified notes, quizzes, and recall sets
-            </h1>
-
-            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
-              Upload dense textbooks, legal casebooks, or lecture syllabi. LearnSphere extracts exact page layout coordinates, grounds Socratic inquiries in primary sources, and generates server-authoritative retrieval practice.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-              <Link href="/dashboard">
-                <Button size="lg" className="h-11 px-6 text-xs sm:text-sm font-medium w-full sm:w-auto">
-                  Open workspace
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button variant="outline" size="lg" className="h-11 px-5 text-xs sm:text-sm font-medium w-full sm:w-auto">
-                  Try student demo
-                </Button>
-              </Link>
-            </div>
-
-            {/* Architectural Rigor Ledger */}
-            <div className="pt-6 grid grid-cols-3 gap-4 border-t border-[var(--border)]">
-              <div>
-                <p className="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
-                  768-dim RAG
-                </p>
-                <p className="text-[11px] text-neutral-500 mt-0.5 leading-snug">
-                  pgvector cosine chunk indexing
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
-                  PyMuPDF OCR
-                </p>
-                <p className="text-[11px] text-neutral-500 mt-0.5 leading-snug">
-                  Sub-pixel layout bounding boxes
-                </p>
-              </div>
-              <div>
-                <p className="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
-                  Server Evaluated
-                </p>
-                <p className="text-[11px] text-neutral-500 mt-0.5 leading-snug">
-                  Withheld answer key diagnostics
-                </p>
-              </div>
-            </div>
+      {/* Hero Section */}
+      <section className="pt-16 pb-20 md:pt-24 md:pb-28 px-6 max-w-7xl mx-auto w-full">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-medium text-slate-700 dark:text-slate-300 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+            <span>Citation-grounded RAG with exact page coordinates</span>
           </div>
 
-          {/* Right Column: Live Interactive Inspection Console (ui-sdk/react/tabs) */}
-          <div className="lg:col-span-6" id="demo">
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-sm overflow-hidden">
-              <Tabs
-                defaultValue="chat"
-                value={activeTab}
-                onValueChange={(val) => {
-                  if (val) setActiveTab(val);
-                }}
-                className="w-full flex flex-col"
-              >
-                {/* Academic Window Topbar with ui-sdk Tabs */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 py-2.5 border-b border-[var(--border)] bg-[#faf8f4] dark:bg-[#1a1815] gap-2.5">
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#d6cfc2] dark:bg-[#423e36] inline-block" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#d6cfc2] dark:bg-[#423e36] inline-block" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#d6cfc2] dark:bg-[#423e36] inline-block" />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.03em] text-slate-950 dark:text-white leading-[1.1]">
+            The study workspace built for rigorous coursework
+          </h1>
+
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Upload dense textbooks, legal casebooks, and scientific papers. LearnSphere parses layout structures, answers with verifiable page references, and generates server-scored recall practice.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
+            <Link href="/dashboard" className="w-full sm:w-auto">
+              <Button size="lg" className="h-11 px-6 text-sm font-medium w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white border-transparent shadow-xs">
+                Launch student workspace
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+            <a href="#demo" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="h-11 px-6 text-sm font-medium w-full sm:w-auto bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
+                Explore interactive console
+              </Button>
+            </a>
+          </div>
+
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-medium">
+            <span className="flex items-center gap-1.5">
+              <Check className="w-4 h-4 text-emerald-600" /> Exact page coordinates
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Check className="w-4 h-4 text-emerald-600" /> Socratic reasoning
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Check className="w-4 h-4 text-emerald-600" /> Zero citation drift
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Centerpiece: Interactive Console powered by @ui-sdk/react/tabs */}
+      <section id="demo" className="py-16 md:py-20 px-6 max-w-7xl mx-auto w-full">
+        <div className="space-y-4 mb-8 text-center max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            Experience the grounded study loop
+          </h2>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Test the live studio primitives below: dialog with citations, active recall flashcards, practice quizzes, and structured summaries.
+          </p>
+        </div>
+
+        {/* Tabbed Interactive Workbench */}
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md overflow-hidden">
+          <Tabs value={activeTab} onValueChange={(val) => { if (val) setActiveTab(val); }}>
+            {/* Console Toolbar */}
+            <div className="border-b border-slate-200 dark:border-slate-800 px-4 py-3 bg-slate-50/70 dark:bg-slate-900/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  Current Document:
+                </span>
+                <span className="text-xs font-medium text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700 flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5 text-blue-600" />
+                  Principles_of_Neural_Science_Ch12.pdf
+                </span>
+              </div>
+
+              {/* @ui-sdk/react TabsList */}
+              <TabsList className="flex items-center p-1 rounded-lg bg-slate-200/60 dark:bg-slate-800 gap-1 w-full sm:w-auto">
+                <TabsTab
+                  value="chat"
+                  className="px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer text-slate-600 dark:text-slate-400 data-selected:bg-white data-selected:text-blue-700 data-selected:shadow-xs dark:data-selected:bg-slate-900 dark:data-selected:text-blue-400"
+                >
+                  Socratic AI Tutor
+                </TabsTab>
+                <TabsTab
+                  value="flashcard"
+                  className="px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer text-slate-600 dark:text-slate-400 data-selected:bg-white data-selected:text-blue-700 data-selected:shadow-xs dark:data-selected:bg-slate-900 dark:data-selected:text-blue-400"
+                >
+                  Recall Flashcards
+                </TabsTab>
+                <TabsTab
+                  value="quiz"
+                  className="px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer text-slate-600 dark:text-slate-400 data-selected:bg-white data-selected:text-blue-700 data-selected:shadow-xs dark:data-selected:bg-slate-900 dark:data-selected:text-blue-400"
+                >
+                  Practice Quiz
+                </TabsTab>
+                <TabsTab
+                  value="summary"
+                  className="px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer text-slate-600 dark:text-slate-400 data-selected:bg-white data-selected:text-blue-700 data-selected:shadow-xs dark:data-selected:bg-slate-900 dark:data-selected:text-blue-400"
+                >
+                  Summary
+                </TabsTab>
+              </TabsList>
+            </div>
+
+            {/* TAB 1: Socratic AI Tutor */}
+            <TabsPanel value="chat" className="focus:outline-none">
+              <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+                {/* Left 7 Cols: Chat Dialog */}
+                <div className="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 space-y-6">
+                  <div className="space-y-4">
+                    {/* User Query */}
+                    <div className="flex gap-3 items-start justify-end">
+                      <div className="bg-blue-600 text-white rounded-xl rounded-tr-xs p-3.5 max-w-md text-xs leading-relaxed shadow-xs">
+                        How does long-term potentiation differ from short-term facilitation at hippocampal synapses?
+                      </div>
                     </div>
-                    <span className="text-[11px] font-mono text-neutral-500 ml-1">console.study.session</span>
+
+                    {/* Socratic AI Response */}
+                    <div className="flex gap-3 items-start">
+                      <div className="w-7 h-7 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center shrink-0 text-xs font-bold">
+                        AI
+                      </div>
+                      <div className="space-y-3 max-w-lg">
+                        <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl rounded-tl-xs p-4 text-xs leading-relaxed border border-slate-200/80 dark:border-slate-700 text-slate-800 dark:text-slate-200 space-y-2.5">
+                          <p>
+                            Short-term facilitation depends on residual presynaptic calcium accumulation lasting hundreds of milliseconds.
+                          </p>
+                          <p>
+                            In contrast, long-term potentiation (LTP) induces persistent postsynaptic changes via NMDA receptor activation and AMPA receptor recruitment, persisting for hours or days.
+                          </p>
+
+                          {/* Interactive Citation Coordinates */}
+                          <div className="pt-2 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2">
+                            <span className="text-[11px] font-medium text-slate-500">
+                              Verified Grounding:
+                            </span>
+                            <button
+                              onClick={() => setShowCitationDrawer((prev) => !prev)}
+                              className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors cursor-pointer"
+                            >
+                              Page 214 §3 • Paragraph 2
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Socratic Follow-Up Probe */}
+                        <div className="p-3 rounded-lg bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900/60 text-xs text-blue-900 dark:text-blue-200 flex items-start gap-2">
+                          <Sparkles className="w-4 h-4 shrink-0 text-blue-600 dark:text-blue-400 mt-0.5" />
+                          <p className="leading-relaxed">
+                            <strong>Socratic Check:</strong> What would happen to LTP induction if you introduced an intracellular calcium chelator into the postsynaptic CA1 neuron?
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Accessible ui-sdk TabsList */}
-                  <TabsList
-                    aria-label="Interactive Showcase Modes"
-                    className="inline-flex items-center gap-1 bg-white dark:bg-neutral-900 p-0.5 rounded-md border border-[var(--border)] self-start sm:self-auto"
-                  >
-                    <TabsTab
-                      value="chat"
-                      className="px-2.5 py-1 text-[11px] font-medium rounded transition-colors cursor-pointer data-selected:bg-neutral-900 data-selected:text-white dark:data-selected:bg-neutral-100 dark:data-selected:text-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-neutral-100"
-                    >
-                      Socratic Dialogue
-                    </TabsTab>
-                    <TabsTab
-                      value="flashcard"
-                      className="px-2.5 py-1 text-[11px] font-medium rounded transition-colors cursor-pointer data-selected:bg-neutral-900 data-selected:text-white dark:data-selected:bg-neutral-100 dark:data-selected:text-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-neutral-100"
-                    >
-                      Recall Deck
-                    </TabsTab>
-                    <TabsTab
-                      value="quiz"
-                      className="px-2.5 py-1 text-[11px] font-medium rounded transition-colors cursor-pointer data-selected:bg-neutral-900 data-selected:text-white dark:data-selected:bg-neutral-100 dark:data-selected:text-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-neutral-100"
-                    >
-                      Diagnostic
-                    </TabsTab>
-                    <TabsTab
-                      value="ingest"
-                      className="px-2.5 py-1 text-[11px] font-medium rounded transition-colors cursor-pointer data-selected:bg-neutral-900 data-selected:text-white dark:data-selected:bg-neutral-100 dark:data-selected:text-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-neutral-100"
-                    >
-                      Coordinates
-                    </TabsTab>
-                  </TabsList>
+                  {/* Mock Input Bar */}
+                  <div className="pt-2">
+                    <div className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+                      <input
+                        type="text"
+                        readOnly
+                        value=" Chelating postsynaptic Ca²⁺ prevents calmodulin kinase activation..."
+                        className="w-full bg-transparent text-xs text-slate-600 dark:text-slate-300 focus:outline-none cursor-default font-sans"
+                      />
+                      <Button size="sm" className="h-7 px-3 text-xs bg-blue-600 hover:bg-blue-700 text-white shrink-0">
+                        Send
+                      </Button>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Panel 1: Grounded Socratic Dialogue */}
-                <TabsPanel value="chat" className="p-5 space-y-4">
-                  <div className="flex items-center justify-between text-xs text-neutral-500 pb-2 border-b border-[var(--border)]">
-                    <span className="font-serif font-medium text-neutral-800 dark:text-neutral-200">
-                      Cellular Respiration & Chemiosmosis
-                    </span>
-                    <span className="font-mono text-[11px] text-neutral-500">
-                      Primary Source: <span className="underline decoration-dotted">Lehninger_Ch19.pdf</span>
-                    </span>
-                  </div>
-
-                  {/* Student Question */}
-                  <div className="flex gap-2.5 max-w-md ml-auto flex-row-reverse text-right">
-                    <div className="w-5 h-5 rounded bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 text-[10px] font-mono flex items-center justify-center shrink-0">
-                      Q
+                {/* Right 5 Cols: Citation & Excerpt Inspector */}
+                <div className="lg:col-span-5 p-6 bg-slate-50/50 dark:bg-slate-900/30 flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
+                        Primary Source Inspector
+                      </span>
+                      <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900">
+                        99.2% match confidence
+                      </span>
                     </div>
-                    <div className="p-3 rounded-lg bg-neutral-900 text-neutral-100 dark:bg-neutral-800 text-xs text-left leading-relaxed">
-                      How does the proton electrochemical gradient physically drive ATP synthesis through the F₀ and F₁ subunits?
-                    </div>
-                  </div>
 
-                  {/* Verified Socratic Response */}
-                  <div className="flex gap-2.5 max-w-lg mr-auto">
-                    <div className="w-5 h-5 rounded border border-[var(--border)] bg-[#faf8f4] dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-[10px] font-mono flex items-center justify-center shrink-0">
-                      R
-                    </div>
-                    <div className="p-3.5 rounded-lg border border-[var(--border)] bg-white dark:bg-neutral-900 text-xs text-neutral-900 dark:text-neutral-100 space-y-3 leading-relaxed">
-                      <p>
-                        Peter Mitchell&apos;s chemiosmotic model demonstrates that protons translocated into the intermembrane space generate an electrochemical proton-motive force (ΔμH⁺). Protons flow back through the F₀ pore across the c-ring, exerting mechanical torque on the central γ-subunit shaft. This rotation sequentially deforms the three catalytic β-subunits of the F₁ domain through open, loose, and tight conformations, synthesizing ATP from ADP + Pᵢ.
-                      </p>
-
-                      <div className="pt-2.5 border-t border-[var(--border)] flex items-center justify-between">
-                        <span className="text-[11px] text-neutral-500">Grounded evidence coordinate:</span>
-                        <button
-                          type="button"
-                          onClick={() => setShowCitationDrawer((prev) => !prev)}
-                          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono border border-[#c4533a]/40 bg-[#fbf2ee] dark:bg-[#2d1b16] text-[#9e3722] dark:text-[#ea7258] hover:bg-[#f6e5dd] transition-colors cursor-pointer"
-                        >
-                          <span>p. 732 §3</span>
-                          <span className="text-[10px] opacity-70">
-                            {showCitationDrawer ? "▾ close" : "▸ inspect"}
-                          </span>
-                        </button>
+                    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 p-4 space-y-3 shadow-2xs">
+                      <div className="flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Principles of Neural Science (5th Ed.)</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">p. 214</span>
                       </div>
 
-                      {showCitationDrawer && (
-                        <div className="mt-2 p-3 rounded border border-[#e4d7c2] dark:border-[#3d3326] bg-[#faf8f2] dark:bg-[#1a1713] text-[11px] leading-relaxed text-neutral-800 dark:text-neutral-200 font-serif animate-in fade-in duration-150">
-                          <p className="italic text-neutral-600 dark:text-neutral-400 mb-1 font-sans text-[10px] uppercase tracking-wider">
-                            Verified Excerpt · Lehninger Biochemistry 8th Ed., Page 732, Paragraph 3:
-                          </p>
-                          &ldquo;The γ-subunit rotates within the cylinder formed by the α₃β₃ complex. With each 120° rotation of γ, a different β-subunit transitions into the tight conformation, stabilizing ATP synthesis until release.&rdquo;
+                      <div className="p-3 rounded-lg bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/60 text-xs leading-relaxed text-slate-800 dark:text-slate-200">
+                        &ldquo;High-frequency stimulation leads to substantial calcium influx through the open pore of NMDA receptors... This activates calcium/calmodulin-dependent protein kinase II (CaMKII), triggering the insertion of AMPA receptors into the postsynaptic membrane.&rdquo;
+                      </div>
+
+                      <div className="text-[11px] text-slate-500 space-y-1">
+                        <div className="flex justify-between">
+                          <span>Bounding Box:</span>
+                          <span className="text-slate-700 dark:text-slate-300">x: 72, y: 340, w: 468, h: 84</span>
                         </div>
-                      )}
+                        <div className="flex justify-between">
+                          <span>Vector Storage:</span>
+                          <span className="text-slate-700 dark:text-slate-300">pgvector (768-dim cosine)</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </TabsPanel>
 
-                {/* Panel 2: Interactive 3D Flashcard */}
-                <TabsPanel value="flashcard" className="p-5 space-y-4">
-                  <div className="flex items-center justify-between text-xs text-neutral-500 pb-2 border-b border-[var(--border)]">
-                    <span className="font-serif font-medium text-neutral-800 dark:text-neutral-200">
-                      Stoichiometry of Oxidative Phosphorylation
-                    </span>
-                    <span className="font-mono text-[11px] text-neutral-400">Card 04 of 12 · Space to flip</span>
+                  <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
+                    <span>Full text chunk indexed</span>
+                    <Link href="/tutor" className="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
+                      Open in AI Tutor <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
+                </div>
+              </div>
+            </TabsPanel>
 
+            {/* TAB 2: Active Recall Flashcards */}
+            <TabsPanel value="flashcard" className="focus:outline-none p-6 md:p-8">
+              <div className="max-w-xl mx-auto space-y-6">
+                <div className="flex items-center justify-between text-xs">
+                  <div>
+                    <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                      Neurotransmission Flashcard Set
+                    </h3>
+                    <p className="text-slate-500 text-[11px]">Card 03 of 10</p>
+                  </div>
+                  <span className="text-[11px] text-slate-500">
+                    Press <kbd className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 font-semibold">Space</kbd> to flip
+                  </span>
+                </div>
+
+                {/* 3D Flip Card */}
+                <div
+                  onClick={() => setIsFlipped((prev) => !prev)}
+                  className="w-full h-72 [perspective:1000px] cursor-pointer select-none"
+                >
                   <div
-                    tabIndex={0}
-                    role="button"
-                    aria-label="Interactive 3D Flashcard. Click or press Enter to flip."
-                    className="w-full h-48 [perspective:1000px] cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-500 rounded-lg"
-                    onClick={() => setIsFlipped((prev) => !prev)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        setIsFlipped((prev) => !prev);
-                      }
-                    }}
+                    className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm ${
+                      isFlipped ? "[transform:rotateY(180deg)]" : ""
+                    }`}
                   >
-                    <div
-                      className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] rounded-lg border border-[var(--border)] shadow-xs ${
-                        isFlipped ? "[transform:rotateY(180deg)]" : ""
-                      }`}
-                    >
-                      {/* Card Front: Prompt */}
-                      <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-[#faf8f4] dark:bg-[#171512] p-5 flex flex-col justify-between rounded-lg">
-                        <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500">
-                          <span>ACTIVE RECALL PROMPT</span>
-                          <span className="underline decoration-dotted">[ CLICK OR SPACE TO FLIP ]</span>
-                        </div>
-                        <p className="text-sm sm:text-base font-serif font-medium text-center text-neutral-900 dark:text-neutral-100 px-4">
-                          What is the exact stoichiometry of protons pumped across the inner mitochondrial membrane per NADH molecule oxidized?
-                        </p>
-                        <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono">
-                          <span>FSRS Interval: 3 days</span>
-                          <span>Lehninger §19.2</span>
-                        </div>
+                    {/* FRONT */}
+                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] bg-white dark:bg-slate-850 rounded-2xl p-8 flex flex-col justify-between">
+                      <div className="flex items-center justify-between text-xs text-slate-400">
+                        <span className="font-semibold">Prompt</span>
+                        <span>Click or Space to flip</span>
                       </div>
+                      <div className="text-center my-auto px-4">
+                        <p className="text-lg md:text-xl font-medium text-slate-900 dark:text-slate-100 leading-snug">
+                          What is the fundamental mechanism distinguishing electrical synapses from chemical synapses?
+                        </p>
+                      </div>
+                      <p className="text-center text-[11px] text-slate-400">
+                        Recall your answer before verifying
+                      </p>
+                    </div>
 
-                      {/* Card Back: Verified Answer */}
-                      <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-[#1c1a17] text-white p-5 flex flex-col justify-between rounded-lg border border-neutral-700">
-                        <div className="flex justify-between items-center text-[10px] font-mono text-neutral-400">
-                          <span>VERIFIED ANSWER</span>
-                          <span className="text-emerald-400 font-semibold">10 H⁺ Translocated</span>
-                        </div>
-                        <p className="text-xs text-center text-neutral-200 leading-relaxed font-sans px-2">
-                          A total of <strong className="text-white">10 H⁺</strong> are pumped per electron pair: <strong>4 H⁺</strong> by Complex I, <strong>4 H⁺</strong> by Complex III, and <strong>2 H⁺</strong> by Complex IV.
-                        </p>
-                        <div className="flex justify-center items-center gap-1.5 pt-1">
-                          {[
-                            { id: "again", label: "1 Again", delay: "10m" },
-                            { id: "hard", label: "2 Hard", delay: "1d" },
-                            { id: "good", label: "3 Good", delay: "4d" },
-                            { id: "easy", label: "4 Easy", delay: "8d" },
-                          ].map((item) => (
-                            <button
-                              key={item.id}
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedDifficulty(item.id);
-                              }}
-                              className={`px-2 py-0.5 rounded border text-[10px] font-mono transition-colors ${
-                                selectedDifficulty === item.id
-                                  ? "border-emerald-400 bg-emerald-950/60 text-emerald-300 font-bold"
-                                  : "border-neutral-700 bg-neutral-900/60 text-neutral-400 hover:text-white"
-                              }`}
-                            >
-                              {item.label}
-                            </button>
-                          ))}
-                        </div>
+                    {/* BACK */}
+                    <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-slate-900 text-white rounded-2xl p-8 flex flex-col justify-between">
+                      <div className="flex items-center justify-between text-xs text-slate-400">
+                        <span className="font-semibold text-blue-400">Verified Answer</span>
+                        <span>Page 178 §2</span>
                       </div>
+                      <div className="text-center my-auto px-4">
+                        <p className="text-sm md:text-base leading-relaxed text-slate-100 font-sans">
+                          Electrical synapses conduct current instantaneously through gap-junction channels (connexons) with zero synaptic delay, whereas chemical synapses rely on vesicle exocytosis and neurotransmitter diffusion across a cleft.
+                        </p>
+                      </div>
+                      <p className="text-center text-[11px] text-slate-400">
+                        Rate your retrieval accuracy below
+                      </p>
                     </div>
                   </div>
-                </TabsPanel>
+                </div>
 
-                {/* Panel 3: Server-Scored Diagnostic */}
-                <TabsPanel value="quiz" className="p-5 space-y-4">
-                  <div className="flex items-center justify-between text-xs text-neutral-500 pb-2 border-b border-[var(--border)]">
-                    <span className="font-serif font-medium text-neutral-800 dark:text-neutral-200">
-                      Biochemistry Diagnostic Assessment
-                    </span>
-                    <span className="font-mono text-[11px] text-neutral-500">Question 02 of 05 · Server Scored</span>
-                  </div>
-
-                  <p className="text-xs sm:text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                    Which pharmacological agent specifically halts electron transfer at Complex IV by coordinating to the heme a₃-Cu_B binuclear center?
-                  </p>
-
-                  <div className="space-y-1.5">
+                {/* Rating Buttons */}
+                <div className="space-y-2">
+                  <div className="grid grid-cols-4 gap-2.5">
                     {[
-                      { key: "A", label: "Rotenone (NADH dehydrogenase inhibitor)" },
-                      { key: "B", label: "Cyanide (CN⁻) and Carbon Monoxide" },
-                      { key: "C", label: "Antimycin A (Q-cycle inhibitor)" },
-                      { key: "D", label: "Oligomycin (ATP synthase F₀ pore blocker)" },
-                    ].map((opt) => (
+                      { key: "again", label: "Again", desc: "Forgot", color: "hover:border-red-400" },
+                      { key: "hard", label: "Hard", desc: "Struggled", color: "hover:border-amber-400" },
+                      { key: "good", label: "Good", desc: "Recalled", color: "hover:border-blue-400" },
+                      { key: "easy", label: "Easy", desc: "Mastered", color: "hover:border-emerald-400" },
+                    ].map((tier) => (
                       <button
-                        key={opt.key}
-                        type="button"
-                        onClick={() => setSelectedQuizOption(opt.key)}
-                        className={`w-full p-2.5 rounded-md border text-left text-xs flex items-center justify-between transition-colors cursor-pointer ${
-                          selectedQuizOption === opt.key
-                            ? "border-neutral-950 dark:border-neutral-100 bg-[#f4f0e6] dark:bg-neutral-800 font-medium text-neutral-950 dark:text-neutral-100"
-                            : "border-[var(--border)] bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 hover:bg-[#faf8f4] dark:hover:bg-neutral-850"
+                        key={tier.key}
+                        onClick={() => setSelectedDifficulty(tier.key)}
+                        className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                          selectedDifficulty === tier.key
+                            ? "border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 font-semibold shadow-xs"
+                            : `border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 ${tier.color}`
                         }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono text-[11px] text-neutral-500">{opt.key}.</span>
-                          <span>{opt.label}</span>
-                        </div>
-                        {selectedQuizOption === opt.key && (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-neutral-900 dark:text-neutral-100" />
-                        )}
+                        <span className="text-xs block font-medium">{tier.label}</span>
+                        <span className="text-[10px] text-slate-400">{tier.desc}</span>
                       </button>
                     ))}
                   </div>
+                </div>
+              </div>
+            </TabsPanel>
+
+            {/* TAB 3: Practice Quiz */}
+            <TabsPanel value="quiz" className="focus:outline-none p-6 md:p-8">
+              <div className="max-w-2xl mx-auto space-y-6">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+                  <div>
+                    <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100">
+                      Synaptic Plasticity Assessment
+                    </h3>
+                    <p className="text-[11px] text-slate-500">Question 02 of 05 • Medium Difficulty</p>
+                  </div>
+                  <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+                    Server Evaluated
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-base font-medium text-slate-900 dark:text-slate-100 leading-snug">
+                    Which ionic mechanism is primarily responsible for the voltage-dependent magnesium unblock in NMDA receptors during LTP induction?
+                  </h4>
+
+                  <div className="space-y-2.5">
+                    {[
+                      { key: "A", text: "Hyperpolarization mediated by presynaptic GABA-B receptor activation." },
+                      { key: "B", text: "Depolarization of the postsynaptic membrane mediated by AMPA receptor sodium influx." },
+                      { key: "C", text: "Retrograde nitric oxide gas signaling stimulating guanylyl cyclase." },
+                      { key: "D", text: "Direct calcium binding to the extracellular domain of GluN2B subunits." },
+                    ].map((opt) => {
+                      const isSelected = selectedQuizOption === opt.key;
+                      const isCorrect = opt.key === "B";
+                      return (
+                        <button
+                          key={opt.key}
+                          onClick={() => {
+                            setSelectedQuizOption(opt.key);
+                            setQuizSubmitted(true);
+                          }}
+                          className={`w-full p-3.5 rounded-xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
+                            isSelected && isCorrect
+                              ? "border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/30"
+                              : isSelected && !isCorrect
+                              ? "border-red-500 bg-red-50/60 dark:bg-red-950/30"
+                              : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300"
+                          }`}
+                        >
+                          <span
+                            className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-semibold shrink-0 mt-0.5 ${
+                              isSelected && isCorrect
+                                ? "bg-emerald-600 text-white"
+                                : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                            }`}
+                          >
+                            {opt.key}
+                          </span>
+                          <span className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
+                            {opt.text}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
 
                   {quizSubmitted && (
-                    <div className="p-3 rounded border border-emerald-300 dark:border-emerald-900/60 bg-emerald-50/80 dark:bg-emerald-950/30 text-[11px] leading-relaxed text-emerald-900 dark:text-emerald-300 space-y-1">
-                      <div className="flex items-center gap-1.5 font-semibold font-mono text-[11px]">
-                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                        <span>Verified Result: Option B Correct</span>
+                    <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 space-y-1.5 text-xs">
+                      <div className="flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300 font-semibold">
+                        <CheckCircle2 className="w-4 h-4" /> Correct • Option B
                       </div>
-                      <p>
-                        Cyanide binds tightly to the oxidized Fe³⁺ in heme a₃ of cytochrome c oxidase, precluding O₂ binding and stalling oxidative phosphorylation. Grounded in <em>Lehninger Principles of Biochemistry, p. 738 §2</em>.
+                      <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                        At resting membrane potential, extracellular Mg²⁺ blocks the NMDA pore. Postsynaptic depolarization via AMPA receptors relieves this electrostatic block, allowing Ca²⁺ influx essential for LTP induction. (Grounded in Chapter 12, p. 215).
                       </p>
                     </div>
                   )}
-                </TabsPanel>
+                </div>
+              </div>
+            </TabsPanel>
 
-                {/* Panel 4: Coordinate Inspector */}
-                <TabsPanel value="ingest" className="p-5 space-y-3 font-serif">
-                  <div className="flex items-center justify-between text-xs text-neutral-500 pb-2 border-b border-[var(--border)] font-sans">
-                    <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                      PyMuPDF Document Chunk Parser
-                    </span>
-                    <span className="font-mono text-[11px] text-neutral-500">
-                      Page 732 · Bounding Box [45.2, 120.0, 520.8, 680.4]
-                    </span>
+            {/* TAB 4: Summary */}
+            <TabsPanel value="summary" className="focus:outline-none p-6 md:p-8">
+              <div className="max-w-2xl mx-auto space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+                  <div>
+                    <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100">
+                      Executive Summary & Key Takeaways
+                    </h3>
+                    <p className="text-[11px] text-slate-500">Principles_of_Neural_Science_Ch12.pdf</p>
+                  </div>
+                  <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                    Multi-Format Engine
+                  </span>
+                </div>
+
+                <div className="space-y-3 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850 space-y-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">
+                      1. Core Propositions
+                    </h4>
+                    <ul className="list-disc pl-4 space-y-1">
+                      <li>Chemical synapses introduce an obligate 0.5–1.0 ms synaptic delay due to diffusion.</li>
+                      <li>Electrical synapses enable bidirectional, instantaneous electrotonic transmission.</li>
+                      <li>NMDA receptors operate as molecular coincidence detectors requiring both glutamate binding and membrane depolarization.</li>
+                    </ul>
                   </div>
 
-                  <div className="p-4 rounded border border-[#e4dbca] dark:border-[#38332a] bg-[#faf8f2] dark:bg-[#181613] text-xs leading-relaxed text-neutral-800 dark:text-neutral-200">
-                    &ldquo;...ATP synthase is embedded within the inner mitochondrial membrane, converting electrochemical proton potential into high-energy phosphate bonds through mechanical rotation. The enzyme comprises two functional units: F₀, an integral membrane oligomer acting as the proton pore, and F₁, a peripheral complex bearing three catalytic nucleotide-binding sites.&rdquo;
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850 space-y-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">
+                      2. Exam Revision Checklist
+                    </h4>
+                    <p>
+                      Master the exact difference between early-LTP (protein-kinase phosphorylation of existing AMPA receptors) and late-LTP (CREB-dependent gene transcription and morphological spine enlargement).
+                    </p>
                   </div>
-
-                  <div className="text-[11px] font-mono text-neutral-500 font-sans flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
-                    <span>Token Chunk: chk_lehninger_19_0732</span>
-                    <span>Tensor: [0.0124, -0.0481, 0.1192 ... 768 dims]</span>
-                  </div>
-                </TabsPanel>
-              </Tabs>
-            </div>
-          </div>
+                </div>
+              </div>
+            </TabsPanel>
+          </Tabs>
         </div>
       </section>
 
-      {/* Academic Rigor Institutional Validation Ribbon */}
-      <section className="py-7 border-y border-[var(--border)] bg-[#faf8f5] dark:bg-[#181613] px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 font-serif italic text-center md:text-left">
-            Engineered to synthesize syllabi and primary literature from demanding university curricula:
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-7 md:gap-10 text-xs font-mono font-semibold tracking-wider text-neutral-500 dark:text-neutral-400">
-            <span>OXFORD</span>
-            <span>HARVARD</span>
-            <span>STANFORD</span>
-            <span>JOHNS HOPKINS</span>
-            <span>CAMBRIDGE</span>
-            <span>MIT</span>
-          </div>
-        </div>
-      </section>
-
-      {/* The 4-Stage Cognitive Loop Codex */}
-      <section id="cycle" className="py-20 md:py-26 px-6 max-w-7xl mx-auto w-full space-y-12">
-        <div className="space-y-3 max-w-2xl">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-normal tracking-tight text-neutral-950 dark:text-neutral-50">
-            Engineered for retrieval strength, not passive re-reading
+      {/* Core Capabilities Section */}
+      <section id="features" className="py-16 md:py-24 px-6 max-w-7xl mx-auto w-full border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            Architected for academic verification
           </h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Passive highlighting and rereading produce the illusion of competence. LearnSphere translates dense reading assignments into a four-stage verified feedback loop.
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Four specialized subsystems ensure every AI response is traceable, reproducible, and pedagogical.
           </p>
         </div>
 
-        {/* Scholarly Sequential Codex Pipeline */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-          {/* Stage 1 */}
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3.5 relative flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-600">STAGE I</span>
-                <FileText className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
-              </div>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                Coordinate Ingest
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                PyMuPDF extracts layout blocks while recording physical page coordinates and bounding boxes. Passages are segmented into semantic vectors for deterministic cosine retrieval.
-              </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-3 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+              <Target className="w-5 h-5" />
             </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Output: 768-dim pgvector index
-            </div>
-          </div>
-
-          {/* Stage 2 */}
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3.5 relative flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-600">STAGE II</span>
-                <BookOpen className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
-              </div>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                Contextual Socratic Tutor
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Inquire into dense mechanisms scoped strictly to selected readings. Every answer anchors each factual assertion to an inline citation pill linking directly to source text.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Output: Zero citation drift
-            </div>
-          </div>
-
-          {/* Stage 3 */}
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3.5 relative flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-600">STAGE III</span>
-                <Brain className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
-              </div>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                Active Retrieval Practice
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Generate 3D interactive flashcard decks with spaced-repetition ratings and server-authoritative multiple-choice quizzes where answer keys remain withheld until submission.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Output: FSRS recall schedules
-            </div>
-          </div>
-
-          {/* Stage 4 */}
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3.5 relative flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-600">STAGE IV</span>
-                <BarChart3 className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
-              </div>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                Retention & Mastery
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Track retention decay across sub-topics, syllabus milestones, and streak records. Aggregated SQL analytics flag deteriorating recall before exam week.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Output: Empirical mastery matrix
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Architectural Contrast Matrix */}
-      <section id="matrix" className="py-20 border-t border-[var(--border)] bg-[var(--surface)] px-6">
-        <div className="max-w-7xl mx-auto space-y-10">
-          <div className="space-y-3 max-w-2xl">
-            <h2 className="text-2xl sm:text-3xl font-serif font-normal tracking-tight text-neutral-950 dark:text-neutral-50">
-              Why generic LLMs and static flashcards fail university curricula
-            </h2>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              General chat interfaces hallucinate page numbers and explain concepts passively. Manual flashcard creation wastes hundreds of hours of reading time.
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              Page Coordinate RAG
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Every factual assertion cites exact document bounding boxes and page numbers. Zero hallucinated attributions.
             </p>
           </div>
 
-          {/* Academic Comparison Ledger */}
-          <div className="border border-[var(--border)] rounded-lg overflow-x-auto bg-[var(--background)]">
-            <table className="w-full text-left border-collapse text-xs">
-              <thead>
-                <tr className="border-b border-[var(--border)] bg-[#faf8f4] dark:bg-[#1a1815]">
-                  <th className="p-4 font-serif font-semibold text-neutral-700 dark:text-neutral-300 w-1/4">
-                    Pedagogical Dimension
-                  </th>
-                  <th className="p-4 font-medium text-neutral-500 w-1/4">
-                    Generic Chatbots (ChatGPT / Claude)
-                  </th>
-                  <th className="p-4 font-medium text-neutral-500 w-1/4">
-                    Manual Decks (Anki / Quizlet)
-                  </th>
-                  <th className="p-4 font-serif font-semibold text-neutral-950 dark:text-neutral-50 bg-[#f4f0e6]/60 dark:bg-[#25221b] w-1/4">
-                    LearnSphere AI Grounded Loop
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[var(--border)]">
-                <tr>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-100 font-serif">Source Fidelity</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">Hallucinates citations, invented theorems, and non-existent papers</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">Laborious copy-pasting of static snippets</td>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-50 bg-[#f4f0e6]/30 dark:bg-[#25221b]/40 leading-relaxed">
-                    Strict pgvector RAG with exact page coordinates & bounding box tracking
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-100 font-serif">Citation Auditing</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">None; user must manually cross-reference entire 800-page book</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">Static notes severed from document context</td>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-50 bg-[#f4f0e6]/30 dark:bg-[#25221b]/40 leading-relaxed">
-                    Inline interactive citation pills (e.g. [p. 732 §3]) opening source drawer
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-100 font-serif">Diagnostic Testing</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">Immediate answer reveal; no persistent scoring or streak record</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">Binary flashcard flip only, no multiple-choice diagnostics</td>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-50 bg-[#f4f0e6]/30 dark:bg-[#25221b]/40 leading-relaxed">
-                    Server-authoritative scoring with withheld keys and post-eval explanations
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-100 font-serif">Setup Velocity</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">Requires delicate, repetitive prompt engineering every session</td>
-                  <td className="p-4 text-neutral-500 leading-relaxed">6–8 hours manually formatting flashcards per chapter</td>
-                  <td className="p-4 font-medium text-neutral-950 dark:text-neutral-50 bg-[#f4f0e6]/30 dark:bg-[#25221b]/40 leading-relaxed">
-                    One-click generation of summaries, recall decks, and milestone study plans
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-3 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+              <Brain className="w-5 h-5" />
+            </div>
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              Socratic Dialogue
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Guides students to deduce answers through targeted questions instead of passive copy-pasting.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-3 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+              <Layers className="w-5 h-5" />
+            </div>
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              Active Recall Engine
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Generates physical 3D card decks with keyboard hotkeys and spaced repetition retention tracking.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-3 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+              <FileText className="w-5 h-5" />
+            </div>
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              6-Format Synthesis
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Export executive briefs, bullet points, exam study sheets, Q&A inquiry sets, or concept maps.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Curriculum Provenance in Demanding Disciplines */}
-      <section id="disciplines" className="py-20 md:py-26 px-6 max-w-7xl mx-auto w-full space-y-12">
-        <div className="space-y-3 max-w-2xl">
-          <h2 className="text-2xl sm:text-3xl font-serif font-normal tracking-tight text-neutral-950 dark:text-neutral-50">
-            Field-tested across demanding academic curricula
+      {/* Workflow Section */}
+      <section id="workflow" className="py-16 md:py-24 px-6 max-w-7xl mx-auto w-full border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            From textbook chapter to exam mastery
           </h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Tested on multi-thousand page medical texts, statutory legal casebooks, and formal mathematical proofs.
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            A cohesive study progression structured around cognitive science principles.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <span className="font-mono text-[11px] text-[#9e3722] dark:text-[#ea7258] uppercase tracking-wider font-semibold">
-                Medicine & Pharmacology
-              </span>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                USMLE Step 1 & Pathology
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Ingest dense tomes such as Robbins & Cotran Pathologic Basis of Disease. Extract biochemical pathway steps, drug mechanisms, and diagnostic criteria with zero citation drift.
-              </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-3">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+              1
             </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Benchmark: 99.4% citation exactness
-            </div>
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              Ingest & Index Reading
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Upload course PDFs. PyMuPDF extracts text preserving spatial bounding boxes, and pgvector indexes chunks into semantic embeddings.
+            </p>
           </div>
 
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <span className="font-mono text-[11px] text-[#9e3722] dark:text-[#ea7258] uppercase tracking-wider font-semibold">
-                Law & Jurisprudence
-              </span>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                Casebooks & Slip Opinions
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Upload appellate decisions and federal codes. LearnSphere preserves exact slip opinion paragraph markers to cite majority holdings, concurrences, and dissents with clinical precision.
-              </p>
+          <div className="space-y-3">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+              2
             </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Benchmark: Sub-paragraph paragraph mapping
-            </div>
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              Socratic Investigation
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Ask deep conceptual questions. The tutor verifies claims against primary excerpts and tests your comprehension with deductive follow-ups.
+            </p>
           </div>
 
-          <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--surface)] space-y-3 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <span className="font-mono text-[11px] text-[#9e3722] dark:text-[#ea7258] uppercase tracking-wider font-semibold">
-                Computer Science & STEM
-              </span>
-              <h3 className="font-serif font-medium text-base text-neutral-950 dark:text-neutral-50">
-                Algorithmic Derivations & Proofs
-              </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Synthesize CLRS algorithms and discrete mathematics syllabi into incremental flashcard proof steps and multi-variable diagnostic questions verified against lecture slides.
-              </p>
+          <div className="space-y-3">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+              3
             </div>
-            <div className="pt-3 border-t border-[var(--border)] text-[11px] font-mono text-neutral-500">
-              Benchmark: Theorem step decomposition
-            </div>
+            <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
+              Retention Practice
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Run active recall flashcard drills and diagnostic quizzes. Track your topic mastery scores to eliminate blind spots prior to exam day.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Scholar & Student Testimonials */}
-      <section className="py-20 border-t border-[var(--border)] bg-[var(--surface)] px-6">
-        <div className="max-w-7xl mx-auto space-y-10">
-          <div className="space-y-3 max-w-2xl">
-            <h2 className="text-2xl sm:text-3xl font-serif font-normal tracking-tight text-neutral-950 dark:text-neutral-50">
-              Observations from university researchers and students
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-4 flex flex-col justify-between">
-              <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif italic">
-                &ldquo;Cut my cellular biology review time in half. Clicking a citation pill and viewing the exact textbook paragraph prevents any AI hallucination anxiety before high-stakes exams.&rdquo;
-              </p>
-              <div className="pt-3 border-t border-[var(--border)]">
-                <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-50">Elena V.</p>
-                <p className="text-[11px] font-mono text-neutral-500">MD-PhD Candidate, Johns Hopkins</p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-4 flex flex-col justify-between">
-              <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif italic">
-                &ldquo;For civil procedure case briefs, general AI invents doctrine. LearnSphere references the exact slip opinion paragraph. It is indispensable for 1L exams.&rdquo;
-              </p>
-              <div className="pt-3 border-t border-[var(--border)]">
-                <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-50">Marcus T.</p>
-                <p className="text-[11px] font-mono text-neutral-500">J.D. Candidate, Harvard Law</p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-4 flex flex-col justify-between">
-              <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif italic">
-                &ldquo;The server-scored quizzes feel like an actual professor drafted them from our weekly course syllabus. It has completely replaced my manual Anki workflow.&rdquo;
-              </p>
-              <div className="pt-3 border-t border-[var(--border)]">
-                <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-50">Priya K.</p>
-                <p className="text-[11px] font-mono text-neutral-500">Computer Science M.S., Stanford</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final Action Callout: Scholarly Invitation */}
-      <section className="py-20 md:py-26 px-6 border-t border-[var(--border)] bg-[var(--background)]">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-serif font-normal tracking-tight text-neutral-950 dark:text-neutral-50">
-            Begin with your next syllabus or reading
+      {/* Pricing / Access Plans */}
+      <section id="pricing" className="py-16 md:py-24 px-6 max-w-7xl mx-auto w-full border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            Predictable plans for individual scholars and cohorts
           </h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 max-w-lg mx-auto leading-relaxed">
-            Upload any course PDF, textbook chapter, or research paper. Generate citation-grounded notes, spaced recall decks, and practice tests in seconds.
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Full vector vault access, unlimited flashcard sets, and deterministic citation verification.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <Link href="/dashboard">
-              <Button size="lg" className="h-11 px-7 text-xs sm:text-sm font-medium w-full sm:w-auto">
-                Open workspace
-                <ArrowRight className="w-4 h-4 ml-1.5" />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Plan 1 */}
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 space-y-6 shadow-2xs flex flex-col justify-between">
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100">Student</h3>
+                <p className="text-xs text-slate-500 mt-1">For undergraduate study and general course readings</p>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">$0</span>
+                <span className="text-xs text-slate-500">/ free forever</span>
+              </div>
+              <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Up to 5 indexed textbooks</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Grounded Socratic AI Tutor</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Spaced repetition flashcards</li>
+              </ul>
+            </div>
+            <Link href="/dashboard" className="block">
+              <Button variant="outline" className="w-full text-xs h-9 font-medium bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+                Start with free student tier
               </Button>
             </Link>
-            <Link href="/login">
-              <Button variant="outline" size="lg" className="h-11 px-6 text-xs sm:text-sm font-medium w-full sm:w-auto">
-                Sign in with demo
+          </div>
+
+          {/* Plan 2: Highlighted */}
+          <div className="rounded-2xl border-2 border-blue-600 bg-white dark:bg-slate-900 p-8 space-y-6 shadow-md flex flex-col justify-between relative">
+            <div className="absolute -top-3 right-6 bg-blue-600 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+              Most Popular
+            </div>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100">Graduate Researcher</h3>
+                <p className="text-xs text-slate-500 mt-1">For law, medical, and graduate doctoral researchers</p>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">$16</span>
+                <span className="text-xs text-slate-500">/ month</span>
+              </div>
+              <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Unlimited indexed documents & PDFs</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Priority Gemini 2.5 Flash reasoning</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Multi-format Markdown summaries</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Exam milestone calendar planner</li>
+              </ul>
+            </div>
+            <Link href="/register" className="block">
+              <Button className="w-full text-xs h-9 font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent">
+                Get started with Pro
+              </Button>
+            </Link>
+          </div>
+
+          {/* Plan 3 */}
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 space-y-6 shadow-2xs flex flex-col justify-between">
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100">Campus Cohort</h3>
+                <p className="text-xs text-slate-500 mt-1">For university departments and study groups</p>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">$39</span>
+                <span className="text-xs text-slate-500">/ member / term</span>
+              </div>
+              <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Shared corpus repository</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Collaborative flashcard decks</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-blue-600" /> Enterprise SLA & dedicated storage</li>
+              </ul>
+            </div>
+            <Link href="/register" className="block">
+              <Button variant="outline" className="w-full text-xs h-9 font-medium bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+                Contact department sales
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Academic Colophon Footer */}
-      <footer className="border-t border-[var(--border)] py-12 px-6 text-xs text-neutral-500 bg-[var(--surface)]">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-[var(--border)]">
-          <div className="space-y-2.5">
-            <p className="font-serif font-semibold text-neutral-950 dark:text-neutral-100">Study Workspace</p>
-            <ul className="space-y-1.5 text-neutral-500">
-              <li><Link href="/dashboard" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Workspace Overview</Link></li>
-              <li><Link href="/tutor" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Socratic Tutor</Link></li>
-              <li><Link href="/studio/flashcards" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Recall Decks</Link></li>
-              <li><Link href="/studio/quizzes" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Diagnostic Quizzes</Link></li>
-            </ul>
+      {/* Footer */}
+      <footer className="border-t border-slate-200 dark:border-slate-800 py-12 px-6 max-w-7xl mx-auto w-full text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2.5">
+          <div className="w-6 h-6 rounded-md bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+            <BookOpen className="w-3 h-3" />
           </div>
-          <div className="space-y-2.5">
-            <p className="font-serif font-semibold text-neutral-950 dark:text-neutral-100">Architecture</p>
-            <ul className="space-y-1.5 text-neutral-500">
-              <li><span>PyMuPDF Layout OCR</span></li>
-              <li><span>PostgreSQL & pgvector</span></li>
-              <li><span>Google Gemini API</span></li>
-              <li><span>FastAPI Async Engine</span></li>
-            </ul>
-          </div>
-          <div className="space-y-2.5">
-            <p className="font-serif font-semibold text-neutral-950 dark:text-neutral-100">Pedagogy</p>
-            <ul className="space-y-1.5 text-neutral-500">
-              <li><span>Active Retrieval Practice</span></li>
-              <li><span>Spaced Repetition (FSRS)</span></li>
-              <li><span>Grounded Verification</span></li>
-              <li><span>Retention Decay Tracking</span></li>
-            </ul>
-          </div>
-          <div className="space-y-2.5">
-            <p className="font-serif font-semibold text-neutral-950 dark:text-neutral-100">Session</p>
-            <ul className="space-y-1.5 text-neutral-500">
-              <li><Link href="/login" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Sign In</Link></li>
-              <li><Link href="/register" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Create Account</Link></li>
-              <li><Link href="/settings" className="hover:text-neutral-950 dark:hover:text-white transition-colors">Preferences</Link></li>
-            </ul>
-          </div>
+          <span className="font-semibold text-slate-800 dark:text-slate-200">LearnSphere AI</span>
+          <span>© 2026 LearnSphere Inc.</span>
         </div>
-
-        <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 LearnSphere AI. Grounded educational intelligence.</p>
-          <p className="font-mono text-[11px] text-neutral-400">Strict citation integrity · @ui-sdk/react</p>
+        <div className="flex items-center gap-6">
+          <Link href="/privacy" className="hover:underline">Privacy</Link>
+          <Link href="/terms" className="hover:underline">Terms</Link>
+          <Link href="/security" className="hover:underline">Security</Link>
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:underline">GitHub</a>
         </div>
       </footer>
     </div>

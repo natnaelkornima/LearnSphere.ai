@@ -3,7 +3,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { UploadCloud, Search } from "@/components/ui/Icons";
+import { UploadCloud } from "@/components/ui/Icons";
 
 export function TopBar({
   onOpenUpload,
@@ -17,23 +17,23 @@ export function TopBar({
   const getPageTitle = (path: string) => {
     if (path.startsWith("/dashboard")) return "Overview";
     if (path.startsWith("/library")) return "Document Library";
-    if (path.startsWith("/tutor")) return "Grounded AI Tutor";
-    if (path.startsWith("/studio/summaries")) return "Structured Summaries";
+    if (path.startsWith("/tutor")) return "AI Tutor";
+    if (path.startsWith("/studio/summaries")) return "Summaries";
     if (path.startsWith("/studio/quizzes")) return "Practice Quizzes";
-    if (path.startsWith("/studio/flashcards")) return "Recall Flashcards";
+    if (path.startsWith("/studio/flashcards")) return "Flashcards";
     if (path.startsWith("/planner")) return "Study Planner";
-    if (path.startsWith("/analytics")) return "Retention Analytics";
-    if (path.startsWith("/settings")) return "Preferences";
+    if (path.startsWith("/analytics")) return "Analytics";
+    if (path.startsWith("/settings")) return "Settings";
     return "Workspace";
   };
 
   return (
-    <header className="h-14 px-6 border-b border-[var(--border)] bg-[var(--surface)] flex items-center justify-between sticky top-0 z-30">
+    <header className="h-14 px-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between sticky top-0 z-30">
       <div className="flex items-center gap-3">
         {/* Mobile menu trigger */}
         <button
           onClick={onToggleMobileMenu}
-          className="md:hidden p-1.5 text-neutral-500 hover:bg-[var(--surface-secondary)] rounded cursor-pointer"
+          className="md:hidden p-1.5 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer"
           aria-label="Open navigation menu"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@ export function TopBar({
           </svg>
         </button>
 
-        <h1 className="text-sm font-serif font-medium text-neutral-950 dark:text-neutral-50 tracking-tight">
+        <h1 className="text-sm font-semibold text-slate-900 dark:text-slate-100 tracking-tight">
           {getPageTitle(pathname)}
         </h1>
       </div>
@@ -51,7 +51,7 @@ export function TopBar({
           <Button
             size="sm"
             onClick={onOpenUpload}
-            className="h-8 px-3 text-xs font-medium"
+            className="h-8 px-3 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
           >
             <UploadCloud className="w-3.5 h-3.5 mr-1.5" />
             <span>Upload PDF</span>

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -37,79 +36,79 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8">
-      {/* Editorial Header */}
-      <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-6">
-        <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-          Mastery Analytics & Pedagogical Ledger
+    <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-8 font-sans">
+      {/* Page Header */}
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          Mastery Analytics & Retention Ledger
         </h1>
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 font-serif italic">
-          Empirical retrieval accuracy and concept retention indices derived strictly from completed drills.
+        <p className="mt-1 text-xs text-slate-500">
+          Empirical retrieval accuracy and concept retention indices derived from completed drills.
         </p>
       </div>
 
       {/* KPI Cards Ledger */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-2 shadow-2xs">
-          <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-1 shadow-2xs">
+          <p className="text-xs font-medium text-slate-500">
             Indexed readings
           </p>
-          <p className="text-3xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100">
-            {isLoading ? <Skeleton className="h-8 w-12" /> : data?.total_documents ?? 0}
+          <p className="text-2xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+            {isLoading ? <Skeleton className="h-7 w-12" /> : data?.total_documents ?? 0}
           </p>
-          <p className="text-xs text-neutral-500 font-serif italic">Active in vector vault</p>
+          <p className="text-[11px] text-slate-400">Active in vector vault</p>
         </div>
 
-        <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-2 shadow-2xs">
-          <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-1 shadow-2xs">
+          <p className="text-xs font-medium text-slate-500">
             Items answered
           </p>
-          <p className="text-3xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100">
-            {isLoading ? <Skeleton className="h-8 w-14" /> : data?.total_questions_attempted ?? 0}
+          <p className="text-2xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+            {isLoading ? <Skeleton className="h-7 w-14" /> : data?.total_questions_attempted ?? 0}
           </p>
-          <p className="text-xs text-neutral-500 font-serif italic">Diagnostic questions</p>
+          <p className="text-[11px] text-slate-400">Diagnostic questions</p>
         </div>
 
-        <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-2 shadow-2xs">
-          <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-1 shadow-2xs">
+          <p className="text-xs font-medium text-slate-500">
             Mean accuracy
           </p>
-          <p className="text-3xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100">
-            {isLoading ? <Skeleton className="h-8 w-16" /> : `${data?.accuracy_rate ?? 0}%`}
+          <p className="text-2xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+            {isLoading ? <Skeleton className="h-7 w-16" /> : `${data?.accuracy_rate ?? 0}%`}
           </p>
-          <p className="text-xs text-neutral-500 font-serif italic">Server-scored recall</p>
+          <p className="text-[11px] text-slate-400">Server-scored recall</p>
         </div>
 
-        <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-5 space-y-2 shadow-2xs">
-          <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">
-            Study cadence
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-1 shadow-2xs">
+          <p className="text-xs font-medium text-slate-500">
+            Study streak
           </p>
-          <p className="text-3xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100">
-            {isLoading ? <Skeleton className="h-8 w-12" /> : `${data?.study_streak_days ?? 1} d`}
+          <p className="text-2xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+            {isLoading ? <Skeleton className="h-7 w-12" /> : `${data?.study_streak_days ?? 1} d`}
           </p>
-          <p className="text-xs text-neutral-500 font-serif italic">Consecutive study days</p>
+          <p className="text-[11px] text-slate-400">Consecutive study days</p>
         </div>
       </div>
 
-      {/* Topics Breakdown & Weak Spot Alerts */}
+      {/* Topics Breakdown & Recommendations */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left 2 Cols: Topic Mastery & Accuracy Bars */}
+        {/* Left 2 Cols: Topic Mastery */}
         <div className="lg:col-span-2 space-y-8">
-          <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 space-y-6 shadow-xs">
-            <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-4">
-              <h2 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6 shadow-2xs">
+            <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                 Thematic mastery profile
               </h2>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1 font-serif italic">
-                Derived from individual item outcomes classified under primary curriculum tags.
+              <p className="text-xs text-slate-500 mt-0.5">
+                Derived from individual question outcomes grouped under primary topic tags.
               </p>
             </div>
 
             {isLoading ? (
               <div className="space-y-3">
-                <Skeleton className="h-8 w-full rounded-lg" />
-                <Skeleton className="h-8 w-full rounded-lg" />
-                <Skeleton className="h-8 w-full rounded-lg" />
+                <Skeleton className="h-8 w-full rounded-xl" />
+                <Skeleton className="h-8 w-full rounded-xl" />
+                <Skeleton className="h-8 w-full rounded-xl" />
               </div>
             ) : data?.weak_topics && data.weak_topics.length > 0 ? (
               <div className="space-y-4">
@@ -120,12 +119,12 @@ export default function AnalyticsPage() {
                   return (
                     <div key={idx} className="space-y-1.5">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-serif font-medium text-neutral-900 dark:text-neutral-100">
+                        <span className="font-medium text-slate-900 dark:text-slate-100">
                           {topicName}
                         </span>
                         <span
-                          className={`font-mono font-semibold tabular-nums ${
-                            isWeak ? "text-amber-700 dark:text-amber-400" : "text-neutral-700 dark:text-neutral-300"
+                          className={`font-semibold tabular-nums ${
+                            isWeak ? "text-amber-600 dark:text-amber-400" : "text-slate-600 dark:text-slate-300"
                           }`}
                         >
                           {accuracy}%
@@ -140,14 +139,14 @@ export default function AnalyticsPage() {
                 })}
               </div>
             ) : (
-              <div className="p-10 text-center text-xs text-neutral-400 space-y-3">
-                <Brain className="w-8 h-8 mx-auto text-neutral-400" />
-                <p className="font-serif italic text-sm">
-                  Complete your first evaluative quiz to compute topic mastery rankings.
+              <div className="p-10 text-center text-xs text-slate-400 space-y-3">
+                <Brain className="w-8 h-8 mx-auto text-slate-400" />
+                <p>
+                  Complete a practice assessment to compute topic mastery rankings.
                 </p>
                 <Link href="/studio/quizzes" className="inline-block pt-1">
-                  <Button size="sm" variant="outline" className="h-8 text-xs border-[#e6dfd1] dark:border-[#2a2723]">
-                    Take diagnostic assessment
+                  <Button size="sm" variant="outline" className="h-8 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+                    Take practice assessment
                   </Button>
                 </Link>
               </div>
@@ -155,13 +154,13 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Actionable Recommendations */}
-          <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 space-y-4 shadow-xs">
-            <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-4">
-              <h2 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                Curricular remediation suggestions
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-4 shadow-2xs">
+            <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                Curricular review recommendations
               </h2>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1 font-serif italic">
-                Automated pedagogical interventions based on detected conceptual ambiguities.
+              <p className="text-xs text-slate-500 mt-0.5">
+                Automated pedagogical suggestions based on detected weak concepts.
               </p>
             </div>
 
@@ -172,59 +171,59 @@ export default function AnalyticsPage() {
                   return (
                     <div
                       key={i}
-                      className="p-3.5 rounded-lg bg-white dark:bg-[#1f1d1a] border border-[#e6dfd1] dark:border-[#2a2723] text-xs text-neutral-800 dark:text-neutral-200 flex items-start gap-3 shadow-2xs"
+                      className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 flex items-start gap-3"
                     >
-                      <span className="text-neutral-400 font-mono text-xs mt-0.5">•</span>
-                      <span className="leading-relaxed font-serif">{recText}</span>
+                      <span className="text-blue-600 font-bold text-sm mt-[-1px]">•</span>
+                      <span className="leading-relaxed">{recText}</span>
                     </div>
                   );
                 })}
               </div>
             ) : (
-              <p className="text-xs text-neutral-500 py-3 font-serif italic">
+              <p className="text-xs text-slate-400 py-3">
                 Upload course literature and complete quizzes to generate personalized learning paths.
               </p>
             )}
           </div>
         </div>
 
-        {/* Right Col: Study Continuity & Interventions */}
+        {/* Right Col: Study Continuity & Next Actions */}
         <div className="space-y-6">
-          <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 space-y-5 shadow-xs">
-            <h2 className="font-serif text-base font-semibold text-neutral-900 dark:text-neutral-100 pb-3 border-b border-[#e6dfd1] dark:border-[#2a2723]">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-5 shadow-2xs">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-800">
               Study continuity
             </h2>
 
-            <div className="p-4 rounded-xl bg-white dark:bg-[#1f1d1a] border border-[#e6dfd1] dark:border-[#2a2723] flex items-center justify-between shadow-2xs">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-                  Consecutive days active
+                <p className="text-xs font-semibold text-slate-900 dark:text-slate-100">
+                  Consecutive active streak
                 </p>
-                <p className="text-[11px] text-neutral-500 font-serif italic mt-0.5">
+                <p className="text-[11px] text-slate-400 mt-0.5">
                   Target: 7-day steady cadence
                 </p>
               </div>
-              <span className="text-2xl font-mono tabular-nums font-bold text-neutral-900 dark:text-neutral-100">
+              <span className="text-2xl font-bold tabular-nums text-slate-900 dark:text-slate-100">
                 {data?.study_streak_days ?? 1}d
               </span>
             </div>
 
             <div className="space-y-2 pt-2">
-              <p className="text-xs font-mono uppercase tracking-wider text-neutral-500">
-                Next recommended review
+              <p className="text-xs font-medium text-slate-400">
+                Recommended next steps
               </p>
 
               <Link href="/tutor" className="block">
-                <div className="p-3 rounded-lg border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] hover:border-neutral-400 transition-colors flex items-center justify-between text-xs text-neutral-800 dark:text-neutral-200 cursor-pointer shadow-2xs">
-                  <span className="font-serif">Engage Socratic Tutor on difficult chunks</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+                <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-blue-400 dark:hover:border-blue-600 transition-colors flex items-center justify-between text-xs text-slate-800 dark:text-slate-200 cursor-pointer shadow-2xs">
+                  <span>Engage AI Tutor on difficult chunks</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
                 </div>
               </Link>
 
               <Link href="/studio/flashcards" className="block">
-                <div className="p-3 rounded-lg border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] hover:border-neutral-400 transition-colors flex items-center justify-between text-xs text-neutral-800 dark:text-neutral-200 cursor-pointer shadow-2xs">
-                  <span className="font-serif">Review 10 flashcards</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+                <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-blue-400 dark:hover:border-blue-600 transition-colors flex items-center justify-between text-xs text-slate-800 dark:text-slate-200 cursor-pointer shadow-2xs">
+                  <span>Review 10 flashcards</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
                 </div>
               </Link>
             </div>

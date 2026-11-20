@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Modal } from "@/components/ui/Modal";
 import { Input } from "@/components/ui/Input";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/Skeleton";
 import {
   Calendar,
@@ -15,8 +12,6 @@ import {
   Plus,
   AlertCircle,
   Check,
-  BookOpen,
-  ArrowRight,
 } from "@/components/ui/Icons";
 import { api } from "@/lib/api";
 import { DocumentItem, StudyPlan, StudyTask } from "@/types";
@@ -122,20 +117,20 @@ export default function PlannerPage() {
     totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8">
-      {/* Editorial Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#e6dfd1] dark:border-[#2a2723] pb-6">
+    <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-8 font-sans">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
         <div>
-          <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-            Curricular Study Milestones
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+            Study Planner & Milestones
           </h1>
-          <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 font-serif italic">
-            Structured daily milestones and retrieval goals calibrated toward your target examination dates.
+          <p className="mt-1 text-xs text-slate-500">
+            Structured daily goals and milestone tracking calibrated toward your exam dates.
           </p>
         </div>
         <Button
           onClick={() => setIsModalOpen(true)}
-          className="h-10 px-4 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+          className="h-9 px-4 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
         >
           <Plus className="w-3.5 h-3.5 mr-2" /> Schedule new syllabus
         </Button>
@@ -144,25 +139,25 @@ export default function PlannerPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Plans List */}
         <div className="space-y-4">
-          <h2 className="font-serif text-sm font-semibold text-neutral-900 dark:text-neutral-100 pb-2 border-b border-[#e6dfd1] dark:border-[#2a2723]">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 pb-2 border-b border-slate-100 dark:border-slate-800">
             Active study tracks
           </h2>
 
           {isLoading ? (
             <div className="space-y-3">
-              <Skeleton className="h-20 w-full rounded-xl" />
-              <Skeleton className="h-20 w-full rounded-xl" />
+              <Skeleton className="h-20 w-full rounded-2xl" />
+              <Skeleton className="h-20 w-full rounded-2xl" />
             </div>
           ) : plans.length === 0 ? (
-            <div className="rounded-xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] p-6 text-center space-y-3">
-              <Calendar className="w-6 h-6 mx-auto text-neutral-400" />
-              <p className="text-xs text-neutral-500 font-serif italic">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 text-center space-y-3 shadow-2xs">
+              <Calendar className="w-6 h-6 mx-auto text-slate-400" />
+              <p className="text-xs text-slate-500">
                 No active study schedules found.
               </p>
               <Button
                 size="sm"
                 onClick={() => setIsModalOpen(true)}
-                className="h-8 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+                className="h-8 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               >
                 Create schedule
               </Button>
@@ -180,23 +175,23 @@ export default function PlannerPage() {
                   <button
                     key={p.id}
                     onClick={() => setActivePlan(p)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${
+                    className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer ${
                       isSelected
-                        ? "border-neutral-900 dark:border-neutral-100 bg-white dark:bg-[#23211d] shadow-xs"
-                        : "border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] hover:border-neutral-400"
+                        ? "border-blue-600 bg-blue-50/50 dark:bg-blue-950/40 text-blue-950 dark:text-blue-100 shadow-xs"
+                        : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-serif font-semibold text-xs text-neutral-900 dark:text-neutral-100 truncate">
+                      <h3 className="font-semibold text-xs text-slate-900 dark:text-slate-100 truncate">
                         {p.title}
                       </h3>
-                      <span className="font-mono text-xs font-semibold tabular-nums text-neutral-700 dark:text-neutral-300">
+                      <span className="text-xs font-semibold tabular-nums text-slate-700 dark:text-slate-300">
                         {pPercent}%
                       </span>
                     </div>
 
-                    <div className="mt-2 text-[11px] font-mono tabular-nums text-neutral-500 dark:text-neutral-400 flex items-center gap-2">
-                      <Clock className="w-3 h-3 text-neutral-400" />
+                    <div className="mt-2 text-[11px] tabular-nums text-slate-400 flex items-center gap-2">
+                      <Clock className="w-3 h-3 text-slate-400" />
                       <span>{p.daily_minutes_goal || p.daily_goal_minutes || 45}m/day</span>
                       {targetExam && (
                         <span>• Target: {formatDate(targetExam)}</span>
@@ -212,15 +207,15 @@ export default function PlannerPage() {
         {/* Right 2 Columns: Active Plan Tasks & Progress */}
         <div className="lg:col-span-2">
           {activePlan ? (
-            <div className="rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] overflow-hidden shadow-xs">
-              <div className="p-6 md:p-8 border-b border-[#e6dfd1] dark:border-[#2a2723] bg-white/70 dark:bg-[#1c1b18] space-y-4">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-2xs">
+              <div className="p-6 md:p-8 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <h2 className="font-serif text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+                    <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                       {activePlan.title}
                     </h2>
-                    <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500 font-serif italic">
-                      <span className="font-mono tabular-nums not-italic">{completedTasks} of {totalTasks} milestones completed</span>
+                    <div className="flex items-center gap-2 mt-1 text-xs text-slate-500">
+                      <span className="tabular-nums">{completedTasks} of {totalTasks} milestones completed</span>
                       {(activePlan.target_exam_date || activePlan.target_date) && (
                         <>
                           <span>•</span>
@@ -229,7 +224,7 @@ export default function PlannerPage() {
                       )}
                     </div>
                   </div>
-                  <span className="font-mono text-sm font-semibold tabular-nums px-2.5 py-1 rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-[#faf8f5] dark:bg-[#1f1d1a] text-neutral-800 dark:text-neutral-200">
+                  <span className="text-xs font-semibold tabular-nums px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200">
                     {progressPercent}% Complete
                   </span>
                 </div>
@@ -243,12 +238,12 @@ export default function PlannerPage() {
               </div>
 
               <div className="p-6 md:p-8 space-y-4">
-                <h3 className="font-serif text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                  Target milestones & progression
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  Target milestones & tasks
                 </h3>
 
                 {(!activePlan.tasks || activePlan.tasks.length === 0) ? (
-                  <p className="text-xs text-neutral-400 py-6 text-center font-serif italic">
+                  <p className="text-xs text-slate-400 py-6 text-center">
                     No milestone tasks generated for this schedule.
                   </p>
                 ) : (
@@ -261,16 +256,16 @@ export default function PlannerPage() {
                           onClick={() => handleToggleTask(task)}
                           className={`p-4 rounded-xl border flex items-start gap-3.5 transition-all cursor-pointer ${
                             isCompleted
-                              ? "border-[#e6dfd1]/60 dark:border-[#2a2723]/60 bg-neutral-100/40 dark:bg-[#1a1917]/40 text-neutral-400"
-                              : "border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] hover:border-neutral-400 shadow-2xs"
+                              ? "border-slate-200/60 dark:border-slate-800/60 bg-slate-50/60 dark:bg-slate-850/40 text-slate-400"
+                              : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 shadow-2xs"
                           }`}
                         >
                           <button
                             type="button"
-                            className={`mt-0.5 w-5 h-5 rounded flex items-center justify-center transition-colors border ${
+                            className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center transition-colors border ${
                               isCompleted
-                                ? "bg-neutral-900 dark:bg-neutral-100 border-transparent text-white dark:text-neutral-900"
-                                : "border-neutral-300 dark:border-neutral-600 bg-transparent"
+                                ? "bg-blue-600 border-transparent text-white"
+                                : "border-slate-300 dark:border-slate-600 bg-transparent"
                             }`}
                           >
                             {isCompleted && <Check className="w-3.5 h-3.5 stroke-3" />}
@@ -280,22 +275,22 @@ export default function PlannerPage() {
                             <p
                               className={`text-xs font-semibold ${
                                 isCompleted
-                                  ? "line-through text-neutral-400 dark:text-neutral-500"
-                                  : "text-neutral-900 dark:text-neutral-100 font-serif text-sm"
+                                  ? "line-through text-slate-400"
+                                  : "text-slate-900 dark:text-slate-100 text-sm font-medium"
                               }`}
                             >
                               {task.title}
                             </p>
                             {task.description && (
-                              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+                              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                                 {task.description}
                               </p>
                             )}
                           </div>
 
                           {task.estimated_minutes && (
-                            <span className="text-[11px] font-mono tabular-nums text-neutral-500 flex items-center gap-1 flex-shrink-0 pt-0.5">
-                              <Clock className="w-3 h-3 text-neutral-400" />
+                            <span className="text-[11px] tabular-nums text-slate-400 flex items-center gap-1 flex-shrink-0 pt-0.5">
+                              <Clock className="w-3 h-3 text-slate-400" />
                               {task.estimated_minutes}m
                             </span>
                           )}
@@ -307,22 +302,22 @@ export default function PlannerPage() {
               </div>
             </div>
           ) : (
-            <div className="rounded-2xl border border-dashed border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5]/50 dark:bg-[#171614]/50 p-16 text-center space-y-4">
-              <div className="w-12 h-12 rounded-full border border-[#e6dfd1] dark:border-[#2a2723] bg-white dark:bg-[#1f1d1a] flex items-center justify-center mx-auto text-neutral-500">
+            <div className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 p-16 text-center space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto">
                 <Calendar className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
                   No study schedule selected
                 </h3>
-                <p className="text-xs text-neutral-500 max-w-md mx-auto font-serif italic">
+                <p className="text-xs text-slate-500 max-w-md mx-auto">
                   Select an active track on the left or generate a new curricular plan to schedule your study milestones.
                 </p>
               </div>
               <Button
                 size="sm"
                 onClick={() => setIsModalOpen(true)}
-                className="h-8 text-xs font-medium bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+                className="h-8 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               >
                 <Plus className="w-3.5 h-3.5 mr-1.5" /> Schedule new syllabus
               </Button>
@@ -347,13 +342,13 @@ export default function PlannerPage() {
           )}
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+            <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
               Target course reading
             </label>
             <select
               value={selectedDocId}
               onChange={(e) => setSelectedDocId(e.target.value)}
-              className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200"
+              className="w-full text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
               required
             >
               <option value="">Select an indexed reading...</option>
@@ -381,7 +376,7 @@ export default function PlannerPage() {
               required
             />
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+              <label className="text-xs font-medium text-slate-700 dark:text-slate-300">
                 Daily goal (minutes)
               </label>
               <input
@@ -391,19 +386,19 @@ export default function PlannerPage() {
                 step={15}
                 value={dailyMinutes}
                 onChange={(e) => setDailyMinutes(Number(e.target.value))}
-                className="w-full text-xs rounded-lg border border-[#e6dfd1] dark:border-[#2e2a25] bg-white dark:bg-[#1f1d1a] p-2.5 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-200 font-mono"
+                className="w-full text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-3 border-t border-[#e6dfd1] dark:border-[#2a2723]">
+          <div className="flex justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => setIsModalOpen(false)}
               disabled={isGenerating}
-              className="h-8 text-xs border-[#e6dfd1] dark:border-[#2a2723]"
+              className="h-8 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
             >
               Cancel
             </Button>
@@ -412,7 +407,7 @@ export default function PlannerPage() {
               size="sm"
               disabled={isGenerating}
               isLoading={isGenerating}
-              className="h-8 text-xs font-semibold bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950"
+              className="h-8 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white border-transparent"
             >
               {isGenerating ? "Synthesizing schedule..." : "Create schedule"}
             </Button>

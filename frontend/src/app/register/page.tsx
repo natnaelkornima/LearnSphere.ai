@@ -31,30 +31,30 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#f7f4ee] dark:bg-[#12110f] font-sans">
-      <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 dark:bg-slate-950 font-sans">
+      <div className="w-full max-w-md space-y-6">
         {/* Brand header */}
         <div className="text-center space-y-2">
           <Link href="/" className="inline-flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 flex items-center justify-center shadow-xs">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-xs">
               <BookOpen className="w-5 h-5" />
             </div>
-            <span className="font-serif font-bold text-xl tracking-tight text-neutral-900 dark:text-neutral-100">
-              LearnSphere <span className="font-sans text-xs uppercase tracking-widest text-neutral-500 font-semibold">AI</span>
+            <span className="font-semibold text-xl tracking-tight text-slate-900 dark:text-slate-100">
+              LearnSphere <span className="text-blue-600 dark:text-blue-400 font-medium text-sm">AI</span>
             </span>
           </Link>
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 font-serif italic">
-            Initialize your personal academic vector workspace.
+          <p className="text-xs text-slate-500">
+            Create an account to start indexing course materials.
           </p>
         </div>
 
-        <div className="p-8 rounded-2xl border border-[#e6dfd1] dark:border-[#2a2723] bg-[#faf8f5] dark:bg-[#171614] space-y-6 shadow-sm">
-          <div className="border-b border-[#e6dfd1] dark:border-[#2a2723] pb-4">
-            <h1 className="font-serif text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-              Create Scholar Profile
+        <div className="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-6 shadow-sm">
+          <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+              Create an account
             </h1>
-            <p className="text-xs text-neutral-500 font-serif italic mt-0.5">
-              Includes full document parsing, Socratic chat, and spaced flashcards.
+            <p className="text-xs text-slate-500 mt-0.5">
+              Includes full document parsing, quizzes, and recall flashcards.
             </p>
           </div>
 
@@ -67,20 +67,20 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              label="Full academic name"
+              label="Full name"
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Dr. Eleanor Vance"
+              placeholder="Alex Johnson"
               required
             />
 
             <Input
-              label="University email"
+              label="Email address"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="vance@university.edu"
+              placeholder="alex@university.edu"
               required
             />
 
@@ -95,17 +95,17 @@ export default function RegisterPage() {
 
             <Button
               type="submit"
-              className="w-full justify-center h-10 text-xs font-semibold bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200"
+              className="w-full justify-center h-10 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white border-transparent"
               isLoading={isLoading}
             >
-              Initialize workspace
+              Create account
             </Button>
           </form>
 
-          <p className="text-center text-xs text-neutral-500 pt-3 border-t border-[#e6dfd1] dark:border-[#2a2723]">
-            Already have an active profile?{" "}
-            <Link href="/login" className="text-neutral-900 dark:text-neutral-100 font-semibold underline underline-offset-2">
-              Sign in here
+          <p className="text-center text-xs text-slate-500 pt-3 border-t border-slate-100 dark:border-slate-800">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+              Sign in
             </Link>
           </p>
         </div>

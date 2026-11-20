@@ -1,108 +1,79 @@
-# LearnSphere AI — Scholarly Editorial Design System (DESIGN.md)
+# LearnSphere AI — Production Frontend Design System (DESIGN.md)
 
-## 1. Persona & Product Direction
-- **Primary Audience**: University students, graduate researchers, and bar/medical examinees engaging with dense, multi-hundred-page academic texts.
-- **Tone & Mood**: *Scholarly Editorial* — calm, authoritative, high-density, and disciplined. Replaces generic SaaS cards and cartoonish gamification with the feel of an Oxford reading room, high-end journal typography, and precision research tools.
-- **Product Truth**: Every AI interaction is strictly grounded in primary-source literature with explicit page, chunk, and citation coordinates.
-
----
-
-## 2. Color Palette & Substrates
-
-### Warm Paper Substrates (Light Mode)
-- **Primary Page Canvas**: `#f7f4ee` (Warm parchment tone)
-- **Card Substrates**: `#faf8f5` (Crisp bookplate cream)
-- **Deep Insets & Interactive Inputs**: `#ffffff` (Clear reading focus)
-- **Hairline Borders**: `#e6dfd1` (Muted paper edge)
-- **Secondary Hairlines**: `#efe9dc` / `#dfd7c5`
-
-### Dark Academic Substrates (Dark Mode)
-- **Dark Page Canvas**: `#12110f` (Carbon black)
-- **Card Substrates**: `#171614` / `#1c1b18` (Warm slate soot)
-- **Inputs & Focused Cards**: `#1f1d1a` / `#23211d`
-- **Hairlines**: `#2a2723` / `#2e2a25`
-
-### Typographic Inks & Accents
-- **Oxford Ink (Headings & Primary Text)**: `#141b24` / `#1c2533` (Light mode), `#f7f4ee` / `#f0eee6` (Dark mode)
-- **Body Ink**: `#3d4d65` / `#4a5568` (Light mode), `#d0dbe9` (Dark mode)
-- **Citation & Emphasis Accent**: Terracotta (`#9e3722` / `#c2410c`) — used deliberately for citations, verifiable sources, and subtle markers.
-- **Status Inks**: Muted academic emerald for correct answers / ready states, muted terracotta/amber for alerts.
+## 1. Product Identity & Point of View
+- **Product**: LearnSphere AI — high-performance, citation-grounded study engine for students and researchers tackling dense technical and academic coursework.
+- **Audience**: University undergraduates, graduate students, and professional examinees (law, medicine, engineering) who must retain and synthesize complex texts under time pressure.
+- **Visual Direction**: Modern, high-craft, production-grade interface. Avoids common AI-generated design clichés (no fake parchment `#faf8f5`, no terracotta clay accents `#9e3722`, no faux-broadsheet hairline grids, no random monospace tags on prose, no middle-dot list clutter).
+- **Core Principle**: Clear visual hierarchy, deliberate spacing, and immediate interactive utility over decorative ornament.
 
 ---
 
-## 3. Typographic Hierarchy & Craft Rules
+## 2. Color System
 
-```
-Headings:    font-serif tracking-tight font-medium / font-semibold
-Numerals:    font-mono tabular-nums
-Body:        font-sans leading-relaxed text-neutral-800 dark:text-neutral-200
-Captions:    font-serif italic text-xs / font-mono text-[10px] uppercase
-```
+### Base Palette
+| Token | Hex Value | Role |
+|---|---|---|
+| **Canvas Light** | `#f8fafc` (Slate 50) | Neutral, cool, clean page background |
+| **Surface White** | `#ffffff` | Primary container surface for cards and panels |
+| **Surface Secondary** | `#f1f5f9` (Slate 100) | Insets, secondary actions, and subtle table rows |
+| **Slate Ink** | `#0f172a` (Slate 900) | High-contrast, sharp typographic ink |
+| **Slate Muted** | `#64748b` (Slate 500) | Secondary labels and helper text |
+| **Border Crisp** | `#e2e8f0` (Slate 200) | 1px architectural hairline dividers |
+| **Brand Accent** | `#2563eb` (Blue 600) | Primary actions, focused tabs, and active state highlights |
+| **Success Emerald** | `#059669` (Emerald 600) | Verified answers, 100% completion indicators |
 
-### Craft Floor Violations (Strictly Prohibited)
-1. **No Kickers / Eyebrows**: Never place small uppercase tags (e.g., `CURRICULUM`, `FEATURE`) directly above a heading. Hierarchy is established purely through scale, weight, and editorial white space.
-2. **No Gradient Text**: Never apply `bg-clip-text text-transparent bg-gradient-to-...`. Headings must have authoritative ink density.
-3. **No Emoji Icons**: All iconography must use clean SVG outlines (`Lucide` / `@/components/ui/Icons`).
-4. **No Identical Icon-in-Circle Grids**: Feature matrices must feel differentiated (interactive consoles, metric ledgers, dual-pane inspectors).
-
----
-
-## 4. UI-SDK Integration (`@ui-sdk/react` & `@ui-sdk/core`)
-
-The application integrates `@ui-sdk/react` and `@ui-sdk/core` under Next.js 16 (React 19).
-
-### CSS Layering (`src/app/globals.css`)
-```css
-@layer ui-sdk;
-@import "tailwindcss";
-@import "@ui-sdk/core/web.css" layer(components);
-```
-This guarantees that Tailwind CSS reset rules do not overwrite `@ui-sdk` component primitives.
-
-### Adopted Primitives:
-- **`@ui-sdk/react/tabs`**: Powers the Interactive Grounded Console on the landing page (`page.tsx`) and the global `src/components/ui/Tabs.tsx` component.
-  - Exposes accessible keyboard tab navigation (`ArrowLeft`, `ArrowRight`, `Home`, `End`).
-  - Styled via `data-selected:bg-white data-selected:shadow-xs`.
-- **`@ui-sdk/react/dialog`**: Rebuilt `src/components/ui/Modal.tsx` using `Dialog`, `DialogBackdrop`, `DialogContent`, `DialogTitle`, and `DialogDescription`.
-  - Accessible modal focus trapping, Escape key listener, and backdrop transition.
+### Dark Canvas Palette
+- **Canvas Dark**: `#090d16` (Deep slate midnight)
+- **Surface Dark**: `#0f172a` (Slate 900)
+- **Surface Inset**: `#1e293b` (Slate 800)
+- **Border Dark**: `#1e293b`
+- **Brand Accent Dark**: `#3b82f6` (Blue 500)
 
 ---
 
-## 5. Architectural Suite Overview
+## 3. Typographic Hierarchy & Spacing Rhythm
 
-1. **Landing Page (`/`)**:
-   - Scholarly Editorial hero with serif title and directional primary actions.
-   - Interactive `@ui-sdk/react` console demonstrating live Socratic chat, citation inspection, active recall flashcards, and evaluative quizzes.
-   - Tabular metrics ledger and academic syllabus breakdown.
-2. **Dashboard Overview (`/dashboard`)**:
-   - Academic KPI ledger (`font-mono tabular-nums`).
-   - Quick-access studio suite launches (Tutor, Flashcards, Quizzes, Summaries).
-   - Recent indexed readings table with inline actions.
-3. **Socratic AI Tutor (`/tutor`)**:
-   - Dual-pane research desk: Left-hand Socratic dialogue, Right-hand citation coordinate inspector.
-   - Citation pills directly open source text chunks with page numbers and confidence indicators.
-4. **Spaced Retrieval Flashcards (`/studio/flashcards`)**:
-   - Physical card simulation with 3D flip animation (`Space` key).
-   - Spaced repetition rating tiers (`[1] Again`, `[2] Hard`, `[3] Good`, `[4] Easy`).
-   - Session completion ledger with repeat review flows.
-5. **Evaluative Assessments (`/studio/quizzes`)**:
-   - Deterministic exam generation by cognitive rigor (Foundational, Standard, Advanced).
-   - Timed multiple-choice assessment runner with quick-jump pagination pills.
-   - Server-evaluated diagnostic breakdown with pedagogical rationales.
-6. **Syntheses & Reading Digests (`/studio/summaries`)**:
-   - 6 academic presentation formats (Core Propositions, Executive Digest, Academic Synthesis, Exam Revision Sheet, Socratic Q&A, Ontological Hierarchy).
-   - High-contrast reader with one-click Markdown export and RAG grounding verification.
-7. **Document Vault (`/library`)**:
-   - Monograph card grid with status indicators (`ready`, `extracting`, `chunking`, `embedding`, `failed`).
-   - File size, page count, and upload timestamp ledger.
-   - Quick studio launch dock for each reading.
-8. **Curricular Study Milestones (`/planner`)**:
-   - Milestone tracking calibrated toward user's target examination date.
-   - Interactive task completion checkmarks and daily study goal meters.
-9. **Mastery Analytics (`/analytics`)**:
-   - Thematic concept mastery profile based on server-scored quiz outcomes.
-   - Curricular remediation recommendations and consecutive study streak tracking.
-10. **Scholar Profile & Settings (`/settings`)**:
-    - Account credentials, daily study quotas, and verified runtime status (pgvector, Gemini 2.5 Flash, PyMuPDF).
-11. **Authentication Screens (`/login`, `/register`)**:
-    - Academic credentials portal with one-click verified student demonstration bypass.
+### Typography
+- **Primary Font Stack**: `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif`
+- **Headings**: `font-semibold tracking-[-0.025em] text-slate-900 dark:text-slate-100`
+- **Body**: `text-sm leading-relaxed text-slate-600 dark:text-slate-300` (line length kept under 75 characters)
+- **Metrics & Numbers**: `tabular-nums font-semibold`
+
+### Spacing Cadence
+- **Containers**: Unified `max-w-6xl` or `max-w-7xl` centered with `px-6 md:px-8`.
+- **Card Padding**: Standardized to `p-5` or `p-6` for internal components.
+- **Card Grids**: Standardized to `gap-4` or `gap-6`.
+- **Interactive Controls**: Standardized heights (`h-8` compact, `h-9` standard, `h-10` primary CTA, `rounded-xl` for cards, `rounded-lg` for inputs/buttons).
+
+---
+
+## 4. Component Inventory & @ui-sdk/react Integration
+
+- **`@ui-sdk/react/tabs`**:
+  - Powers the interactive study console on the landing page (`/`).
+  - Powers backward-compatible tab switches in `src/components/ui/Tabs.tsx`.
+  - Accessible keyboard navigation (`ArrowLeft`, `ArrowRight`, `Home`, `End`).
+- **`@ui-sdk/react/dialog`**:
+  - Powers `src/components/ui/Modal.tsx` with accessible focus traps, background backdrops, and escape key handling.
+- **Layered Styles (`src/app/globals.css`)**:
+  ```css
+  @layer ui-sdk;
+  @import "tailwindcss";
+  @import "@ui-sdk/core/web.css" layer(components);
+  ```
+
+---
+
+## 5. Architectural Map of Surfaces
+
+1. **Landing Page (`/`)**: High-conviction hero with live multi-tab interactive study console, capability matrix, cognitive progression, and pricing tiers.
+2. **Dashboard Overview (`/dashboard`)**: Unified 4-metric ledger, recent course readings table, and direct study studio links.
+3. **Socratic AI Tutor (`/tutor`)**: Real-time dual-pane reading desk. User dialog on the left, verbatim primary-source citation inspector on the right.
+4. **Active Recall Flashcards (`/studio/flashcards`)**: 3D card flip engine (`Space` shortcut) with 4-tier retrieval scoring (`[1] Again`, `[2] Hard`, `[3] Good`, `[4] Easy`).
+5. **Practice Assessments (`/studio/quizzes`)**: Difficulty tiering, responsive multiple-choice runner with numbered jump pills, and server-evaluated explanations.
+6. **Structured Summaries (`/studio/summaries`)**: 6 academic frameworks with one-click Markdown copy and vector citation counts.
+7. **Document Vault (`/library`)**: Clean grid with vector status pills (`ready`, `extracting`, `chunking`, `embedding`, `failed`) and quick-launch tools.
+8. **Study Planner (`/planner`)**: Target exam milestone tracker with interactive task checkboxes and daily study meters.
+9. **Retention Analytics (`/analytics`)**: Thematic concept mastery breakdown, consecutive study streak counter, and actionable suggestions.
+10. **Account & Preferences (`/settings`)**: Profile details, daily commitment target, and runtime status (pgvector, Gemini 2.5 Flash, PyMuPDF).
+11. **Authentication (`/login`, `/register`)**: Fast login with one-click demo student bypass.
